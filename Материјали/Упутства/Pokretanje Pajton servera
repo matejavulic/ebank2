@@ -7,6 +7,6 @@ Preko cmd uraditi sledece:
 1. Otici u backend\server-python\env\Scripts i pokrenuti activate.bat
 2. cd ..
 3. cd pythonserver
-4. naredbom> python manage.py runserver 3002 pokrece se server na localhost:3002
+4. naredbom> python manage.py runserver 3002 pokreće se server na localhost:3002
 
 Nov modul se pravi ovako> python manage.py startapp ime_novog_modula
