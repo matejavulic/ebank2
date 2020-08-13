@@ -1,0 +1,9 @@
+req.params se koristi da se uzmu podaci iz URL-a:
+
+app.put('/api/todos/:_id', ...)
+URL: http://sajt/api/todos/dwe4r4
+
+Da bismo uzeli dwe4r4 koristimo req.params
+
+req.body sadrzi podatke poslate u okviru js objekta. Na primer,
+da bismo pristupili zapisu iz BP pod id-jem dwe4r4 pristupamo im kao req.body.ime,prezime,...

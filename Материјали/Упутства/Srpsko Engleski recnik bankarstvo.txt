@@ -1,0 +1,297 @@
+SRPSKO ENGLESKI RECNIK BANKARSTVO
+Administrativna zabrana – Administrative ban 
+A ban imposed to the debtor's salary based on their consent. Such a ban practically functions as wage garnishment.
+Akcije - Shares 
+Securities representing units of corporate ownership whose purchase provides a share in the ownership of a company’s assets.
+Akceptant - Acceptor
+The term used for the bill of exchange drawee who accepted the bill of exchange accepting thus the related liabilities. After the acceptance of a bill of exchange the drawee becomes an acceptor, and at the same time main bill of exchange debtor.
+Aktivna kamatna stopa - Positive Interest Rate
+Rates at which banks place their funds
+Aktuar - Actuary
+An expert in the fields of economy, mathematics, and statistics trained to evaluate financial consequences of unpredicted events, as well as to estimate the risk, adequacy of reserves and liquidity.
+Akreditiv – Letter of Credit
+This term refers to the relationship between the debtor as an ordering party that demands opening of a letter of credit, bank opening the letter of credit, and debtor's creditor as the letter of credit beneficiary, who by opening of the letter of credit collects the accredited amount from the bank who opened the letter of credit. This relationship is independent from the real relationship of debtor and creditor that caused the opening of the letter of credit. The documentary letter of credit refers to a written document which, based on the received request of a letter of credit opening, bank sends to the beneficiary and which contains all relevant elements of the credited liability which bank therein accepts towards the letter of credit beneficiary.
+
+Amortizacija dugova – Debt redemption 
+A procedure of debt repayment as well as payment of the accompanying interest. Debts are redeemed based on the amortization plan agreed at the time when credit relationship is established. Debts can be amortized once or in several instalments. The multi-instalment amortization enables combination of different annuity models.
+Anuitet - Annuity
+Money amount that is payable on a certain date and which is paid to creditor once a year or in shorter periods of time, as repayment of a loan (in KBC Banka annuities are paid once a month, including a part of principal and interest to the outstanding debt). An annuity consists of two parts: one is the belonging interest and the other part of debt principal.
+Autorizacija - Authorization 
+Defined process in which card issuer authorizes a transaction
+Avans – Advance payment 
+Amount paid in advance. 
+B
+Bankarska garancija – Bank guarantee
+An agreement by which bank takes responsibility to pay a certain money amount to the guarantee beneficiary (creditor from the basic agreement) if a certain third person (original debtor) does not meet their liabilities in due period
+Bankomat – Automatic Teller Machine (ATM)
+A device that enables a payment card user to withdraw cash from their account, as well as to view their account balance 24 hours a day. In order to withdraw cash using ATM the card user has to enter their PIN they receive from their bank in a closed envelope, and that is not known to anyone else. KBC Banka offers state-of-the-art Cash in ATMs where cash amounts can be deposited at any time 24 hours a day. The paid in funds get immediately transferred to the defined account, so that they are available on the defined account in no time, and upon the payment, ATM automatically reports a report on the payment.
+Berza – Stock exchange 
+A financial market institution where authorized stock exchange brokers trade with stocks in accordance with the predefined rules, and where prices are formed based on offer and demand. Regarding their trading subject, exchanges can be either stock exchanges (trading with securities, foreign currency, financial derivatives), commodity exchanges (commodities) or mixed exchanges.
+BELIBOR - BELIBOR
+The reference interest rate for RSD funds offered by bank Panel on Serbian banking market; It is calculated as a two decimal places arithmetical average of all quotations after the highest and the lowest rate have been eliminated.
+BEONIA - BEONIA
+Effective overnight rate calculated as a weighted average of all overnight loans on Serbian interbank market, that were placed by the Panel banks, also including loans granted to other banks beyond the Panel.
+Bilans stanja – Balance sheet 
+A part of financial report where balance of assets and capital and liabilities of a legal entity or an entrepreneur are shown on the reporting date in a fiscal year
+Bilans uspeha – Profit and loss account 
+A part of financial report where a legal entity's or entrepreneur's data are shown on income, expenses and result from the beginning of a year to the reporting date in the fiscal year
+Bonitetna kontrola – Credit worthiness control
+Credit worthiness control of borrower; It is mainly oriented to the revenue control of a credit applicant, as well as to their future profitability. For the purpose of analysis the following are used: profit and loss account, financial plans, trade balances, product marketing plans etc. The loan applicant's reputation in the business world is also controlled as well as their expertise and entrepreneurial ability.
+Bonitet – Credit worthiness
+Loan user’s ability to take and meet the responsibilities regarding timely debt settlement, along with all accrued interest
+Brokerski poslovi - Broker operations
+Operations performed by a broker company regarding trading with financial instruments, activities on primary market, providing analyses and consulting services, collection of dividends and interest coupons, standing proxy in the shareholders' assembly, keeping securities, keeping securities portfolio for account of a service user, providing services of documentary trading business, lending securities etc..
+Č
+Ček - Cheque
+Represents a security by which its issuer (drawer) orders a third party (drawee) to, upon the cheque delivery, pay out the defined amount of money from their account (drawer's). Check represents a payment system instrument exclusively, in contrast to bills of exchange which belong to credit instruments. The law on cheques prescribes the following:
+• A cheque payable in the country can be drawn only to a bank.
+• A cheque payable abroad, according to the law, can be drawn to other persons.
+D
+Datum valute - Currency date
+A day when somebody’s assets balance is changed. A banking date when payment order has to be executed based on sender's instructions.
+Debit 
+Debit
+Debitor - Debitor
+Debtor
+Debitna kartica -debit card
+A type of payment card debiting the owner's account by the payment performed using the card upon the purchase confirmation. KBC Banka offers DinaCard and VISA Electron debit cards.
+Deonica - Share
+A type of security representing co-ownership in a joint stock company; A shareholder has certain rights concerning the company and before all the right refers to management right and share in profits.
+Depozit - deposit
+A deposit represents RSD or foreign currency money receivables towards bank stemming from a money deposit, savings deposit, bank current account or any other money account imposing a legal or contractual responsibility to bank regarding funds repayment.
+Devizni kurs - foreign exchange rate
+One country’s currency price expressed in other country's currency; Foreign currency exchange is used in order to show the relation of prices between different countries. Depending on the extent to which a central bank of a country governs the foreign exchange rate there are several types of foreign exchange rates: fixed, flexible, guided, crawling and multiple.
+Docnja – Overdue payment
+Exceeding of the period of time provided for settlement of a liability that debtor does despite the existing responsibility and creditor's reminder to execute the payment within the defined period of time.
+Doznaka – Payment order
+The way of payment by which bank is instructed to pay out a defined amount from principal's account to a third person.
+Dozvoljeno prekoračenje (dozvoljeni minus) - Overdaft 
+Overdraft is a type of constant crediting of a customer over their current account, enabling customers to withdraw higher amounts of money than those then available on their accounts. Overdraft aims to help customers to overcome their short-term solvency problem.
+E
+eBanking - eBanking
+Modern, electronic way of keeping accounts and payment system related activities. By eBanking its users are enabled to view the account balance as well as daily turnover and they can also download reports and create transfer orders. The system is available any time and from any computer having access to the Internet. It enables payments with no need of visiting bank and with more favourable tariffs.
+Efektiva - Cash
+Technical banking term used for cash.
+EKS (efektivna kamatna stopa) – EIR (effective interest rate)
+EIR provides more realistic picture on the full loan cost, as it is based on total expenses the customer pays to bank when they take a loan, i.e. on total income realized for placed deposits. It represents the full loan price and consists of the following data:
+1. nominal loan interest rate
+2. amount of fees and commissions bank charges in the loan realization process
+3. index related or loan revaluation criteria
+4. deposit
+EURIBOR (Euro Interbank Offered Rate) 
+A reference rate representing average of interest rates at which first class banks in euro-zone offer interbank deposits for fixed time periods.
+Ekspozitura – Branch office 
+A branch of a larger administrative or business unit; in banking this term is used for a part of a bank that deals with strictly defined banking operations only.
+Emisija - Emission
+Issuing of banknotes and securities; increase of deposited money
+Eskontna kamatna stopa – Discount interest rate 
+Interest rate of loans that central bank provides to commercial banks
+Evidentna kamata - Broken period interest
+Interest amount on a certain date between the last due date and the first following interest maturity date
+F
+Finansije - Finance
+Money transactions and money management
+Fiksna kamatna stopa - Fixed interest rate
+Interest rate defined by a decision.
+Finansijska aktiva – Financial assets
+Amount of currently available cash (banknotes and coins) or deposited money available to a business entity, as well as other receivables from other business entities
+Fluktuirajuća kamatna stopa - Fluctuating interest rate
+Interest rate related to a variable short-term interest rate, e.g. LIBOR, CPI index etc.
+Fond - fund 
+Money assets of a specific purpose in terms of inventory, i.e. constantly present assets.
+G
+Garancija - Guarantee
+Most formal type of assurance
+Glavnica - Principal
+Basic amount that a debtor owes to the creditor and to which interest is charged
+Grejs (engl. grace) period – Grace period
+Starting period, i.e. the period when principal is not repaid. Time period of loan utilization until the first principal repayment; the period during which principal is not repaid to bank but interest only.
+Gotovina (engl. cash) - Cash
+Money available for one's disposal; In a wide sense the term cash also includes deposits on current accounts with banks as well as short-term deposited liquid money assets of a company.
+
+H
+Hedž fondovi – Hedge funds
+A specific type of investment funds which in their speculative activities use hedging technique in order to lower the risks. Their leverage degree is high in relation to their own funds.
+Hipotekarni krediti – Mortgage loans
+Represent a type of long-term banking loans where as a collateral of bank receivables bank contracts establishment of a pledge right to some immovable assets owned by the debtor (mortgage). Banks grant mortgage loans to legal entities and private individuals, and by their business policy they define all conditions concerning approval and repayment of mortgage loans. The term, legal nature and the procedure of establishing and activating the mortgage are regulated by the Law on Basic Property Relations and by the Law on Execution Procedure.
+Hipoteka - Mortgage
+Immovable assets serving as collateral for a money loan
+I
+Inflacija - Inflation
+Depreciation of money due to its exaggerated issuing with no legal coverage
+Inkaso - Collection
+Collection of due bills of exchange or cheques
+Interkalarna kamata - Intercalary interest
+Interest that is accounted and collected only for the loan utilization period, that is from the moment when loan repayment period starts Bank accounts the interest and charges it when loan is transferred into the repayment or through the instalments/annuities.
+Izveštaji o bonitetu - Reports on credit worthiness
+A systematic set of data, credit worthiness indicators and documents of legal entities and entrepreneurs; Registering department creates them in the form of standardized (multipurpose) and specialized (for a certain purpose) reports. 
+J
+Jemstvo - Assurance
+The way of assuring repayment of a loan where a third party takes responsibility to repay the debtor's debt within the defined period of time and according to the specified conditions. The guarantor is almost the same category as the backer. There are several types of assurance, bill guarantees (backing guarantees) and guarantees (implicit banking guarantees).
+K
+Kamata - Interest
+Interest is money compensation for temporary lending of money assets for utilization or, expressed in percentages, fee (the price) that borrower (debtor) pays to the lender (creditor) for temporary utilization of borrowed money or capital.
+Kamatna stopa –Interest rate
+A hundredth part of the price quoted for the lent capital. The rate by which price for temporary utilization of a certain amount of money is paid (interest); the interest rate firstly depends on the offer and demand for loans (money and capital), but also on legal and other conditions (e.g. loan classification based on central bank prescriptions).
+Kapital - Capital
+Principal, basic amount, money assets
+Kliring - Clearing
+Clearing represents definition of liabilities and receivables based on securities and money assets between the participants on an organized market and in relation with securities related operations.
+Kliring (u platnom prometu) – Clearing (in payment operations)
+Exchange and processing of intrabank payment orders for calculation of bilateral and multilateral net amounts owed by every bank, or owed to every bank for settlement of payment orders participating in every clearing circle.
+Komitent - Customer
+An ordering party in a commissioned business who has to pay the agreed commission for the commissioned business; In banking term customer is usually used as a synonym for client.
+Konto – GL account
+Account
+Konverzija - Conversion 
+Conversion of a currency into another foreign currency
+Korespodentska banka - Correspondent bank
+A bank with which a domestic bank has established corresponding relationship, so that they can be an intermediary for doing business abroad
+Kredit – Loan
+Money assets received based on a lending contract between lender (creditor) and borrower (debtor) where creditor assigns their right of disposal with the money or disposable, replaceable goods to a debtor for a defined period of time with certain conditions.
+Kreditni biro – Credit bureau
+Electronic centre for recording of private individuals' and legal entities' debts
+Kreditna kartica - Credit card
+A cashless payment instrument and instrument of short-term customer crediting; It enables user to pay their liabilities with the bank that issued the card in accordance with the agreed loan arrangement.
+Kreditna sposobnost (kreditni rejting) - Credit rating
+Debtor's ability to meet their requirements by the loan borrowed from the bank, which is one of the criteria for security analysis.
+Kreditni uslovi – Loan conditions
+Loan conditions include data on defined terms, price, insurance and other loan features, as well as the accompanying interests and other important loan elements regulated by a contract between loan lender and user.
+Kredit indeksiran valutnom klauzulom – F/X clause indexed loan 
+Foreign currency indexed loan is a loan expressed in a foreign currency containing a clause by which loan repayment is connected with the currency rate tendencies.
+Kursna lista - F/x rate list
+A list according to which currency of one country is exchanged for the currency of another country; It can be fixed and variable.
+Kurs - Rate
+Market price at which something is sold or purchased
+L
+LIBOR (London Interbank Offered Rate) 
+Interest rate on the short-term interbank market in London by which banks offer money one to another; LIBOR is a reference rate for international banks and it serves as a landmark when loans are granted. It is defined by five leading London banks every work day at 11 a.m.
+Likvidnost - Liquidity
+Financial solvency enabling somebody to meet their undertaken liabilities in a defined time period
+Limit- Limit 
+Amount of the highest approved overdraft, i.e. of the highest possible debiting by a granted loan
+Lizing - Leasing
+Form of financing business from external source or financing something from borrowed funds.
+Lizing ugovor – Leasing contract
+Contract defining leasing (renting) conditions which are concluded between lessor and lessee for a certain period of time, and aiming to finance movable and immovable assets
+LTV ratio - Loan to Value Ratio 
+Relation between the loan principal and security value (mortgage). Analysis of loan risk in comparison to the offered security which financial institutions and other creditors carry out before they grant a mortgage; Loans with high LTV ratio are usually seen as too risky, causing higher costs that debtor would have to pay in case that their mortgage is granted or that debtor would have to buy a mortgage insurance.
+
+M
+Međubankarska kamata – Interbanking interest
+An interest rate by which one bank can obtain funds from another for refinancing for a specific time period, i.e. interest rate at which interbanking money transactions are realized in euromarket.
+Menica – Bill of exchange 
+A type of tort legal securities whose contents represents money receivables; It represents an unconditional written order of the bill issuer (drawer) addressed to another person (drawee), to pay out a specific amount of money defined in the bill of exchange to the bill holder or other person they specify, at a certain time and at a certain place.
+mPIN -mPIN
+Code for transaction confirmation for top ups or payment of post-paid bills of Mobile telephony of Serbia
+N
+Nalog za plaćanje – Payment order 
+Unconditional payment order addressed to bank to pay or collect a certain amount of money from a specified account.
+Nerezident – Non-resident
+A private individual with indefinite residence abroad; legal entity registered abroad.
+NKS (nominalna kamatna stopa) – NIR (nominal interest rate) 
+Net interest rate which does not represent final loan price; It serves as a base for calculation of repayment instalments or deposit interests.
+Nacionalna korporacija za osiguranje stambenih kredita (NKOSK) - National Corporation for housing loans insurance 
+This corporation insures loans that banks or other financial organizations grant to private individuals for purchase, adaptation or building of real-estates that are secured by a mortgage. In this manner it takes risk of inability to collect the loan, which practically means that 75% of bank's net loss based on inability to collect shall be at the Corporation's expense. Taking this risk, the corporation reduces total risk of the bank which enables banks to decrease the interest rates they charge to their customers.
+Nostro konto - Nostro account
+One bank's account with some other bank
+O
+Osnovna kamatna stopa - Base rate
+Interest rate which banks use in order to maintain the value of their money is equal to the arithmetic mean of retail prices in the last three months.
+Oročena štednja - Term savings deposits
+Refer to a specified fixed time period for which a customer's funds are deposited with bank at a savings account and that period may last 1 month minimum and 36 months maximum. Therefore the funds are tied for that period and the customer can withdraw them only if they write a request and then they do not get the regular interest but interest defined for a’ vista savings.
+P
+Pasiva - Equity and liability
+A part of balance sheet including the following:
+1. liabilities (short term and long term)
+2. Equity capital, i.e. equity principal (share capital or propriety capital, accumulated income)
+Pasivna kamata - borrowing rate
+Interest that bank pays for funds invested with it
+Provizija - Commission
+Fee for mediating in a certain job; it is expressed in a job value percentage. Bank commissions represent price for bank services performed.
+PIN (Personal Identification Number) 
+Personal identification number which consists of 4 digits and serves as user identifier; It represents user's electronic signature when cash is withdrawn at ATMs.
+Plan otplate kredita – Loan repayment plan 
+Dynamics of repayment of loan principal and interest as defined by a contract on lending and borrowing between creditor and debtor
+Platna kartica – Payment card
+An instrument of cashless payment; By its function payment cards can be debit cards, where account is debited at the same moment when payment is realized or cash withdrawn, and whose owner can dispose only with funds available on account, and credit cards, whose owner may use funds up to the credit limit defined in a separate contract.
+Porez na kapitalnu dobit – Capital-gains tax
+It is paid for all savings related income in foreign currencies and amounts 20% of capitalized income. For RSD funds, as decided by NBS, the capital-gains tax is not payable.
+PID (Personal Identification Number) 
+A code required for access to WAP channel within Online Banking.
+R
+Realna kamatna stopa – Real interest rate
+The rate at which real interests are calculated and which represent real loan income
+Revolving kredit – Revolving loan
+Short term loan which is renewed by a certain time related dynamics, and with every repayment of loan instalment that amount is at user's disposal again.
+Rezident - Resident
+A private individual with permanent residence in the country; a legal entity registered in the domicile country.
+Refinansiranje (povratno finansiranje) - Refinancing (replacement of existing debt)
+Collection of funds required for loan granting – accepting deposits from bank customers, selling securities, using central bank's loans, rediscounting bills of exchange or taking collateral loans.
+Revolving kredit – Revolving loan
+An agreement by which creditor places a certain amount of money at debtor's disposal, and which may be used by debtor at any time in the form of short-term loans. Each utilization reduces available funds and repayment renews them up to the originally agreed amount.
+Rentna štednja – Rental savings
+Rental savings is a form of savings with 3 fixed periods for which funds are deposited with bank: 12, 24, 36 months, and customer can choose whether they want their interest to be paid out monthly or quarterly. In case of rental savings the funds cannot be withdrawn before the expiry of the term.
+Referentna kamatna stopa – Refference interest rate
+An interest rate whose change affects change of other interest rate
+S
+Sadužnik (samo za stambene kredite) – Co-debtor (for housing loans only)
+A person who is prepared to guarantee with 50% of their income that they shall repay the loan along with the loan applicant; This guarantee is registered with credit bureau. The person is registered as guarantor.
+Saldo - Balance
+Calculation remainder, what remains when debt is subtracted from receivables
+Smart kartica/čitač Smart kartice - Smart card/ Smart card reader
+A security device with implemented chip where digital certificate and cryptographic keys, which are required for usage of eBanking services and user protection, are located; the reader serves for Smart card data reading
+Sef – Safe deposit box
+A numbered box in a bank vault rented by bank for keeping of money or securities
+S.W.I.F.T. ( SOCIETY FOR WORLDWIDE INTERBANK FINANCIAL TELECOMMUNICATIONS) 
+A computer system for unique transfer of financial assets between bank and other financial institutions who are members of SWIFT
+SWAP 
+Debt conversion
+Svip depoziti – Sweep deposits
+Accounts with bank with clause on automatic sweeping; Arrangements between bank and transaction ordering party, by which transaction ordering party previously defines their maximum and minimum check account limit (transaction deposit).
+Š
+Šablon - Template
+A predefined payment form
+T
+TAN (Transaction Authorisation Number) 
+A code for authorization of external orders which are at customers request delivered in form of SMS.
+Tekući račun – Current account
+An account where financial operations between two business partners are systematically monitored, where one partner is bank and the other bank customer
+Trajni nalog – Standing order
+A contracting relationship between an account holder and Bank, based on which the account holder authorizes Bank to execute payments on their behalf in equal or different amounts in compliance with the agreed terms of payment.
+Transakcija - Transaction
+Transfer of money assets to creditor from debtor’s account or to creditor’s account. In the payment transaction debtor and creditor may be different individual persons or legal entities, or the same individual person or legal entity.
+Trasant - drawer
+Bill of exchange issuer
+Trasat - Drawee
+Debtor in bill of exchange related operations at whose name the bill of exchange is issued.
+U
+Učešće u kreditu – Participation in loan
+Money amount for which amount of pro-forma invoice is reduced; the amount of loan represents difference of total amount of pro-forma invoice and participation amount provided by customer.
+Ulog-Depozit - Stake-Deposit
+Untransferable financial investment in form of funds at bank account; There are term deposits and a’ vista deposits.
+Ulozi-depoziti po viđenju – A ‘vista deposits 
+Savings deposits, current and giro accounts. The account holder (depositor) can dispose with their money at any time.
+User ID 
+A password for access to WEB application for Online Banking
+V
+Valuta - Currency
+Monetary unit in a country's monetary system
+Varijabilna kamatna stopa – Variable interest rate
+Variable interest rate that changes due to changes on financial market and which is dependent on a refference interest rate (EURIBOR, LIBOR, BELIBOR)
+Vinkulacija - Assignment
+Full or partial transfer of insured person's receivables right to a third person, which makes this right limited
+Vlasnički list - Ownership certificate
+A document proving somebody's ownership of a real-estate; It can be obtained in cadastre or court depending where the land registries of the real estate cadastre municipality are located.
+Z
+Zajam - Loan
+An operation by which a credit relationship is formed between parties (creditors and debtors)
+Založna izjava - Pledge statement 
+A document which is verified in an authorized court and which represents a flat owner's statement by which they declare that in case that debt is not fully repaid, the creditor may collect their liabilities out of the value of that real estate.
+Zatezna kamata – Default interest 
+Interest that creditor charges to debtor, and which is paid to overdue amount of repayable principal and regular interest.
+Zaloga - Pledge
+A part of property in creditor's possession which serves as collateral securing repayment of a loan, and which creditor might dispose with in case that debtor stops settling their liabilities based on the loan.
+Ž
+Žirant - Guarantor
+Guarantor is a person that guarantees for you and undertakes to continue repayment of debt if loan user does not settle their liabilities due to any reason. It is a person who guarantees, with 50% of their income, that loan applicant shall repay the loan. This guarantee is registered with credit bureau. If guarantor's credit ability is not high enough, additional guarantor or even several guarantors could be included, so that sum of their half net salaries is high enough for loan repayment. An individual person's loan guarantor may be a legal entity whose credit ability is estimated.

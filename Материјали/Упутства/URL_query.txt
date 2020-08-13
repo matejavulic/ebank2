@@ -1,0 +1,4 @@
+link: http://sajt.rs/arhiva?godina=2003&kategorija=1
+
+? - naznaka da slede paramteri za blizi opis zahtevanog resursa
+& - oznaka za sledeci filtar

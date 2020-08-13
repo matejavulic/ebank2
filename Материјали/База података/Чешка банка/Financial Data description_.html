@@ -1,0 +1,335 @@
+
+<!-- saved from url=(0078)https://web.archive.org/web/20180126080100/http://lisp.vse.cz/pkdd99/berka.htm -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1250"><script src="./Financial Data description__files/analytics.js" type="text/javascript"></script>
+<script type="text/javascript">window.addEventListener('DOMContentLoaded',function(){var v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app101.us.archive.org';v.server_ms=240;archive_analytics.send_pageview({});});</script><script type="text/javascript" src="./Financial Data description__files/ait-client-rewrite.js" charset="utf-8"></script>
+<script type="text/javascript">
+WB_wombat_Init("https://web.archive.org/web/", "20180126080100", "lisp.vse.cz:80");
+</script>
+<script type="text/javascript" src="./Financial Data description__files/wbhack.js" charset="utf-8"></script>
+<script type="text/javascript">
+__wbhack.init('https://web.archive.org/web');
+</script>
+<link rel="stylesheet" type="text/css" href="./Financial Data description__files/banner-styles.css">
+<link rel="stylesheet" type="text/css" href="./Financial Data description__files/iconochive.css">
+<!-- End Wayback Rewrite JS Include -->
+
+
+<title>Financial Data description:</title>
+</head>
+<body bgcolor="#FFFFFF"><!-- BEGIN WAYBACK TOOLBAR INSERT -->
+<script type="text/javascript" src="./Financial Data description__files/timestamp.js" charset="utf-8"></script>
+<script type="text/javascript" src="./Financial Data description__files/graph-calc.js" charset="utf-8"></script>
+<script type="text/javascript" src="./Financial Data description__files/auto-complete.js" charset="utf-8"></script>
+<script type="text/javascript" src="./Financial Data description__files/toolbar.js" charset="utf-8"></script>
+<style type="text/css">
+body {
+  margin-top:0 !important;
+  padding-top:0 !important;
+  /*min-width:800px !important;*/
+}
+.wb-autocomplete-suggestions {
+    text-align: left; cursor: default; border: 1px solid #ccc; border-top: 0; background: #fff; box-shadow: -1px 1px 3px rgba(0,0,0,.1);
+    position: absolute; display: none; z-index: 2147483647; max-height: 254px; overflow: hidden; overflow-y: auto; box-sizing: border-box;
+}
+.wb-autocomplete-suggestion { position: relative; padding: 0 .6em; line-height: 23px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 1.02em; color: #333; }
+.wb-autocomplete-suggestion b { font-weight: bold; }
+.wb-autocomplete-suggestion.selected { background: #f0f0f0; }
+</style>
+<div id="wm-ipp-base" lang="en" style="display: block; direction: ltr;">
+</div><script type="text/javascript">
+__wm.bt(600,27,25,2,"web","http://lisp.vse.cz/pkdd99/berka.htm","2018-01-26",1996,"/_static/",['css/banner-styles.css','css/iconochive.css']);
+</script><div class="wb-autocomplete-suggestions " style="left: 0px; top: 3701px; width: 0px;"></div>
+<!-- END WAYBACK TOOLBAR INSERT -->
+<img src="./Financial Data description__files/razitko.gif" width="170" height="162" align="LEFT" hspace="9" vspace="-10">
+
+<p>&nbsp;&nbsp;</p>
+<h1>PKDD'99 Discovery Challenge</h1>
+<h1>Guide to the Financial Data Set</h1>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<h2>Domain</h2>
+
+<p>Once upon a time, there was a bank offering services to private
+persons. The services include managing of accounts, offering loans, etc. 
+
+&nbsp;
+</p><h2>Task description</h2>
+
+The bank wants to improve their services. 
+<!--
+by finding interesting groups of clients (e.g. to
+differentiate between good and bad clients). 
+-->
+For instance, the bank managers have only vague idea,
+who is a good client (whom to offer some additional services) and who is a bad
+client (whom to watch
+carefully to minimize the bank loses). Fortunately, the bank stores data
+about their clients, the
+accounts (transactions within several months), the loans already granted,
+the credit cards issued
+The bank managers hope to improve their understanding of customers and seek
+specific actions to improve services.
+<!-- They search advice which would convince them to apply specific actions.
+-->
+A mere application of a discovery tool will not be convincing for them.
+<p></p>
+
+
+&nbsp;
+<h2>Data description</h2>
+
+<img src="./Financial Data description__files/data.gif" align="CENTER">
+ 
+ 
+<p>The data about the clients and their accounts consist of following
+relations:</p>
+ 
+<ul>
+<li>relation<b> account</b> (4500 objects in the file ACCOUNT.ASC) - each
+record describes static characteristics of an account,
+</li><li>relation <b>client</b> (5369 objects in the file CLIENT.ASC) - each
+record describes characteristics of a client,
+</li><li>relation <b>disposition</b> (5369 objects in the file DISP.ASC) - each
+record relates together  a client with an account i.e. this relation
+describes the rights of clients to operate accounts,
+</li><li>relation <b>permanent order</b> (6471 objects in the file ORDER.ASC) -
+each record describes characteristics of  a payment order,
+</li><li>relation <b>transaction</b> (1056320 objects in the file TRANS.ASC) -
+each record describes  one transaction on an account,
+</li><li>relation <b>loan</b> (682 objects in the file LOAN.ASC) - each record
+describes a loan granted  for a given account,
+</li><li>relation <b>credit card</b>  (892 objects in the file CARD.ASC) - each
+record describes a  credit card issued to an account,
+</li><li>relation <b>demographic data</b> (77 objects in the file DISTRICT.ASC) -
+each record describes  demographic characteristics of a district.
+</li></ul>
+ 
+<p>Each account has both static characteristics (e.g. date of creation,
+address of the branch) given
+in relation "account" and dynamic characteristics (e.g. payments debited or
+credited, balances) given
+in relations "permanent order" and "transaction". Relation "client"
+describes characteristics of
+persons who can manipulate with the accounts. One client can have more
+accounts, more clients can
+manipulate with single account; clients and accounts are related together in
+relation "disposition".
+Relations "loan" and  "credit card" describe some services which the bank
+offers to its clients;
+more credit cards can be issued to an account, at most one loan can be
+granted for an account. Relation
+"demographic data" gives some publicly available information about the
+districts (e.g. the
+unemployment rate); additional information about the clients can be deduced
+from this.</p>
+
+&nbsp;
+<h3>Relation account</h3>
+<table cellspacing="0" border="" cellpadding="4" width="85%">
+<tbody><tr><th>item</th><th>meaning</th><th>remark</th></tr>
+<tr><td>account_id</td><td>identification of the account</td><td> </td></tr>
+<tr><td>district_id</td><td>location of the branch</td><td> </td></tr>
+<tr><td>date</td><td>date of creating of the account</td><td>in the form
+YYMMDD</td></tr>
+<tr><td>frequency</td><td>frequency of issuance of statements</td>
+<td>"POPLATEK MESICNE" stands for monthly issuance<p></p>
+"POPLATEK TYDNE" stands for weekly issuance<p></p>
+"POPLATEK PO OBRATU" stands for issuance after transaction</td>
+</tr>
+</tbody></table>
+&nbsp;
+&nbsp;
+&nbsp;
+ 
+<h3>Relation client</h3>
+<p>
+</p><table cellspacing="0" border="" cellpadding="4" width="85%">
+<tbody><tr><th>item</th><th>meaning</th><th>remark</th></tr>
+<tr><td>client_id</td><td>client identifier</td><td></td></tr>
+<!-- <FONT SIZE=2> -->
+<tr><td>birth number</td><td>birthday and sex</td>
+<td>the number is in the form YYMMDD for men,<br>
+the  number is in the form YYMM+50DD for women,<br>
+<p>where YYMMDD is the date of birth</p></td>
+</tr>
+<tr><td>district_id</td><td>address of the client</td><td></td></tr>
+</tbody></table>
+&nbsp;
+&nbsp;
+&nbsp;
+ 
+<h3>Relation disposition</h3>
+<table cellspacing="0" border="" cellpadding="4" width="85%">
+<tbody><tr><th>item</th><th>meaning</th><th>remark</th></tr>
+<tr><td>disp_id</td><td>record identifier</td><td></td></tr>
+<tr><td>client_id</td><td>identification of a client</td><td></td></tr>
+<tr><td>account_id</td><td>identification of an account</td><td></td></tr>
+<tr><td>type</td><td>type of disposition (owner/user)</td>
+<td>only owner can issue permanent orders and ask for a loan</td></tr>
+</tbody></table>
+&nbsp;
+&nbsp;
+&nbsp;
+
+<h3>Relation permanent order (debits only)</h3>
+<table cellspacing="0" border="" cellpadding="4" width="85%">
+<tbody><tr><th>item</th><th>meaning</th><th>remark</th></tr>
+<tr><td>order_id</td><td>record identifier</td><td></td></tr>
+<tr><td>account_id</td><td>account, the order is issued
+for</td><td></td></tr>
+<tr><td>bank_to</td><td>bank of the recipient</td>
+<td>each bank has unique two-letter code</td></tr>
+<tr><td>account_to</td><td>account of the recipient</td><td></td></tr>
+<tr><td>amount</td><td>debited amount</td><td></td></tr>
+<tr><td>K_symbol</td><td>characterization of the payment</td>
+<td>
+"POJISTNE" stands for insurrance payment<p></p>
+"SIPO" stands for household payment<p></p>
+"LEASING" stands for leasing<p></p>
+"UVER" stands for loan payment<p></p>
+</td>
+</tr>
+</tbody></table>
+&nbsp;
+&nbsp;
+&nbsp;
+ 
+<h3>Relation Transaction</h3>
+<p>
+</p><table cellspacing="0" border="" cellpadding="4" width="85%">
+<tbody><tr><th>item</th><th>meaning</th><th>remark</th></tr>
+<tr><td>trans_id</td><td>record identifier</td><td></td></tr>
+<tr><td>account_id</td><td>account, the transation deals
+with</td><td></td></tr>
+<tr><td>date</td><td>date of transaction</td><td>in the form
+YYMMDD</td></tr>
+<tr><td>type</td><td>+/- transaction</td>
+<td>"PRIJEM" stands for credit<p></p>"VYDAJ" stands for withdrawal</td></tr>
+<tr><td>operation</td><td>mode of  transaction</td>
+<!-- <FONT SIZE=2> -->
+<td>
+"VYBER KARTOU" credit card withdrawal<p></p>
+"VKLAD" credit in cash<p></p>
+"PREVOD Z UCTU" collection from another bank<p></p>
+"VYBER" withdrawal in cash<p></p>
+"PREVOD NA UCET" remittance to another bank</td>
+</tr>
+<tr><td>amount</td><td>amount of money</td><td></td></tr>
+<tr><td>balance</td><td>balance after transaction</td></tr>
+<tr><td>k_symbol</td><td>characterization of the transaction</td>
+<td>
+"POJISTNE" stands for insurrance payment<p></p>
+"SLUZBY" stands for payment for statement<p></p>
+"UROK" stands for interest credited<p></p>
+"SANKC. UROK" sanction interest if negative balance<p></p>
+"SIPO" stands for household<p></p>
+<!-- 'SOC. DAVKA' stands for unemployment compensation or old-age
+pension</P> -->
+"DUCHOD" stands for old-age pension<p></p>
+<!-- 'LEASING' stands for leasing</P> -->
+"UVER" stands for loan payment<p></p>
+</td>
+</tr>
+<tr><td>bank</td><td>bank of the partner</td>
+<td>each bank has unique two-letter code</td></tr>
+<tr><td>account</td><td>account of the partner</td><td></td></tr>
+</tbody></table>
+&nbsp;
+&nbsp;
+&nbsp;
+ 
+<h3>Relation Loan</h3>
+<table cellspacing="0" border="" cellpadding="4" width="85%">
+<tbody><tr><th>item</th><th>meaning</th><th>remark</th></tr>
+<tr><td>loan_id</td><td>record identifier</td><td></td></tr>
+<tr><td>account_id</td><td>identification of the account</td><td></td></tr>
+<tr><td>date</td><td>date when the loan was granted</td><td> in the form
+YYMMDD </td></tr>
+<!-- <TR><TD>purpose</TD><TD>purpose of the loan</TD><TD></TD></TR> -->
+<tr><td>amount</td><td>amount of money</td><td></td></tr>
+<tr><td>duration</td><td>duration of the loan</td><td></td></tr>
+<tr><td>payments</td><td>monthly payments</td><td></td></tr>
+<tr><td>status</td><td>status of paying off the loan</td>
+<td>'A' stands for contract finished, no problems,<p></p>
+'B' stands for contract finished, loan not payed,<p></p>
+'C' stands for running contract, OK so far,<p></p>
+'D' stands for running contract, client in debt</td>
+<!-- <TD> possible values are "A", "B", "C", "D"</TD> -->
+</tr>
+</tbody></table>
+&nbsp;
+&nbsp;
+&nbsp;
+
+<h3>Relation Credit card</h3>
+<table cellspacing="0" border="" cellpadding="4" width="85%">
+<tbody><tr><th>item</th><th>meaning</th><th>remark</th></tr>
+<tr><td>card_id</td><td>record identifier</td><td></td></tr>
+<tr><td>disp_id</td><td>disposition to an account</td><td></td></tr>
+<tr><td>type</td><td>type of card</td>
+<td>possible values are "junior", "classic", "gold"</td></tr>
+<tr><td>issued</td><td>issue date</td><td>in the form YYMMDD</td></tr>
+<!-- <TR><TD>expire</TD><TD>expiration date</TD><TD></TD></TR> -->
+</tbody></table>
+&nbsp;
+&nbsp;
+&nbsp;
+
+<h3>Relation Demographic data</h3>
+<table cellspacing="0" border="" cellpadding="4" width="85%">
+<tbody><tr><th>item</th>
+<th>meaning</th>
+<th>remark</th>
+</tr>
+<tr><td>A1 = district_id</td><td>district code</td><td></td></tr>
+<tr><td>A2</td><td>district name</td><td></td></tr>
+<tr><td>A3</td><td>region</td><td></td></tr>
+<tr><td>A4</td><td>no. of inhabitants</td><td></td></tr>
+<tr><td>A5</td><td>no. of municipalities with inhabitants &lt;
+499</td><td></td></tr>
+<tr><td>A6</td><td>no. of municipalities with inhabitants
+500-1999</td><td></td></tr>
+<tr><td>A7</td><td>no. of municipalities with inhabitants
+2000-9999</td><td></td></tr>
+<tr><td>A8</td><td>no. of municipalities with inhabitants
+&gt;10000</td><td></td></tr>
+<tr><td>A9</td><td>no. of cities</td><td></td></tr>
+<tr><td>A10</td><td>ratio of urban inhabitants</td><td></td></tr>
+<tr><td>A11</td><td>average salary</td><td></td></tr>
+<tr><td>A12</td><td>unemploymant rate '95</td><td></td></tr>
+<tr><td>A13</td><td>unemploymant rate '96</td><td></td></tr>
+<tr><td>A14</td><td>no. of enterpreneurs per 1000
+inhabitants</td><td></td></tr>
+<tr><td>A15</td><td>no. of commited crimes '95</td><td></td></tr>
+<tr><td>A16</td><td>no. of commited crimes '96</td><td></td></tr>
+</tbody></table>
+
+<p>&nbsp;</p>
+<b>This database was prepared by Petr Berka and Marta Sochorova.</b><br>
+For possible questions on the data and task description contact Petr Berka. 
+All questions and answers will be publihked as appendixes to this
+document.
+
+&nbsp;
+<hr>
+<h2>Asked Questions</h2>
+<ul>
+</ul>
+
+
+
+<!--
+playback timings (ms):
+  PetaboxLoader3.datanode: 114.73 (4)
+  PetaboxLoader3.resolve: 23.979
+  RedisCDXSource: 6.009
+  esindex: 0.017
+  CDXLines.iter: 13.176 (3)
+  exclusion.robots.policy: 0.45
+  LoadShardBlock: 75.661 (3)
+  captures_list: 99.037
+  exclusion.robots: 0.466
+  load_resource: 123.761
+--></body></html>

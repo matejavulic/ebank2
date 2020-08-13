@@ -1,0 +1,12 @@
+Paketi:
+numpy, scipy, seaborn, pandas, django-cors-headers
+(pip install django-cors-headers)
+
+Preko cmd uraditi sledece:
+
+1. Otici u backend\server-python\env\Scripts i pokrenuti activate.bat
+2. cd ..
+3. cd p\backend\server-python\env\pythonserver
+4. naredbom> python manage.py runserver 3002 pokrece se server na localhost:3002
+
+Nov modul se pravi ovako> python manage.py startapp ime_novog_modula

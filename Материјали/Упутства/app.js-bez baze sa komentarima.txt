@@ -1,0 +1,70 @@
+// OVO JE DEO LOGIKE KOJI NIJE SERVER ALI KOMNICIRA SA NJIM
+// OVO SE MOZE SMATRATI KAO BIZNIS LOGICKI DEO. OD ENGULARA DOLAZI ZAHTEV KA SERVERU
+// KOJI PROSLEDJUJE ZAHTEV OVOJ APLIKACIJI KOJA ZATIM SALJE ODGOVOR.
+// IZGLEDA DA SERVER SAMO SLUSA NA ZADATOM PORTU I OPSLUZUJE GRESKE
+const express = require("express"); // uvozimo biblioteku za ekspres aplikaciju
+const app = express(); // pravimo objekat klase ekspres
+const bodyParser = require("body-parser") // pravimo objekat klase body parser
+
+// Sledeca funkcija poziva aplikaciju, dodeljuje joj URL za koji se pokrece,
+// ,zatim definisemo parametre funkcije tj. njene objekte koji se koriste kako
+// bi se opsluzio zahtev klijenta (req, res, next) i definisemo kolbek funkciju
+// koja obradjuje zahtev
+// Imamo promenljivu (niz objekata) postos
+// odgovor servera definisemo sa res.status(200).json gde kazemo da objekat
+// res posalje status(200) (uspesno obradjen zahtev), i da odgovor posalje kao
+// slozeni objekat u json obliku.
+// Na kraju cinimo ovaj js mogucim za pozivanje tj. on vraca app preko modules.export
+
+app.use(bodyParser.json()); // sve json podatke obradjuj body-parserom
+app.use("/api/posts",(req, res, next) =>{ // za dolazni zahtev za URL ka /api/posts podesi res (odgovor) tako da se omoguci pristupanje klijenta sa drugacijeg porta od onog na kome radi server
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS");
+  next(); // naredba za opservable da predje na sledeci midlver (ovo je jedan midlver)
+})
+// sledi hendler za post zahtever u kome se otpakuje pristigli paket (koji je u json obliku ali je prilagodjen odnosno otpakovan je uz pomoc bodi parsera i spreman za smestanje u promenljivu)
+app.post("/api/posts",(req, res, next) =>{
+  const post = req.body; // uzmi iz zahteva bodi i smesti nov post u post
+  console.log(post); // u konzolu ispisi dodat posts
+  res.status(201).json({ // odgovor neka glasi: sve je u redu dodat je novi resurs i posalji javaskript objekat koji ima polje message
+    message: "Post uspesno dodat"
+  });
+
+})
+
+// Ovo je hendler za GET metod za postove. Verovatno je ovde rec o opstem hendleru koji na bilo kakav zahtev (POST, GET...) odgovara sa listom postova i statusnim brojem 200 (sve je OK)
+// on u sebi ima listu postova koje trenutno drzimo u nizu posts jer nismo povezani sa bazom
+app.use('/api/posts', (req, res, next) => {
+  const posts = [
+    {
+      id: "пшчдет2ф",
+      title: "Наслов 1. поста",
+      content: "Садржај 1. поста"
+    },
+    {
+      id: "шллчпрфе13",
+      title: "Наслов 2. поста",
+      content: "Садржај 2. поста"
+    },
+    {
+      id: "пшgk",
+      title: "Наслов 3. поста",
+      content: "Садржај 3. поста"
+    },
+    {
+      id: "шллчпрфеdfgh13",
+      title: "Наслов 4. поста",
+      content: "Садржај 4. поста"
+    }
+  ];
+  // odgovor aplikacije, tj. posto se odgovor salje kao objekat res (response)
+  // u okviru tog objekta smestamo dve promenljive message i posts njih uvijamo u json  oblik
+  // i kao takve vracamo klijentu
+  res.status(200).json({
+    message: "Успешно преузимање постова",
+    posts: posts
+  });
+});
+
+module.exports = app;

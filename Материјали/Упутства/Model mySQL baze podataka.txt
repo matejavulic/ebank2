@@ -1,0 +1,10 @@
+
+
+schema.org !!!!!!!!!!
+
+https://github.com/gmgyan/Bank-Database-Design_MS-SQL/blob/master/Bank-Database-Design.sql
+
+Ovde je bolji model:
+
+Za medjubankarske transakcije: http://www.databaseanswers.org/data_models/bank_and_branches/index.htm
+Za transakcije kupac banka prodavac: http://www.databaseanswers.org/data_models/banking_checking_accounts/index.htm
