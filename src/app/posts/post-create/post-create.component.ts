@@ -3,7 +3,7 @@
  * Author:E-bank IT team
  * Author email: @ebanka-it.com
  * Date: Thu Aug 22 2019
- * Description: 
+ * Description:
  * Component for displaying input form
  * for new utility payment.
  *
@@ -18,25 +18,25 @@ import { mimeType } from './mime-type.validator';
 @Component({
   selector: 'app-post-create',
   templateUrl: './post-create.component.html',
-  styleUrls: ['./post-create.component.css']
+  styleUrls: ['../../styles/dist/css/post-create.component.min.css']
 })
 
 export class PostCreateComponent implements OnInit {
 
   enteredTitle = '';
   enteredContent = '';
-  private mode = 'create'; 
+  private mode = 'create';
   private postId: string;
-  form: FormGroup; 
+  form: FormGroup;
   isLoading = false;
-  post: Post; 
+  post: Post;
   imagePreview: string;
   constructor(public postsService: PostsService, public route: ActivatedRoute) {}
     error = {title: 'Enter title', content: 'Enter details'};
   ngOnInit() {
-    
+
     this.form  = new FormGroup({
-      
+
       title: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)] // payment title must be longer than 3 chrs
       }),
@@ -51,7 +51,7 @@ export class PostCreateComponent implements OnInit {
         this.postId = paramMap.get('postId');
         this.isLoading = true;
         this.postsService.getPost(this.postId).subscribe(postData => {
-          this.isLoading = false; 
+          this.isLoading = false;
           this.post = {id: postData._id, title: postData.title, content: postData.content, imagePath: postData.imagePath};
           this.form.setValue({
             title: this.post.title,
@@ -59,8 +59,8 @@ export class PostCreateComponent implements OnInit {
             image: this.post.imagePath
           });
         });
-      } else { 
-        this.mode = 'create'; 
+      } else {
+        this.mode = 'create';
         this.postId = null;
       }
     });
@@ -68,12 +68,12 @@ export class PostCreateComponent implements OnInit {
   onImagePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
     this.form.patchValue({image: file});
-    this.form.get('image').updateValueAndValidity(); 
+    this.form.get('image').updateValueAndValidity();
     const reader = new FileReader();
-    reader.onload = () => { 
+    reader.onload = () => {
       this.imagePreview = reader.result as string;
     };
-    reader.readAsDataURL(file); 
+    reader.readAsDataURL(file);
 
   }
   onSavePost() {
@@ -90,7 +90,7 @@ export class PostCreateComponent implements OnInit {
   }
 }
 /**
- * When we want to edit ultility payment we fetch its data form 
+ * When we want to edit ultility payment we fetch its data form
  * posts.service.ts and not from server. Same method should be applied for
  * dahboard component.
  */

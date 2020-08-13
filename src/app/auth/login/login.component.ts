@@ -3,22 +3,22 @@
  * Author:E-bank IT team
  * Author email: @ebanka-it.com
  * Date: Fri Aug 23 2019
- * Description: 
+ * Description:
  * Component to control behaviour of
  * login form.
- * 
+ *
  */
 
-import {Component} from '@angular/core'; 
+import {Component} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
 
-@Component({ 
-  templateUrl: './login.component.html',  
-  styleUrls: ['./login.component.css']
+@Component({
+  templateUrl: './login.component.html',
+  styleUrls: ['../../styles/dist/css/login.component.min.css']
 })
 
-export class LoginComponent { 
+export class LoginComponent {
   isLoading = false;
   constructor(public authService: AuthService) {}
   onLogin(form: NgForm) {

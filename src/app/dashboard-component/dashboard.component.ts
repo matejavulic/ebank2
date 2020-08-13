@@ -3,7 +3,7 @@
  * Author:E-bank IT team
  * Author email: @ebanka-it.com
  * Date: Fri Aug 23 2019
- * Description: 
+ * Description:
  * Component for handling data to be shown on the Dashboard page
  * (Recent transactions & Exchange rate tables as far as Available ballance
  * & Fund trasfer boxes)
@@ -19,7 +19,7 @@ import { MatTableDataSource } from '@angular/material';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css'],
+  styleUrls: ['../styles/dist/css/dashboard.component.min.css'],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),
@@ -30,7 +30,7 @@ import { MatTableDataSource } from '@angular/material';
 })
 @Injectable()
 export class DashboardComponent implements OnInit, OnDestroy {
-  
+
  // Here, we will store retrieved user data form server
   user = {
     name: "",
@@ -47,21 +47,21 @@ export class DashboardComponent implements OnInit, OnDestroy {
   dataSource = [];
   columnsToDisplayEng = ['description', 'amount', 'senderAccountNumber', 'date'];
   expandedElement: LastTransaction | null;
-  
+
   //exchange rate table variables
   dataSource2 = new MatTableDataSource(ELEMENT_DATA2);
   columnsToDisplayExchange = ['country', 'selling', 'buying', 'average'];
-  
+
   isLoading = false;
   userIsAuthenticated = false;
   hasTransactions = false; // if there are no transactions for logged user, set a flag for front-end
-  
+
   private authStatusSub: Subscription;
   private userSub: Subscription;
 
   constructor(
     private authService: AuthService, public dashService: DashService){}
-  
+
   ngOnInit() {
     this.isLoading = true;
     const userId = this.authService.getUserId();
@@ -70,24 +70,24 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .subscribe((
         userData: {
            name: string,
-           surname: string, 
-           clientNumber: number, 
-           branch: string, 
-           balance: number, 
-           transactions: {trans: [] }, 
-           limitMonthly: number, 
+           surname: string,
+           clientNumber: number,
+           branch: string,
+           balance: number,
+           transactions: {trans: [] },
+           limitMonthly: number,
            usedLimit: number
-          }) => 
+          }) =>
       {
         this.isLoading = false;
-        this.user = userData; 
+        this.user = userData;
         let dataSourceTemp = [];
         this.user.transactions.trans.map((element, index) => {
           dataSourceTemp.push(element);
-          dataSourceTemp[index].date = this.dashService.dateFromISO8601(element.date); 
+          dataSourceTemp[index].date = this.dashService.dateFromISO8601(element.date);
           dataSourceTemp[index].dateKnjizenja = this.dashService.dateFromISO8601(element.dateKnjizenja);
         });
-        this.dataSource = dataSourceTemp; 
+        this.dataSource = dataSourceTemp;
         if (this.dataSource.length > 0) {
           this.hasTransactions = true;
         }

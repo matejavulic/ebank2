@@ -3,19 +3,19 @@
  * Author:E-bank IT team
  * Author email: @ebanka-it.com
  * Date: Thu Aug 22 2019
- * Description: 
+ * Description:
  * CSS file for component which creats new
  * utility payment.
  *
  */
-mat-form-field, textarea
-{
+mat-form-field,
+textarea {
   width: 100%;
 }
 
-button{
- margin-right: 2mm;
- margin-top: 1mm;
+button {
+  margin-right: 2mm;
+  margin-top: 1mm;
 }
 
 mat-spinner {
@@ -25,7 +25,7 @@ mat-spinner {
 /*
 * Special way of defining CSS element to be aplied only to 'file' type of input
 */
-input[type="file"]{
+input[type="file"] {
   visibility: hidden;
 }
 
@@ -35,7 +35,7 @@ input[type="file"]{
 }
 
 .image-preview img {
-  height:100%;
+  height: 100%;
 }
 
 .mat-raised-button.mat-red {
@@ -46,10 +46,9 @@ input[type="file"]{
 .align {
   position: relative;
   left: 240px;
-  bottom: 561px; 
+  bottom: 561px;
   width: 736px;
 }
-
 
 .bg {
   background-image: url("http://localhost:3000/repository/images/utility.png");
@@ -59,3 +58,4 @@ input[type="file"]{
   background-size: cover;
   background-attachment: scroll;
 }
+/*# sourceMappingURL=post-create.component.css.map */

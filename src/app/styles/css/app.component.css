@@ -1,0 +1,28 @@
+/**
+* License: The MIT License (MIT)
+* Author:E-bank IT team
+* Author email: @ebanka-it.com
+* Date: Thu Aug 22 2019
+* Description:
+* Main app component css file.
+*
+*/
+::ng-deep .mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: maroon;
+  stroke-width: 4% !important;
+}
+
+::ng-deep .mat-progress-bar-fill::after {
+  background-color: goldenrod;
+}
+
+::ng-deep .mat-input-element {
+  caret-color: maroon;
+}
+
+::ng-deep .mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background-color: #daa520;
+}
+/*# sourceMappingURL=app.component.css.map */

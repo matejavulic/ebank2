@@ -1,11 +1,10 @@
-mat-form-field
-{
+mat-form-field {
   width: 100%;
 }
 
-button{
- margin-right: 2mm;
- margin-top: 1mm;
+button {
+  margin-right: 2mm;
+  margin-top: 1mm;
 }
 
 .mat-raised-button.mat-red {
@@ -16,8 +15,12 @@ button{
 }
 
 .button {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: flex-end;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 
 mat-spinner {
@@ -25,11 +28,15 @@ mat-spinner {
 }
 
 :host {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   position: relative;
   left: 133px;
   bottom: 513px;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   margin: 15px 4px;
 }
 
@@ -38,21 +45,25 @@ mat-spinner {
   min-width: 300px;
 }
 
-mat-card{
+mat-card {
   position: relative;
   display: block;
   background-color: #fffffff5;
   bottom: 64px;
   left: 76px;
   margin-right: 51px;
-  margin-left:30px;
+  margin-left: 30px;
   width: -webkit-fill-available;
 }
 
 mat-card-title,
 mat-card-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 mat-card-title {
@@ -70,9 +81,12 @@ mat-card-title {
 }
 
 ul {
-  list-style: none; /*izbaci tacku iz liste*/
-  padding:0; /*sirina nevidljivih margina oko elementa unutar bilo kakvih granica*/
-  margin:0; /*sirina nevidljivih margina oko elementa izvan bilo kakvih granica*/
+  list-style: none;
+  /*izbaci tacku iz liste*/
+  padding: 0;
+  /*sirina nevidljivih margina oko elementa unutar bilo kakvih granica*/
+  margin: 0;
+  /*sirina nevidljivih margina oko elementa izvan bilo kakvih granica*/
 }
 
 p {
@@ -86,10 +100,14 @@ video {
   margin-right: auto;
 }
 
-.box-video{
+.box-video {
   display: -webkit-inline-box;
   position: relative;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   margin: 16px;
   width: 39%;
-  }
+}
+/*# sourceMappingURL=help.component.css.map */

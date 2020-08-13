@@ -3,23 +3,23 @@
  * Author:E-bank IT team
  * Author email: @ebanka-it.com
  * Date: Fri Aug 23 2019
- * Description: 
+ * Description:
  * Signup component logic. Controlls behaviour
  * of signup form.
  *
  */
-import {Component} from '@angular/core'; 
+import {Component} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
 
-@Component({ 
-  templateUrl: './signup.component.html', 
-  styleUrls: ['./signup.component.css']
+@Component({
+  templateUrl: './signup.component.html',
+  styleUrls: ['../../styles/dist/css/signup.component.min.css']
 })
 
-export class SignupComponent { 
+export class SignupComponent {
   isLoading = false;
-  constructor(public authService: AuthService) {} 
+  constructor(public authService: AuthService) {}
   onSignup(form: NgForm) {
     if (form.invalid) {
       return;

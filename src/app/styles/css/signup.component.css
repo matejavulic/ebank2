@@ -3,17 +3,16 @@
  * Author:E-bank IT team
  * Author email: @ebanka-it.com
  * Date: Fri Aug 23 2019
- * Description: 
+ * Description:
  * CSS file for Signup HTML part of component.
  */
- 
-mat-form-field{
+mat-form-field {
   width: 100%;
 }
 
-button{
- margin-right: 2mm;
- margin-top: 1mm;
+button {
+  margin-right: 2mm;
+  margin-top: 1mm;
 }
 
 .mat-raised-button.mat-red {
@@ -24,8 +23,12 @@ button{
 }
 
 .button {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: flex-end;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 
 mat-spinner {
@@ -33,10 +36,14 @@ mat-spinner {
 }
 
 :host {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   position: relative;
   left: 140px;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   margin: 120px 0px;
 }
 
@@ -45,15 +52,19 @@ mat-spinner {
   min-width: 300px;
 }
 
-mat-card{
+mat-card {
   background-color: #ffffffe6;
   top: -60px;
 }
 
 mat-card-title,
 mat-card-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 mat-card-title {
@@ -67,6 +78,8 @@ mat-card-title {
 
 .logo-signup {
   margin-right: -109px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
   height: fit-content;
   padding-top: 69px;
 }
@@ -79,8 +92,11 @@ mat-card-title {
 }
 
 .signup-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   position: relative;
   top: -76px;
   border-radius: 14px;
 }
+/*# sourceMappingURL=signup.component.css.map */

@@ -1,0 +1,79 @@
+.content-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #eee;
+}
+
+.menu-color {
+  color: goldenrod;
+  padding-right: 8px;
+}
+
+.mat-list-item {
+  color: maroon;
+}
+
+.menu-list-item-selected {
+  color: #223e09;
+  background-color: khaki;
+}
+
+.mat-nav-list {
+  color: maroon;
+  -webkit-user-select: none !important;
+     -moz-user-select: none !important;
+      -ms-user-select: none !important;
+          user-select: none !important;
+}
+
+.mat-list-base .mat-list-option .mat-list-item-content {
+  padding: 0px 24px;
+}
+
+.hr-bottom {
+  color: rgba(128, 0, 0, 0.623);
+}
+
+.maroon {
+  color: maroon;
+}
+
+.user-header {
+  position: relative;
+  left: 5px;
+  top: 2px;
+  padding: 0px;
+}
+
+.navigation {
+  position: relative;
+  left: 179px;
+}
+
+.nav-text {
+  font-size: 16px;
+}
+
+.nav-arrow {
+  position: relative;
+  top: 0px;
+  -webkit-transform: scale(1.5, 1.8);
+          transform: scale(1.5, 1.8);
+}
+
+/*mat-sidenav-content {
+    margin-left: 189px;
+}*/
+.mat-drawer-container {
+  background: rgba(255, 0, 0, 0) !important;
+}
+
+mat-sidenav {
+  width: 195px;
+  position: fixed;
+  margin-top: 64px;
+}
+/*# sourceMappingURL=side-menu.component.css.map */

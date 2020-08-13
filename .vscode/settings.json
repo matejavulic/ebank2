@@ -3,5 +3,26 @@
     "telemetry.enableCrashReporter": false,
     "telemetry.enableTelemetry": false,
     "workbench.enableExperiments": false,
-    "python.pythonPath": "C:\\Users\\Mateja\\AppData\\Local\\Programs\\Python\\Python37-32\\python.exe"
+    "python.pythonPath": "C:\\Users\\Mateja\\AppData\\Local\\Programs\\Python\\Python37-32\\python.exe",
+    "liveSassCompile.settings.formats":[
+      {
+          "format": "expanded",
+          "extensionName": ".css",
+          "savePath": "/src/app/styles/css"
+      },
+      {
+          "extensionName": ".min.css",
+          "format": "compressed",
+          "savePath": "/src/app/styles/dist/css"
+      }
+  ],
+  "liveSassCompile.settings.excludeList": [
+     "**/node_modules/**",
+     ".vscode/**"
+  ],
+  "liveSassCompile.settings.generateMap": true,
+  "liveSassCompile.settings.autoprefix": [
+      "> 1%",
+      "last 2 versions"
+  ]
 }

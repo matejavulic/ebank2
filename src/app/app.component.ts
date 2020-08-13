@@ -3,7 +3,7 @@
  * Author:E-bank IT team
  * Author email: @ebanka-it.com
  * Date: Thu Aug 22 2019
- * Description: 
+ * Description:
  * Main app component.
  *
  */
@@ -13,7 +13,7 @@ import { AuthService } from './auth/auth.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['styles/dist/css/app.component.min.css']
 })
 
 export class AppComponent implements OnInit { // ovako omogucujemo @ng da zna kojoj komponenti (klasi) pristupamo
@@ -27,9 +27,9 @@ export class AppComponent implements OnInit { // ovako omogucujemo @ng da zna ko
      * function loggs out user. If user reloads page
      * or even closes it (and the token is still active)
      * it aoutomaticly loggs in user. We call it from here
-     * because we are 100% sure that this component will 
-     * be first loaded when we start web app.  
-     *  
+     * because we are 100% sure that this component will
+     * be first loaded when we start web app.
+     *
      * */
   this.authService.autoAuthUser();
  }
