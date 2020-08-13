@@ -7,10 +7,6 @@
  * This is a CSS file for account component.
  *
  */
-div p {
-  background-color: dodgerblue;
-}
-
 mat-card {
   margin: 15px;
   display: inline-block;
