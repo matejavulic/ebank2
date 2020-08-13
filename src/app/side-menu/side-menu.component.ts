@@ -6,7 +6,7 @@ import { DashService } from '../dashboard-component/dashboard.service';
 @Component({
   selector: 'app-side-menu',
   templateUrl: './side-menu.component.html',
-  styleUrls: ['../styles/dist/css/side-menu.component.min.css']
+  styleUrls: ['../styles/distr/css/side-menu.component.min.css']
 })
 export class SideMenuComponent implements OnInit, OnDestroy {
   isLoading = false;

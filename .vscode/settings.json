@@ -13,7 +13,7 @@
       {
           "extensionName": ".min.css",
           "format": "compressed",
-          "savePath": "/src/app/styles/dist/css"
+          "savePath": "/src/app/styles/distr/css"
       }
   ],
   "liveSassCompile.settings.excludeList": [

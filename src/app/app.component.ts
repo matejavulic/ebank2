@@ -13,7 +13,7 @@ import { AuthService } from './auth/auth.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['styles/dist/css/app.component.min.css']
+  styleUrls: ['styles/distr/css/app.component.min.css']
 })
 
 export class AppComponent implements OnInit { // ovako omogucujemo @ng da zna kojoj komponenti (klasi) pristupamo

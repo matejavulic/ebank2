@@ -19,7 +19,7 @@ import { MatTableDataSource } from '@angular/material';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['../styles/dist/css/dashboard.component.min.css'],
+  styleUrls: ['../styles/distr/css/dashboard.component.min.css'],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),

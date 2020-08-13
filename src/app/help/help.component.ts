@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 
 @Component({ // ovim dekoratorom pravimo od ove datoteke komponentu
   templateUrl: './help.component.html', // povezujemo html as komponentom (sada html zna gde da trazi promenljive)
-  styleUrls: ['../styles/dist/css/help.component.min.css']
+  styleUrls: ['../styles/distr/css/help.component.min.css']
 })
 
 export class HelpComponent { // komponenta je spolja vidljiva kao LoginComponent

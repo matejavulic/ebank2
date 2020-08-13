@@ -14,7 +14,7 @@ import { AuthService } from '../auth.service';
 
 @Component({
   templateUrl: './signup.component.html',
-  styleUrls: ['../../styles/dist/css/signup.component.min.css']
+  styleUrls: ['../../styles/distr/css/signup.component.min.css']
 })
 
 export class SignupComponent {

@@ -18,7 +18,7 @@ import { mimeType } from './mime-type.validator';
 @Component({
   selector: 'app-post-create',
   templateUrl: './post-create.component.html',
-  styleUrls: ['../../styles/dist/css/post-create.component.min.css']
+  styleUrls: ['../../styles/distr/css/post-create.component.min.css']
 })
 
 export class PostCreateComponent implements OnInit {

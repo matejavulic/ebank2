@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,kBAAkB,AAAA,QAAQ,AAAC,CACvB,gBAAgB,CAAE,qBAAwB,CAC1C,KAAK,CAAE,OAAO,CACd,UAAU,CAAE,KAAK,CACjB,aAAa,CAAE,GAAG,CACrB",
+    "sources": [
+        "../../../error-dialog/error-dialog.component.scss"
+    ],
+    "names": [],
+    "file": "error-dialog.component.min.css"
+}

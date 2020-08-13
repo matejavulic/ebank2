@@ -13,7 +13,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-accounts',
   templateUrl: './accounts.component.html',
-  styleUrls: ['../styles/dist/css/accounts.component.min.css']
+  styleUrls: ['../styles/distr/css/accounts.component.min.css']
 })
 export class AccountsComponent implements OnInit {
 

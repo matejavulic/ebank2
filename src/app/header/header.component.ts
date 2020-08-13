@@ -18,7 +18,7 @@ import { DashService } from '../dashboard-component/dashboard.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['../styles/dist/css/header.component.min.css']
+  styleUrls: ['../styles/distr/css/header.component.min.css']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   isLoading = false;

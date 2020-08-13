@@ -17,7 +17,7 @@ import { AuthService } from '../../auth/auth.service';
 @Component({
   selector: 'app-post-list',
   templateUrl: './post-list.component.html',
-  styleUrls: ['../../styles/dist/css/post-list.component.min.css']
+  styleUrls: ['../../styles/distr/css/post-list.component.min.css']
 })
 @Injectable()
 export class PostListComponent implements OnInit, OnDestroy{
