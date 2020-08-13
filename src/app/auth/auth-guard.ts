@@ -3,7 +3,7 @@
  * Author:E-bank IT team
  * Author email: @ebanka-it.com
  * Date: Fri Aug 23 2019
- * Description: 
+ * Description:
  * Auth guard. If the route has refference to it
  * (in defined routes and components in app-routing.module.ts)
  * then first this module is called. It simply calls getIsAuth
@@ -24,7 +24,7 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean | Observable<boolean> | Promise <boolean> {
-    const isAuth = this.authService.getIsAuth(); //check if user is authenticated
+    const isAuth = this.authService.getIsAuth(); // check if user is authenticated
     if (!isAuth) {
       this.router.navigate(['/login']); // if not, navigate user to login page
     }
