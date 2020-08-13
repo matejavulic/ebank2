@@ -1,0 +1,8 @@
+1. Slanje izmena na git:
+	
+	git commit -m "Komentar" 1. spremi za git.
+	git push origin master 2. pošalji na git.
+
+2. Uzimanje sa git-a:
+	
+	git pull origin master
