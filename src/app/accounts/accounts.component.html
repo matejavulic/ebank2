@@ -1,0 +1,97 @@
+<!--
+ * License: The MIT License (MIT)
+ * Author:E-bank IT team
+ * Author email: @ebanka-it.com
+ * Date: Thu Aug 22 2019
+ * Description:
+ * This is a component for accounts.
+ *
+ -->
+
+<mat-card layout='row' class="info" style="margin-top:4.6rem;">
+    <mat-card-title>
+        Accounts
+    </mat-card-title>
+    <mat-tab-group mat-align-tabs="center" animationDuration="0ms">
+        <mat-tab label="Tekući računi">
+            <!--Zaglavlje sa nazivom i dostupnim sredstvima-->
+            <mat-card>
+                <mat-card-header>
+                    <div mat-card-avatar class="grid-card-header-image">
+                        <mat-icon class="icon">refresh</mat-icon>
+                    </div>
+                    <mat-card-title>Start tekući račun </mat-card-title>
+                    <button mat-icon-button [matMenuTriggerFor]="appMenu3">
+                      <mat-icon class="menu-dots">arrow_drop_down</mat-icon>
+                    </button>
+                    <mat-card-subtitle>račun br. 115-00000001124555</mat-card-subtitle>
+                    <mat-menu #appMenu3="matMenu">
+                        <button mat-menu-item>Osnovni tekući račun 2+</button>
+                        <button mat-menu-item>Osnovni tekući račun</button>
+                    </mat-menu>
+                    <div style="margin-left: 2rem;">
+                        <p class="current-balance" style="font-size: 28px;margin-top: -0.3rem;
+                        margin-bottom: 0.3rem; text-align: left;">
+                            145.000<span class="currency">,00 RSD</span>
+                        </p>
+                        <mat-card-subtitle>Available balance</mat-card-subtitle>
+                    </div>
+                    <div style="margin-left: 2rem;">
+                        <p class="current-balance" style="font-size: 28px;margin-top: -0.3rem;
+                  margin-bottom: 0.3rem; text-align: left;">Dina Card
+                        </p>
+                        <mat-card-subtitle>Povezane kartice</mat-card-subtitle>
+                    </div>
+                    <div style="margin-left: 2rem;">
+                        <p class="current-balance" style="font-size: 28px;margin-top: -0.3rem;
+                      margin-bottom: 0.3rem; text-align: left; color:#3b7b3c">Active
+                        </p>
+                        <mat-card-subtitle>Account status</mat-card-subtitle>
+                    </div>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-tab-group animationDuration="0ms">
+                        <mat-tab label="Details">
+                            <mat-accordion>
+                                <mat-list>
+                                    <mat-list-item>Account name: Start paket</mat-list-item>
+                                    <mat-divider></mat-divider>
+                                    <mat-list-item>Account number: 115-22323232323223</mat-list-item>
+                                    <mat-divider></mat-divider>
+                                    <mat-list-item>Account type:Tekući račun</mat-list-item>
+                                    <mat-divider></mat-divider>
+                                    <mat-list-item>Account status: Active</mat-list-item>
+                                    <mat-divider></mat-divider>
+                                    <mat-list-item>Account owner: Pera Perić</mat-list-item>
+                                    <mat-divider></mat-divider>
+                                    <mat-list-item>Account created on: Okt 2020</mat-list-item>
+                                    <mat-divider></mat-divider>
+                                    <mat-list-item>Current balance: 1000000 RSD</mat-list-item>
+                                    <mat-divider></mat-divider>
+                                    <mat-list-item>Available balance: 150000 RSD</mat-list-item>
+                                    <mat-divider></mat-divider>
+                                    <mat-list-item>Connected cards: Dina card 1233444</mat-list-item>
+                                    <mat-divider></mat-divider>
+                                    <mat-list-item>Account owner: Pera Perić</mat-list-item>
+                                    <mat-divider></mat-divider>
+                                </mat-list>
+                            </mat-accordion>
+                        </mat-tab>
+                        <mat-tab label="Actions">Content 2</mat-tab>
+                        <mat-tab label="Transactions">Content 3</mat-tab>
+                    </mat-tab-group>
+                </mat-card-content>
+            </mat-card>
+            <!--mat tab grupa-->
+        </mat-tab>
+        <mat-tab label="Dinarski računi">
+            <div class="example-large-box mat-elevation-z4">
+                Large content
+            </div>
+        </mat-tab>
+        <mat-tab label="Devizni računi">Content 3</mat-tab>
+        <mat-tab label="Štednja">Content 3</mat-tab>
+        <mat-tab label="Krediti">Content 3</mat-tab>
+        <mat-tab label="Trajni nalog">Content 3</mat-tab>
+    </mat-tab-group>
+</mat-card>

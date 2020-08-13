@@ -1,0 +1,82 @@
+  <mat-card layout='row'>
+    <mat-card-title><h3>Help section</h3></mat-card-title>
+    <hr>
+    <mat-card-content>
+      <ul>
+      <li>
+          <h3>Video tutorial</h3>
+          <p>
+            <!-- <mat-video class="box-video" title="Увод" [preload]="false" [fullscreen]="true" [download]="false" color="accent" spinner="spinner" poster="http://localhost:3000/repository/images/ebankhelp22.jpg">
+                <source matVideoSource src="http://localhost:3000/repository/videos/ebankhelp.mp4" type="video/mp4">
+              </mat-video>-->
+            
+            <video width="400" controls poster="http://localhost:3000/repository/images/ebankhelp3.jpg" controlsList="nodownload">
+              <source src="http://localhost:3000/repository/videos/ebankhelp2.mp4"  type="video/mp4">
+              Ваш мрежни прегледач не подржава пуштање видео фајлова.
+            </video>
+           <!--<mat-video class="box-video" title="Основне функције" [preload]="false" [fullscreen]="true" [download]="false" color="accent" spinner="spinner" poster="http://localhost:3000/repository/images/ebankhelp22.jpg">
+              <source matVideoSource src="http://localhost:3000/repository/videos/ebankhelp2.mp4" type="video/mp4">
+            </mat-video>-->
+        </p>
+        </li>
+      <li>
+          <h3>Forgotten username or password</h3>
+        <p justify="even">
+          Ukoliko ste zaboravili korisničko ime ili lozinku, ili zaključali vaš nalog unosom pogrešne
+          kombinacije korisničkog imena i lozinke, potrebno je da ponovo napravite nalog.</p>
+          <p>Zatim je potrebno izabrati opciju Napravite novi nalog a zatim popunjavate tražene podatke kao prilikom Kreiranja novog korisničkog naloga.</p>
+          <p>1. Meni Vam omogućuje da na lak način pristupite željenim uslugama. Odabirom opcije iz
+          menija.</p>
+          <p>2. Zaglavlje Vam pruža informaciju u kojoj sekciji se nalazite i u njemu su Vam uvek dostupne dodatne opcije Inbox, Profil i Odjava.</p>
+          <p>3. Pregled računa pruža Vam brz uvid u raspoloživo stanje. Izgled ovog dela stranice možete
+          prilagoditi Vašim potrebama jednostavnim odabiromjedne od opcija koje su ponuđene u
+          <strong>gornjem desnom</strong> uglu.</p>
+          <p>4. Pregled poslednjih transakcija po računu prikazuje Vam poslednjih 5 transakcija po odabranom
+          računu. Račun možete promeniti klikom na ikonicu koja Vam prikazije listu svih računa.</p>
+          <p>5. Obaveštenja Vam prikaziju personalizovane ponude (prilagođene svakom pojedinačnom
+          korisniku). Klikom na <strong>Saznaj više</strong> u mogućnosti ste da dobijete detaljnije informacije o
+          ponuđenom proizvodu ili usluzi. Ukoliko je u okviru ponude dostupan formular, u mogućnosti ste
+          da direktno aplicirate za ponuđeni proizvod/uslugu. Obaveštenja ostaju aktivna do trenutka isteka
+          aktuelne ponude. Obaveštenje će do isteka biti dostupno i u okviru opcije Lično, u podmeniju Obaveštenja.</p>
+          <p>6. Brzo plaćanje je sekcija u kojoj se nalaze Vaši primaoci plaćanja i pruža Vam mogućnost da
+          plaćanje izvršit brzo, odmah sa početne strane.</p>
+          <p>7. Kalkulator i kursna lista za menjačnicu omogućava Vam da proverite kurs i kalkulaciju za menjačku transakciju uradite lako i brzo</p>
+          <p>8. Poruke su smanjeni prikaz prikaz Prijemnog sandučeta i omogućavaju Vam pristup slanju i pregledu poruka.</p>
+          <h3>Meni aplikacije E-banka</h3>
+          <p>1. Meni: Početna
+              menija pristupate željenoj usluzi. Sa desne strane imate opciju za prikazivanje/sakrivanje.
+              Početna stranicaje mesto na kome su objedinjene najčešće aktivnosti. Ona se prikazuje čim se ulogujte
+              u aplikaciju aako se nalazite u nekom drugom delu aplikacije na nju se možete vratiti klikom na opciju
+              Početna u Meniju.
+            </p>
+            <p>2. Meni: Računi
+                Kada izaberete opciju Računi imate mogućnost da pregledate stanje, transakcije i detalje svojih računa. Prikazuju se svi računi za koje ste se opredelili prilikom podnošenja Zahteva za korišćenje elektronskog bankarstva ili naknadnom prijavom u nekoj od <u>filijala banke</u>.
+                Lista transakcija po računu.
+                Kod računa sa više različitih valuta, udelu Računi biće navedeno stanje po valutama.
+                Dugme Detalji otvara prozor sa detaljima računa.
+                Računi su sortirani u padajućem nizu sa prikazanim informacijama o raspoloživom <u>stanju</u>, <u>valuti</u>, a izborom određenog računa iz ovog niza automatski će se promeniti odnosno sinhronizovati podaci.
+            </p>
+            <p>3. Meni: Primaoci plaćanja
+                Opcija Primaoci plaćanja pružaju Vam mogućnost samostalnog kreiranja naloga u samoj aplikaciji.
+                Klikom na ikonicu u gornjem desnom uglu prikazuju se polja koja je potrebno popuniti kako biste nakon pozivanja naloga iz liste dobili popunjena polja. Nakon pozivanja naloga iz liste, potvrdu izvršenjaradite uz pomoć sms koda/jednokratne lozinke/mobilnog potpisa za verifikaciju naloga. Svakom
+                primaocu možete dodeliti naziv koji želite (polje Moje ime primaoca), a jednim klikom na željenog
+                primaoca uplatnica će biti <u>automatski</u> popunjena podacima koje ste definisali za primaoca plaćanja.
+                Ostaje samo da popunite iznos i kliknete na Plaćanje (Napomena: na samom plaćanju se neće prikazati podatak koji ste uneli za Moje ime primaoca već Naziv primaoca).
+                Lista snimljenih primalaca plaćanja dopunjena je predefinisanim primaocima plaćanja (koje ste
+                dostavili filijali i time ih unapred definisali), kako bi potpuna lista bila vidljiva i dostupna na jednom mestu
+                u cilju što komfornijeg plaćanja.
+                Kada plaćate predefinisane naloge, prilikom plaćanja ne zahteva se dodatna potvrdu. Odabirom željenog predefinisanog naloga, uplatnica će automatski biti popunjena i spremna za plaćanje.
+            </p>
+            <p>4. Meni: Moje finansije
+                Opcija Moje finansije pruža Vam mogućnost organizovanja finansija. Svoje prihode i rashode možete
+                podeliti u željene kategorije i da samim tim dobijete jasnu sliku svojih dosadašnjih finansijskih tokova i
+                promena a što je još bitnije - mogućnost da bolje planirate buduće.
+                U podmeniju Kategorije možete izabrati račun/kreitnu karticu čiji promet želite da pregledate i koristiti
+                filtere kako biste odabrali željeni period i vrstu transakcija koje želita da posmatrate (uplate ili isplate).
+                U prometu možete podeliti određenu transakciju uz pomoć opcije Podeli i dodeliti posebnu potkategoriju.
+            </p>
+        </li>
+      </ul>
+      <mat-spinner *ngIf = "isLoading"></mat-spinner>
+    </mat-card-content>
+  </mat-card>
