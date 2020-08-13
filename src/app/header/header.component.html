@@ -53,7 +53,7 @@
             <mat-menu #appMenu="matMenu">
                 <button mat-menu-item *ngIf="userIsAuthenticated">Settings</button>
                 <button mat-menu-item routerLink="/help" *ngIf="userIsAuthenticated">Help</button>
-                <a class="maroon" mat-menu-item href="http://localhost:3000/repository/documents/terms-and-conditions-template.pdf">Terms of use</a>
+                <a style="color:rgba(0,0,0,.87);" mat-menu-item href="http://localhost:3000/repository/documents/terms-and-conditions-template.pdf">Terms of use</a>
                 <button mat-menu-item [matMenuTriggerFor]="corpDocs" routerLink="/help">Corporate documents</button>
                 <button mat-menu-item routerLink="/help">Suppliers</button>
                 <button mat-menu-item routerLink="/help">Disclaimer</button>
@@ -67,7 +67,7 @@
                 <button mat-menu-item>Miscellaneous</button>
             </mat-menu>
 
-            <mat-menu #finReps="matMenu">
+            <mat-menu #finReps="matMenu" xPosition="before">
                 <button mat-menu-item>Annual</button>
                 <button mat-menu-item>Semi-annual</button>
                 <button mat-menu-item>Quarterly</button>
