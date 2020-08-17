@@ -207,17 +207,9 @@ tr.transaction-element-row:not(.transaction-expanded-row):active {
     height: 41px;
 }
 
-.no-transactions {
-    width: 225px;
-    margin: 0px 0px 9px 0px;
-    top: 27px;
-    left: 135px;
-    position: relative;
-    overflow-y: hidden;
-}
-
 .no-transactions-message {
     text-align: center;
+    margin-top: 7rem;
 }
 
 .currency {

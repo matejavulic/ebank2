@@ -6,13 +6,13 @@ import {
     HttpResponse,
     HttpErrorResponse
    } from '@angular/common/http';
-   import { MatDialog } from '@angular/material';
-   import { ErrorComponent } from './app/error-dialog/error-dialog.component';
-   import { Observable, throwError } from 'rxjs';
-   import { retry, catchError } from 'rxjs/operators';
-   import { Injectable } from '@angular/core';
-   
-   @Injectable()
+import { MatDialog } from '@angular/material';
+import { ErrorComponent } from './app/error-dialog/error-dialog.component';
+import { Observable, throwError } from 'rxjs';
+import { retry, catchError } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+
+@Injectable()
    export class ErrorInterceptor implements HttpInterceptor {
     constructor(private dialog: MatDialog) {}
      intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -29,8 +29,8 @@ import {
               errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
             }
             //window.alert(errorMessage);
-            this.dialog.open(ErrorComponent, {data: {message: errorMessage}});
-            return throwError(errorMessage);
+           this.dialog.open(ErrorComponent, {data: {message: errorMessage}});
+           return throwError(errorMessage);
           })
         )
     }

@@ -3,7 +3,7 @@
  * Author:E-bank IT team
  * Author email: @ebanka-it.com
  * Date: Fri Aug 23 2019
- * Description: 
+ * Description:
  * Service which gets related user data (to be shown on dashboard page)
  * from server, formats it (date function) and emits it has done fetching
  * via dashStatus listener observable
@@ -27,10 +27,10 @@ export class DashService {
     */
     getUserData(userId: string) {
         const userData = {
-            name: "",
-            surname: "",
+            name: '',
+            surname: '',
             clientNumber: 0,
-            branch: "",
+            branch: '',
             balance: 0,
             transactions: [],
             limitMonthly: 0,
@@ -62,7 +62,7 @@ export class DashService {
     }
 
     getUserDataListener() {
-        return this.dashStatusListener.asObservable(); 
+        return this.dashStatusListener.asObservable();
     }
 
     /*
@@ -88,7 +88,7 @@ export class DashService {
         if (month < 10) {
             monthStr = '0' + month;
         }
-        return (dayStr + "-" + monthStr + "-" + partialYearStr)
+        return (dayStr + '-' + monthStr + '-' + partialYearStr)
     }
 
 }

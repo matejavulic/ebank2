@@ -3,7 +3,7 @@
  * Author:E-bank IT team
  * Author email: @ebanka-it.com
  * Date: Thu Aug 22 2019
- * Description: 
+ * Description:
  * Authentication service. Handles login, token storing
  * and user logout.
  *
@@ -22,12 +22,12 @@ export class AuthService {
   private tokenTimer: any; // variable of TimeOut timer
   private userId: string;
   private authStatusListener = new Subject<boolean>(); // user authentication status listener
-  private authErr = ""; // error to be displayed on front-end
+  private authErr = ''; // error to be displayed on front-end
 
   constructor(private http: HttpClient, private router: Router) { }
 
   /*
-  * Method which returns user's token. 
+  * Method which returns user's token.
   * used in posts.service.ts
   * */
   getToken() {
@@ -42,9 +42,9 @@ export class AuthService {
   }
 
   getAuthStatusListener() {
-    return this.authStatusListener.asObservable(); 
+    return this.authStatusListener.asObservable();
   }
-  
+
   getError() {
     return this.authErr;
   }
@@ -62,13 +62,13 @@ export class AuthService {
     const authData: AuthData = { email: email, password: password };
     this.http.post<{ token: string, expiresIn: number, userId: string }>('http://localhost:3000/api/user/login', authData)
       .subscribe(response => {
-        const token = response.token; 
+        const token = response.token;
         this.token = token;
-        if (token) { 
+        if (token) {
           const expiresInDuration = response.expiresIn;
           this.setAuthTimer(expiresInDuration);
-          this.userId = response.userId; 
-          this.isAuthenticated = true; 
+          this.userId = response.userId;
+          this.isAuthenticated = true;
           this.authStatusListener.next(true);
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
@@ -80,19 +80,19 @@ export class AuthService {
 
   /**
    * Method which tries to authenticate user
-   * if there is an unexpired token in the local storage 
+   * if there is an unexpired token in the local storage
    * */
   autoAuthUser() {
-    const authInformation = this.getAuthData(); 
+    const authInformation = this.getAuthData();
     if (!authInformation) {
       return;
     }
     const now = new Date();
     const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
-    if (expiresIn > 0) { 
-      this.token = authInformation.token; 
-      this.userId = authInformation.creator; 
-      this.isAuthenticated = true; 
+    if (expiresIn > 0) {
+      this.token = authInformation.token;
+      this.userId = authInformation.creator;
+      this.isAuthenticated = true;
       this.setAuthTimer(expiresIn / 1000); //ms
       this.authStatusListener.next(true);
     }
@@ -105,21 +105,21 @@ export class AuthService {
    * and clears timeout timer
    */
   logout() {
-    this.token = null; 
+    this.token = null;
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
     clearTimeout(this.tokenTimer);
     if (!this.token && !this.isAuthenticated) {
-      this.clearAuthData(); 
-      this.router.navigate(['/login']); 
+      this.clearAuthData();
+      this.router.navigate(['/login']);
     }
   }
-  
+
   /**
    * Timer function to call logout method after 1h expires
    */
   private setAuthTimer(duration: number) {
-    this.tokenTimer = setTimeout(() => { 
+    this.tokenTimer = setTimeout(() => {
       this.logout();
     }, duration * 1000);
   }
@@ -128,9 +128,9 @@ export class AuthService {
    * Private method used to store token in browsers local stroge.
    */
   private saveAuthData(token: string, expirationDate: Date) {
-    localStorage.setItem('token', token); 
-    localStorage.setItem('expiration', expirationDate.toISOString()); 
-    localStorage.setItem('creator', this.userId); 
+    localStorage.setItem('token', token);
+    localStorage.setItem('expiration', expirationDate.toISOString());
+    localStorage.setItem('creator', this.userId);
   }
   /**
    * Method to clear local storage.
@@ -147,15 +147,15 @@ export class AuthService {
    * bankAccountID from browser local storage.
    * */
   getAuthData() {
-    const token = localStorage.getItem('token'); 
-    const expirationDate = localStorage.getItem('expiration'); 
+    const token = localStorage.getItem('token');
+    const expirationDate = localStorage.getItem('expiration');
     const creator = localStorage.getItem('creator');
     if (!token && !expirationDate && !creator) {
       return;
     }
     return {
       token: token,
-      expirationDate: new Date(expirationDate), 
+      expirationDate: new Date(expirationDate),
       creator: creator
     }
   }

@@ -33,17 +33,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
  // Here, we will store retrieved user data form server
   user = {
-    name: "",
-    surname: "",
+    name: '',
+    surname: '',
     clientNumber: 0,
-    branch: "",
+    branch: '',
     balance: 0,
     transactions: {trans: [] },
     limitMonthly: 0,
     usedLimit: 0
   };
 
-  //transactions table variables
+  // transactions table variables
   dataSource = [];
   columnsToDisplayEng = ['description', 'amount', 'senderAccountNumber', 'date'];
   expandedElement: LastTransaction | null;
@@ -130,9 +130,9 @@ export interface ExchangeCurr {
 
 //Dummy data, not yet implmented fetching from server
 const ELEMENT_DATA2: ExchangeCurr[] = [
-  {country: 'SAD', currency: 'USD', buying: "105,86", selling:"106,49", average:"106,17"},
-  {country: 'Velika Britanija', currency: 'GBP', buying: "128,65", selling:"129,42", average:"129,21"},
-  {country: 'Švajcarska', currency: 'CHF', buying: "108,03", selling:"108,68", average:"108,32"},
-  {country: 'Australija', currency: 'AUD', buying: "71,81", selling:"72,24", average:"72,02"},
-  {country: 'Japan', currency: 'JPY', buying: "99,52", selling:"100,12", average:"100,02"},
+  {country: 'SAD', currency: 'USD', buying: '105,86', selling:'106,49', average:'106,17'},
+  {country: 'Velika Britanija', currency: 'GBP', buying: '128,65', selling:'129,42', average:'129,21'},
+  {country: 'Švajcarska', currency: 'CHF', buying: '108,03', selling:'108,68', average:'108,32'},
+  {country: 'Australija', currency: 'AUD', buying: '71,81', selling:'72,24', average:'72,02'},
+  {country: 'Japan', currency: 'JPY', buying: '99,52', selling:'100,12', average:'100,02'},
 ];
