@@ -1,2 +1,1 @@
-# ebank2
- 
+# Web app E-Bank repository
