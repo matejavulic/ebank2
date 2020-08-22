@@ -3,7 +3,7 @@
  * Author:E-bank IT team
  * Author email: @ebanka-it.com
  * Date: Fri Aug 23 2019
- * Description: 
+ * Description:
  * Express app. This module can be seen
  * as server application. Server passes
  * front-end request to this app for further
@@ -17,23 +17,23 @@ const path = require("path");
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
+//const mongoose = require("mongoose");
 const postsRoutes = require("./routes/posts");
 const userRoutes = require("./routes/user");
 
-mongoose.connect("mongodb://admin:admin@127.0.0.1:27017/ebank-users?retryWrites=true", { useNewUrlParser: true, useCreateIndex: true }).then(() => {
+/*mongoose.connect('mongodb://admin:admin@127.0.0.1:27017/ebank-users?retryWrites=true', { useNewUrlParser: true, useCreateIndex: true }).then(() => {
     console.log("Connected to MongoDB!");
 }).catch((e) => {
     console.log("Not connected to MongoDB!");
     console.log(e);
-});
+});*/
 
 app.use(bodyParser.json()); // all JSON data process with body-parser
 app.use(bodyParser.urlencoded({ extended: false }));
 
 /**
  * Only if frontend sends request to /images redirect it to
- * back-end folder backend/images 
+ * back-end folder backend/images
  */
 app.use('/images', express.static(path.join('backend/images')));
 app.use('/repository/images', express.static(path.join('backend/repository/images')));
@@ -49,6 +49,6 @@ app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE, OPTIONS");
     next(); // when finished go on (middleware)
 });
-app.use("/api/posts", postsRoutes); // for a given URL call post.js route handler 
-app.use("/api/user", userRoutes); // for a given URL call user.js user handler 
+app.use("/api/posts", postsRoutes); // for a given URL call post.js route handler
+app.use("/api/user", userRoutes); // for a given URL call user.js user handler
 module.exports = app;

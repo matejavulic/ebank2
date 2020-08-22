@@ -22,6 +22,11 @@ button {
     color: #ffffff;
     margin-top: -12px;
     margin-bottom: 5px;
+    width: 100%;
+}
+
+.mat-raised-button.mat-red:hover {
+    background-color: rgb(165, 42, 42);
 }
 
 .button {
@@ -47,9 +52,9 @@ mat-spinner {
 }
 
 mat-card {
-    background-color: #ffffffe6;
-    border-radius: 15px;
-    top: -60px;
+    //background-color: #ffffffe6;
+    background-color: white;
+    top: -30px;
     padding: 18px;
 }
 
@@ -68,6 +73,7 @@ mat-card-title {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    width: 50%;
 }
 
 .logo-name {

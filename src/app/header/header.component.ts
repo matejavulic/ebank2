@@ -26,8 +26,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private authStatusSub: Subscription;
   private userSub: Subscription; // subscriber to cath asynchronous response from dashboard.service.ts
   user = {
-    name: "",
-    surname: "",
+    name: '',
+    surname: '',
   };
 
   /**
@@ -40,14 +40,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isLoading = true;
-    const userId = this.authService.getUserId();
-    this.dashService.getUserData(userId);
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    if (this.userIsAuthenticated) {
+      const userId = this.authService.getUserId();
+      this.dashService.getUserData(userId);
+    }
     this.userSub = this.dashService.getUserDataListener()
       .subscribe((userData: { name: string, surname: string}) => {
         this.isLoading = false;
         this.user = userData;
       });
-    this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
       .getAuthStatusListener()
       .subscribe(isAuthenticated => {

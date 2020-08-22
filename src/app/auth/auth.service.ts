@@ -78,10 +78,10 @@ export class AuthService {
       });
   }
 
-  /**
+  /*
    * Method which tries to authenticate user
    * if there is an unexpired token in the local storage
-   * */
+   */
   autoAuthUser() {
     const authInformation = this.getAuthData();
     if (!authInformation) {
@@ -115,7 +115,7 @@ export class AuthService {
     }
   }
 
-  /**
+  /*
    * Timer function to call logout method after 1h expires
    */
   private setAuthTimer(duration: number) {
@@ -124,7 +124,7 @@ export class AuthService {
     }, duration * 1000);
   }
 
-  /**
+  /*
    * Private method used to store token in browsers local stroge.
    */
   private saveAuthData(token: string, expirationDate: Date) {
@@ -132,7 +132,7 @@ export class AuthService {
     localStorage.setItem('expiration', expirationDate.toISOString());
     localStorage.setItem('creator', this.userId);
   }
-  /**
+  /*
    * Method to clear local storage.
    */
   private clearAuthData() {
@@ -141,11 +141,11 @@ export class AuthService {
     localStorage.removeItem('creator');
   }
 
-  /**
+  /*
    * Method which returns token,
    * token expiration date and users
    * bankAccountID from browser local storage.
-   * */
+   */
   getAuthData() {
     const token = localStorage.getItem('token');
     const expirationDate = localStorage.getItem('expiration');
@@ -157,6 +157,6 @@ export class AuthService {
       token: token,
       expirationDate: new Date(expirationDate),
       creator: creator
-    }
+    };
   }
 }
