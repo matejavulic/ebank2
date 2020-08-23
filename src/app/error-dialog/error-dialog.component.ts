@@ -1,5 +1,5 @@
-import { Component, Inject } from "@angular/core";
-import { MAT_DIALOG_DATA } from "@angular/material";
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   templateUrl: './error-dialog.component.html',
