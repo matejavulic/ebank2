@@ -18,21 +18,25 @@ import { Injectable } from '@angular/core';
      intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
        return next.handle(request)
        .pipe(
-         retry(1),
+         retry(1), // try one more time if an error occured*/
          catchError((error: HttpErrorResponse) => {
-           let errorMessage = '';
+           let errorMessage;
            if (error.error instanceof ErrorEvent) {
              // client-side error
-             errorMessage = `Error: ${error.error.message}`;
+                errorMessage = { message: error.error.message };
+             // errorMessage = `Error: ${error.error.message}`;
+             // console.log( 'Client side error->' , errorMessage)
             } else {
               // server-side error
-              errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+              errorMessage = { errorCode: error.status, message: error.error.message };
+             // errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+             // console.log( 'Server side error->' , error.error.message);
             }
-            //window.alert(errorMessage);
-           this.dialog.open(ErrorComponent, {data: {message: errorMessage}});
+            // window.alert(errorMessage);
+           this.dialog.open(ErrorComponent, {data: errorMessage});
            return throwError(errorMessage);
           })
-        )
+        );
     }
    }
 

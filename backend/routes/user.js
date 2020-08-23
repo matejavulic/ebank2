@@ -47,19 +47,37 @@ router.post("/signup", (req, res, next) => {
                 user.number = userPython.number;
                 user.hnumber = userPython.hnumber;
                 return (user);
+            }).catch(err => {
+                if (err.code == "ECONNREFUSED")
+                    return res.status(503).json({ message: "Service temporarily unavailable!" });
+                else
+                    return res.status(500).json({ message: "Internal server error (Django)!", err: err });
             }).then(user => {
-                transactionCreateUserAccountCard(user).then(res => { // commit transaction to create user, account, card
+                transactionCreateUserAccountCard(user).then(res => {
+                    if (res == "23000_EMAIL") {
+                        let err = new Error("existingEmail");
+                        throw err;
+                    } else if (res.includes("_INTER")) {
+                        let err = new Error("internalDb");
+                        throw err;
+                    }
+                }).then(() => {
+                    return res.status(201).json({ message: "New user successfully created!" })
                 }).catch(err => {
-                    console.log("Error is", err);
-                    if (err == "23000_EMAIL")
-                        res.status(409).json({ message: "Email already taken!" });
-                    else
-                        res.status(500).json({ message: "Unknown error occured!" });
+                    switch (err.message) {
+                        case ("existingEmail"):
+                            {
+                                return res.status(409).json({ message: "Email already exists!" });
+                            }
+                        case ("internalDb"):
+                            {
+                                return res.status(500).json({ message: "Internal error DB!" })
+                            }
+                        default:
+                            return res.status(500).json({ message: "Internal error!" });
+                    }
                 });
-                res.status(201).json({ message: "New user successfully created!" });
             });
-    }).catch(err => {
-        res.status(500).json({ error: err });
     });
 });
 
@@ -67,21 +85,35 @@ router.post("/login", (req, res, next) => {
     let fetchedUser;
     userFindByEmail(req.body.email).then(user => {
             if (user.length == 0) {
-                return res.status(401).json({ message: "User not found!" });
+                let err = new Error("userNotFound");
+                throw err;
             }
             fetchedUser = user[0];
             return bcrypt.compare(req.body.password, user[0].password);
         })
         .then(result => {
             if (!result) {
-                return res.status(401).json({ message: "Incorrect password!" })
+                let err = new Error("incorrectPassword");
+                throw err;
             }
             const token = jwt.sign({ email: fetchedUser.email, userId: fetchedUser.userID },
                 "MK@#E3neUXNyQCB%NwPj$W_Apa=uB^^Ebkh7&vVL4v@a8JR^&?@HqSy?XCkr+XkeD^dxQWXD^$t?MbT5VxTP?uUU@PUhZ+q$MHxJBMdafehExnwgDwDvnnSSRqCPxgG!hcPRkgvj6u?ua$-S*yJM63%r9Gf2q$t-GhtP?QRgUSpdCQ5@*KL?Dzxs7mH&dhs-6_m7KzWk_vg5#8c=DS*=WA#e4&KxFet3v7_*3E@W@3B@59Ts_RwUW^CursCCJY7C9X!kyxGy-LN!T", { expiresIn: '1h' });
             res.status(200).json({ token: token, expiresIn: 3600, userId: fetchedUser.userID });
             userUpdateLoginTime(fetchedUser.userID).then(res => {})
         }).catch(err => {
-            return res.status(401).json({ message: "Login unsuccessful!" });
+            switch (err.message) {
+                case ("userNotFound"):
+                    {
+                        return res.status(401).json({ message: "User not found!" });
+                    }
+                case ("incorrectPassword"):
+                    {
+                        return res.status(401).json({ message: "Incorrect password!" })
+                    }
+                default:
+                    return res.status(401).json({ message: "Login unsuccessful!" });
+            }
+
         });
 });
 
@@ -174,7 +206,7 @@ var transactionCreateUserAccountCard = function(user) {
                 case ("23000_EMAIL"):
                     {
                         console.log("Register new user -> DUPLICATE_EMAIL_ERROR");
-                        reject(responseSQL.sqlState)
+                        resolve(responseSQL.sqlState)
                         break;
                     }
                     /* case (responseSQL.sqlState.("_INTER")):
@@ -186,7 +218,7 @@ var transactionCreateUserAccountCard = function(user) {
                 default:
                     {
                         console.log("Register new user -> UNKNOWN_ERROR");
-                        reject(responseSQL.sqlState);
+                        resolve(responseSQL.sqlState);
                     }
             }
         });
