@@ -40,11 +40,10 @@ mat-spinner {
   display: -ms-flexbox;
   display: flex;
   position: relative;
-  left: 140px;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin: 120px 0px;
+  margin-top: 15rem;
 }
 
 .mat-form-field {
@@ -96,7 +95,5 @@ mat-card-title {
   display: -ms-flexbox;
   display: flex;
   position: relative;
-  top: -76px;
-  border-radius: 14px;
 }
 /*# sourceMappingURL=signup.component.css.map */

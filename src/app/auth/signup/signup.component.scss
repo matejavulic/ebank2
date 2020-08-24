@@ -35,9 +35,8 @@ mat-spinner {
 :host {
     display: flex;
     position: relative;
-    left: 140px;
     justify-content: center;
-    margin: 120px 0px;
+    margin-top: 15rem;
 }
 
 .mat-form-field {
@@ -81,6 +80,4 @@ mat-card-title {
 .signup-box {
     display: flex;
     position: relative;
-    top: -76px;
-    border-radius: 14px;
 }
