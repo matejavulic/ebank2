@@ -23,6 +23,10 @@ button {
     margin-bottom: 5px;
 }
 
+.mat-raised-button.mat-red:hover {
+    background-color: rgb(165, 42, 42);
+}
+
 .button {
     display: flex;
     justify-content: flex-end;
@@ -45,8 +49,7 @@ mat-spinner {
 }
 
 mat-card {
-    background-color: #ffffffe6;
-    top: -60px;
+    bottom: 3.5rem;
 }
 
 mat-card-title,

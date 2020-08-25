@@ -26,3 +26,11 @@
 .mat-tab-nav-bar.mat-primary .mat-ink-bar {
     background-color: #daa520;
 }
+
+::ng-deep .mat-checkbox .mat-checkbox-frame {
+    border-color: brown;
+}
+
+::ng-deep .mat-checkbox-checked .mat-checkbox-background {
+    background-color: brown !important;
+}
