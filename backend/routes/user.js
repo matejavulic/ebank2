@@ -145,6 +145,17 @@ router.get("/verify/:verificationCode", (req, res, next) => { // post?
         }
     })
 });
+router.post("/resend", (req, res, next) => { // post?
+    //We hash password with salt value of 10 (recommended optimal value)
+    try {
+        sendVerifMail(req.body.email, '');
+        return res.status(201).json({ message: "New verification mail successfully sent!" });
+    } catch (error) {
+        return res.status(500).json({ message: "Internal server error - please try later!" });
+    }
+
+});
+
 router.get('/dash/:id', checkAuth, (req, res, next) => {
     userFindById(req.params.id).then(user => {
         if (user) {
@@ -179,14 +190,16 @@ const transporter = nodemailer.createTransport({
 
 const sendVerifMail = function(userEmail, userName) {
     getVerifToken(userEmail).then(userToken => {
-        const baseurl = 'http://localhost:3000/api/user';
-        const repourl = 'http://localhost:3000/repository/images/'
-        const link = `${baseurl}/verify/${userToken[0].verificationCode}`;
-        const mailOptions = {
-            from: '"E-Bank" <test1aplikacija@gmail.com>',
-            to: userEmail,
-            subject: 'E-Bank Account Verification',
-            html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        let token = userToken[0].verificationCode;
+        if (token) {
+            const baseurl = 'http://localhost:3000/api/user';
+            const repourl = 'http://localhost:3000/repository/images/'
+            const link = `${baseurl}/verify/${token}`;
+            const mailOptions = {
+                from: '"E-Bank" <test1aplikacija@gmail.com>',
+                to: 'bblog@gmx.com',
+                subject: 'E-Bank Account Verification',
+                html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
             <html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">
             <head>
@@ -549,15 +562,15 @@ const sendVerifMail = function(userEmail, userName) {
             <!--[if (IE)]></div><![endif]-->
             </body>
             </html>`,
-        };
+            };
 
-        transporter.sendMail(mailOptions, (err) => {
-            if (err) {
-                console.log(err);
-            }
-        }).catch(err => {
-            console.log(err);
-        });
+            transporter.sendMail(mailOptions, (err) => {
+                if (err) {
+                    console.log(err);
+                }
+            });
+        }
+
     });
 };
 

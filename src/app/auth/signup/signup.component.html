@@ -18,7 +18,7 @@
             <div *ngIf="!isLoading">
                 <p>
                     <mat-form-field>
-                        <input matInput ngModel #textInput="ngModel" type="text" name="name" placeholder="Name" required minlength="3">
+                        <input id="name" matInput #name ngModel #textInput="ngModel" type="text" name="name" placeholder="Name" required minlength="3">
                         <mat-error *ngIf="textInput.invalid">Please enter name</mat-error>
                     </mat-form-field>
                 </p>
@@ -41,7 +41,7 @@
                     </mat-form-field>
                 </p>
                 <p style="margin-top: -1rem;margin-bottom: 2rem;">
-                    <mat-checkbox [checked]="true">I agree to the Terms and Conditions</mat-checkbox>
+                    <mat-checkbox [checked]="true" required>I agree to the Terms and Conditions</mat-checkbox>
                 </p>
                 <div style="margin-left: 8rem;">
                     <button mat-raised-button color="red" type="submit" *ngIf="!isLoading">Register</button>
@@ -54,10 +54,12 @@
 </mat-card>
 
 <mat-card style='padding-bottom: 0px;' layout='row' *ngIf="verifyMessage">
-    <mat-card-subtitle>Please sign in to your email address {{verifyEmail}} and click the verification button to finish the registration process.</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="!resendMessage">Please sign in to your email address {{verifyEmail}} and click the verification button to finish the registration process.</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="resendMessage">The new email has been sent to an address {{verifyEmail}}. Click the verification button to finish the registration process.</mat-card-subtitle>
     <mat-card-content>
         <mat-card-actions>
             <button (click)="goToLogin()" mat-raised-button color="red" type="submit">Go to login page</button>
+            <button (click)="onResendVerifMail(verifyEmail)" mat-raised-button color="red" type="submit">Resend verificational email</button>
         </mat-card-actions>
     </mat-card-content>
 </mat-card>

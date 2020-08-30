@@ -9,7 +9,7 @@
  *
  */
 
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ElementRef} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Subscription } from 'rxjs';
@@ -25,9 +25,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   verifyEmail = '';
   private authStatusSub: Subscription;
   private verifStatusSub: Subscription;
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService, private el: ElementRef) {}
 
   ngOnInit() {
+    setTimeout(() => { // this will make the execution after the above boolean has changed
+      this.el.nativeElement.querySelector('#email').focus();
+    }, 0);
     this.authStatusSub = this.authService.getAuthStatusListener().subscribe(
       authStatus => {
         this.isLoading = false;

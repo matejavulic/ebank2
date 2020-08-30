@@ -22,6 +22,7 @@ export class AuthService {
   private userId: string;
   private authStatusListener = new Subject<boolean>(); // user authentication status listener
   private verificationStatusListener = new Subject<boolean>();
+  private resendStatusListener = new Subject<boolean>();
   private authErr = ''; // error to be displayed on front-end
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -49,6 +50,10 @@ export class AuthService {
     return this.verificationStatusListener.asObservable();
   }
 
+  getResendStatusListener() {
+    return this.resendStatusListener.asObservable();
+  }
+
   getError() {
     return this.authErr;
   }
@@ -61,6 +66,16 @@ export class AuthService {
         this.verificationStatusListener.next(false);
       }, error => {
         this.authStatusListener.next(false);
+      });
+  }
+
+  resendVerifMail(email: string) {
+    const resendData = {email: email};
+    this.http.post('http://localhost:3000/api/user/resend', resendData)
+      .subscribe(response => {
+        // this.router.navigate(['/login']);
+        this.resendStatusListener.next(true);
+      }, error => {
       });
   }
 
