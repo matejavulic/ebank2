@@ -3,15 +3,15 @@
 * Author:E-bank IT team
 * Author email: @ebanka-it.com
 * Date: Fri Aug 23 2019
-* Description: 
+* Description:
 * HTML which shows login form.
 *
 */-->
-<mat-card layout='row'>
+<mat-card layout='row' *ngIf="isVerified">
     <img class="logo-login" src="http://localhost:3000/repository/images/logo-login2.png" alt="E-Bank Logo">
     <!--<mat-card-title class="logo-name" >E-bank</mat-card-title>-->
     <p></p>
-    <mat-card-title>Sign In</mat-card-title>
+    <mat-card-title>Log In</mat-card-title>
     <mat-card-content>
         <mat-spinner *ngIf="isLoading"></mat-spinner>
         <form (submit)="onLogin(loginForm)" #loginForm="ngForm" *ngIf="!isLoading">
@@ -32,5 +32,15 @@
                 <mat-spinner *ngIf="isLoading"></mat-spinner>
             </div>
         </form>
+    </mat-card-content>
+</mat-card>
+
+
+<mat-card style='padding-bottom: 0px;' layout='row' *ngIf="!isVerified">
+    <mat-card-subtitle>Please sign in to your email address mmikic@pisma.rs and click the verification button to finish up.</mat-card-subtitle>
+    <mat-card-content>
+        <mat-card-actions>
+            <button (click)="resetIsVerified()" mat-raised-button color="red" type="submit">Go Back</button>
+        </mat-card-actions>
     </mat-card-content>
 </mat-card>

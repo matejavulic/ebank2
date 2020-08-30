@@ -7,7 +7,7 @@
  * Signup form for new user registration.
  *
  */-->
-<mat-card class="signup-box" layout='row'>
+<mat-card class="signup-box" layout='row' *ngIf='!verifyMessage'>
     <img *ngIf="!isLoading" class="logo-signup" src="http://localhost:3000/repository/images/logo-login2.png" alt="">
     <mat-card-title *ngIf="!isLoading" class="logo-name">E-banka</mat-card-title>
     <p></p>
@@ -46,5 +46,14 @@
                 </div>
             </div>
         </form>
+    </mat-card-content>
+</mat-card>
+
+<mat-card style='padding-bottom: 0px;' layout='row' *ngIf="verifyMessage">
+    <mat-card-subtitle>Please sign in to your email address mmikic@pisma.rs and click the verification button to finish up.</mat-card-subtitle>
+    <mat-card-content>
+        <mat-card-actions>
+            <button (click)="goToLogin()" mat-raised-button color="red" type="submit">Go to login page</button>
+        </mat-card-actions>
     </mat-card-content>
 </mat-card>

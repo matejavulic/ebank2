@@ -21,7 +21,9 @@ import { Subscription } from 'rxjs';
 
 export class LoginComponent implements OnInit, OnDestroy {
   isLoading = false;
+  isVerified = true;
   private authStatusSub: Subscription;
+  private verifStatusSub: Subscription;
   constructor(public authService: AuthService) {}
 
   ngOnInit() {
@@ -38,6 +40,20 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
     this.isLoading = true;
     this.authService.login(form.value.email, form.value.password);
+
+    this.verifStatusSub = this.authService.getVerificationStatusListener().subscribe(
+      verifStatus => {
+         this.isVerified = verifStatus;
+         if (verifStatus === false) {
+          this.isLoading = false;
+         }
+         this.verifStatusSub.unsubscribe();
+       }
+     );
+  }
+
+  resetIsVerified() {
+    this.isVerified = true;
   }
   ngOnDestroy() {
     this.authStatusSub.unsubscribe();

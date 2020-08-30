@@ -13,7 +13,6 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { AuthData } from './auth-data.model';
 import { Router } from '@angular/router';
 import { Subject, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -22,6 +21,7 @@ export class AuthService {
   private tokenTimer: any; // variable of TimeOut timer
   private userId: string;
   private authStatusListener = new Subject<boolean>(); // user authentication status listener
+  private verificationStatusListener = new Subject<boolean>();
   private authErr = ''; // error to be displayed on front-end
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -45,6 +45,10 @@ export class AuthService {
     return this.authStatusListener.asObservable();
   }
 
+  getVerificationStatusListener() {
+    return this.verificationStatusListener.asObservable();
+  }
+
   getError() {
     return this.authErr;
   }
@@ -53,7 +57,8 @@ export class AuthService {
     const signupData = { email: email, password: password, name: name, surname: surname };
     this.http.post('http://localhost:3000/api/user/signup', signupData)
       .subscribe(response => {
-        this.router.navigate(['/login']);
+        // this.router.navigate(['/login']);
+        this.verificationStatusListener.next(false);
       }, error => {
         this.authStatusListener.next(false);
       });
@@ -65,7 +70,7 @@ export class AuthService {
       .subscribe(response => {
         const token = response.token;
         this.token = token;
-        if (token) {
+        if (token !== 'User not verified!') {
           const expiresInDuration = response.expiresIn;
           this.setAuthTimer(expiresInDuration);
           this.userId = response.userId;
@@ -76,6 +81,8 @@ export class AuthService {
           this.saveAuthData(token, expirationDate);
           this.router.navigate(['/']);
 
+        } else if (token === 'User not verified!') {
+          this.verificationStatusListener.next(false);
         }
        }, error => {
           this.authStatusListener.next(false);

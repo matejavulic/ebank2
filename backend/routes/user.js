@@ -87,6 +87,9 @@ router.post("/login", (req, res, next) => {
             if (user.length == 0) {
                 let err = new Error("userNotFound");
                 throw err;
+            } else if (user.status == 'notVerified') {
+                let err = new Error("userNotVerified");
+                throw err;
             }
             fetchedUser = user[0];
             return bcrypt.compare(req.body.password, user[0].password);
@@ -110,13 +113,16 @@ router.post("/login", (req, res, next) => {
                     {
                         return res.status(401).json({ message: "Incorrect password!" })
                     }
+                case ("userNotVerified"):
+                    {
+                        return res.status(200).json({ token: "User not verified!" })
+                    }
                 default:
                     return res.status(401).json({ message: "Login unsuccessful!" });
             }
 
         });
 });
-
 router.get('/dash/:id', checkAuth, (req, res, next) => {
     userFindById(req.params.id).then(user => {
         if (user) {
@@ -152,8 +158,24 @@ var userUpdateLoginTime = function(userID) {
     });
 }
 
+var userCheckVerification = function(userEmail) {
+    return new Promise(function(resolve, reject) {
+        let queryNode = `CALL check_user_verification('${userEmail}')`
+        Mysqldb.query(queryNode, [userEmail], (err, results, fields) => {
+            if (err) {
+                reject(console.log(err.message));
+            }
+            resolve(results[0]);
+        });
+    });
+}
 var userFindByEmail = function(userEmail) {
     return new Promise(function(resolve, reject) {
+        userCheckVerification(userEmail).then(result => {
+            if (result[0].isVerified == 0)
+                resolve({ status: "notVerified" });
+        })
+
         let queryNode = `CALL find_user_by_email('${userEmail}')`
         Mysqldb.query(queryNode, [userEmail], (err, results, fields) => {
             if (err) {

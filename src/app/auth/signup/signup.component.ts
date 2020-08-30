@@ -12,6 +12,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './signup.component.html',
@@ -20,8 +21,11 @@ import { Subscription } from 'rxjs';
 
 export class SignupComponent implements OnInit, OnDestroy {
   isLoading = false;
+  verifyMessage = false;
   private authStatusSub: Subscription;
-  constructor(public authService: AuthService) {}
+  private verifStatusSub: Subscription;
+  constructor(public authService: AuthService, private router: Router) {}
+
 
   ngOnInit() {
     this.authStatusSub = this.authService.getAuthStatusListener().subscribe(
@@ -41,8 +45,17 @@ export class SignupComponent implements OnInit, OnDestroy {
       form.value.password,
       form.value.name,
       form.value.surname);
+    this.verifStatusSub = this.authService.getVerificationStatusListener().subscribe(
+        verifStatus => {
+          this.verifyMessage = true;
+          this.isLoading = false;
+          this.verifStatusSub.unsubscribe();
+        });
   }
 
+  goToLogin(){
+    this.router.navigate(['/login']);
+  }
   ngOnDestroy() {
     this.authStatusSub.unsubscribe();
   }
