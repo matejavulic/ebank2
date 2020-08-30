@@ -37,7 +37,7 @@
 
 
 <mat-card style='padding-bottom: 0px;' layout='row' *ngIf="!isVerified">
-    <mat-card-subtitle>Please sign in to your email address mmikic@pisma.rs and click the verification button to finish up.</mat-card-subtitle>
+    <mat-card-subtitle>Please sign in to your email address {{verifyEmail}} and click the verification button to finish the registration process.</mat-card-subtitle>
     <mat-card-content>
         <mat-card-actions>
             <button (click)="resetIsVerified()" mat-raised-button color="red" type="submit">Go Back</button>

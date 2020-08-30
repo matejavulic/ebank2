@@ -22,6 +22,7 @@ import { Router } from '@angular/router';
 export class SignupComponent implements OnInit, OnDestroy {
   isLoading = false;
   verifyMessage = false;
+  verifyEmail = '';
   private authStatusSub: Subscription;
   private verifStatusSub: Subscription;
   constructor(public authService: AuthService, private router: Router) {}
@@ -40,6 +41,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       return;
     }
     this.isLoading = true;
+    this.verifyEmail = form.value.email;
     this.authService.createUser(// saljemo zahtev za slanje pod. za novog korisnika
       form.value.email,
       form.value.password,
@@ -53,9 +55,14 @@ export class SignupComponent implements OnInit, OnDestroy {
         });
   }
 
-  goToLogin(){
+  goToLogin() {
     this.router.navigate(['/login']);
   }
+
+  resetForm(form: NgForm) {
+    form.reset();
+  }
+
   ngOnDestroy() {
     this.authStatusSub.unsubscribe();
   }
