@@ -8,7 +8,7 @@
  * of signup form.
  *
  */
-import {Component, OnDestroy, OnInit, ViewChild, ElementRef} from '@angular/core';
+import {Component, OnDestroy, OnInit, ElementRef} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Subscription } from 'rxjs';
