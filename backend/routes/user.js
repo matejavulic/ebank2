@@ -18,68 +18,85 @@
 const express = require("express");
 const Mysqldb = require("../models/mysqldb");
 const bcrypt = require("bcrypt");
+const crypto = require("crypto")
 const jwt = require("jsonwebtoken");
 const router = express.Router();
 const checkAuth = require('../middleware/check-auth');
 const fetch = require("node-fetch");
 const nodemailer = require('nodemailer');
 
+
 router.post("/signup", (req, res, next) => {
+    generateVerificationToken().then(verifToken => {
+        bcrypt.hash(verifToken, 10).then(hashedToken => {
+            let tokens = { 'hash': hashedToken, 'raw': verifToken };
+            return tokens;
+        }).then((tokens) => {
+            //We hash password with salt value of 10 (recommended optimal value)
+            bcrypt.hash(req.body.password, 10).then(hash => {
+                let user = {
+                    //supplier: front-end
+                    email: req.body.email,
+                    password: hash,
+                    name: req.body.name,
+                    surname: req.body.surname,
 
-    //We hash password with salt value of 10 (recommended optimal value)
-    bcrypt.hash(req.body.password, 10).then(hash => {
-        let user = {
-            //supplier: front-end
-            email: req.body.email,
-            password: hash,
-            name: req.body.name,
-            surname: req.body.surname,
+                    //supplier: Django API
+                    address: '',
+                    number: '',
+                    hnumber: '',
 
-            //supplier: Django API
-            address: '',
-            number: '',
-            hnumber: ''
-        }
-        fetch('http://127.0.0.1:3002/randomUserData/random/').then(function(res) { // fetch random data from Django API
-                return res.json();
-            })
-            .then(userPython => {
-                user.address = userPython.address;
-                user.number = userPython.number;
-                user.hnumber = userPython.hnumber;
-                return (user);
-            }).catch(err => {
-                if (err.code == "ECONNREFUSED")
-                    return res.status(503).json({ message: "Service temporarily unavailable!" });
-                else
-                    return res.status(500).json({ message: "Internal server error (Django)!", err: err });
+                    //supplier Node
+                    token: tokens.hash,
+                    rawToken: tokens.raw
+                }
+                return user;
             }).then(user => {
-                transactionCreateUserAccountCard(user).then(res => {
-                    if (res == "23000_EMAIL") {
-                        let err = new Error("existingEmail");
-                        throw err;
-                    } else if (res.includes("_INTER")) {
-                        let err = new Error("internalDb");
-                        throw err;
-                    }
-                }).then(() => {
-                    sendVerifMail(user.email, user.name);
-                    return res.status(201).json({ message: "New user successfully created!" });
-                }).catch(err => {
-                    switch (err.message) {
-                        case ("existingEmail"):
-                            {
-                                return res.status(409).json({ message: "Email already exists!" });
+                fetch('http://127.0.0.1:3002/randomUserData/random/').then(function(res) { // fetch random data from Django API
+                        return res.json();
+                    }).catch(err => {
+                        if (err.code == "ECONNREFUSED")
+                            return res.status(503).json({ message: "Service temporarily unavailable!" });
+                        else
+                            return res.status(500).json({ message: "Internal server error (Django)!", err: err })
+                    })
+                    .then(userPython => {
+                        user.address = userPython.address;
+                        user.number = userPython.number;
+                        user.hnumber = userPython.hnumber;
+                        return user;
+                    }).then(user => {
+                        return user
+                    }).then(user => {
+                        transactionCreateUserAccountCard(user).then(res => {
+                            if (res == "23000_EMAIL") {
+                                let err = new Error("existingEmail");
+                                throw err;
+                            } else if (res.includes("_INTER")) {
+                                let err = new Error("internalDb");
+                                throw err;
                             }
-                        case ("internalDb"):
-                            {
-                                return res.status(500).json({ message: "Internal error DB!" })
+                        }).then(() => {
+                            sendVerifMail(user.email, user.name, user.rawToken);
+                            user.rawToken = "";
+                            return res.status(201).json({ message: "New user successfully created!" });
+                        }).catch(err => {
+                            switch (err.message) {
+                                case ("existingEmail"):
+                                    {
+                                        return res.status(409).json({ message: "Email already exists!" });
+                                    }
+                                case ("internalDb"):
+                                    {
+                                        return res.status(500).json({ message: "Internal error DB!" })
+                                    }
+                                default:
+                                    return res.status(500).json(err.message);
                             }
-                        default:
-                            return res.status(500).json({ message: "Internal error!" });
-                    }
-                });
+                        });
+                    });
             });
+        });
     });
 });
 router.post("/login", (req, res, next) => {
@@ -124,12 +141,15 @@ router.post("/login", (req, res, next) => {
 
         });
 });
-router.get("/verify/:verificationCode", (req, res, next) => { // post?
-    verifyUser(req.params.verificationCode).then(res => {
-        if (res == 1) {
+router.get("/verify", (req, res, next) => { // post?
+    verifyUser(req.query.code, req.query.id).then(resp => {
+        if (resp == 1) {
             res.redirect('http://localhost:4200/');
-        } else if (res == 0) {
+        } else if (resp == 0) {
             let err = new Error("User not found");
+            throw err;
+        } else if (resp == 2) {
+            let err = new Error("User already verified");
             throw err;
         } else {
             let err = new Error();
@@ -139,23 +159,48 @@ router.get("/verify/:verificationCode", (req, res, next) => { // post?
         if (err == "User not found") {
             console.log(err);
             res.redirect('http://localhost:4200/login');
+        } else if (err == "User already verified") {
+            console.log(err);
+            res.redirect('http://localhost:4200/login');
         } else {
             console.log(err);
             res.redirect('http://localhost:4200/login');
         }
     })
 });
+
 router.post("/resend", (req, res, next) => { // post?
-    //We hash password with salt value of 10 (recommended optimal value)
-    try {
-        sendVerifMail(req.body.email, '');
-        return res.status(201).json({ message: "New verification mail successfully sent!" });
-    } catch (error) {
-        return res.status(500).json({ message: "Internal server error - please try later!" });
-    }
-
+    generateVerificationToken().then(verifToken => {
+        bcrypt.hash(verifToken, 10).then(hashedToken => {
+            return new Promise(function(resolve, reject) {
+                let queryNode = `CALL find_user_by_email('${req.body.email}')`;
+                Mysqldb.query(queryNode, [req.body.email], (err, results, fields) => {
+                    let res = results;
+                    if (err) {
+                        let err = new Error();
+                        throw err;
+                    }
+                    resolve(res[0][0].userID);
+                });
+            }).then(userID => {
+                let queryNode = `CALL set_new_verification_token('${userID}','${hashedToken}')`;
+                Mysqldb.query(queryNode, [req.body.email], (err, results, fields) => {
+                    let res = results;
+                    if (err) {
+                        let err = new Error();
+                        throw err;
+                    }
+                });
+                try {
+                    sendVerifMail(req.body.email, req.body.userName, verifToken);
+                    return res.status(201).json({ message: "New verification email successfully sent!" });
+                } catch (error) {
+                    return res.status(500).json({ message: "Internal server error - please try later!" });
+                }
+            });
+        });
+    });
 });
-
 router.get('/dash/:id', checkAuth, (req, res, next) => {
     userFindById(req.params.id).then(user => {
         if (user) {
@@ -188,13 +233,15 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-const sendVerifMail = function(userEmail, userName) {
-    getVerifToken(userEmail).then(userToken => {
-        let token = userToken[0].verificationCode;
-        if (token) {
+const sendVerifMail = function(userEmail, userName, userRawToken) {
+    getVerifToken(userEmail).then(result => {
+        let token = userRawToken;
+        let currentVerifCode = result[0].verificationCode;
+        let userID = result[0].userID;
+        if (currentVerifCode != null) {
             const baseurl = 'http://localhost:3000/api/user';
             const repourl = 'http://localhost:3000/repository/images/'
-            const link = `${baseurl}/verify/${token}`;
+            const link = `${baseurl}/verify/?code=${token}&id=${userID}`;
             const mailOptions = {
                 from: '"E-Bank" <test1aplikacija@gmail.com>',
                 to: 'bblog@gmx.com',
@@ -449,6 +496,7 @@ const sendVerifMail = function(userEmail, userName) {
             <table align="center" border="0" cellpadding="0" cellspacing="0" class="divider_content" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 0px solid #BBBBBB; width: 100%;" valign="top" width="100%">
             <tbody>
             <tr style="vertical-align: top;" valign="top">
+            <span style="color: #95979c; font-size: 12px; font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; margin-left: 3rem;"> If you're having problems activating verification code, click <a href='${link}'>here.</span>
             <td style="word-break: break-word; vertical-align: top; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top"><span></span></td>
             </tr>
             </tbody>
@@ -574,29 +622,61 @@ const sendVerifMail = function(userEmail, userName) {
     });
 };
 
+var generateVerificationToken = function() {
+    return new Promise(function(resolve, reject) {
+        crypto.randomBytes(16, (err, buf) => {
+            const token = buf.toString('hex');
+            if (err) {
+                reject(err);
+            } else
+                resolve(token);
+        });
+    });
+}
+
 var getVerifToken = function(userEmail) {
     return new Promise(function(resolve, reject) {
         let queryNode = `CALL get_user_verification_code('${userEmail}')`;
         Mysqldb.query(queryNode, [userEmail], (err, results, fields) => {
             let res = results;
             if (err) {
-                console.log("jel ovde?")
                 reject(err.message);
             }
+            //console.log(res[0]);
             resolve(res[0]);
         });
     });
 }
 
-var verifyUser = function(verifToken) {
+var verifyUser = function(rawToken, userID) {
     return new Promise(function(resolve, reject) {
-        let queryNode = `SELECT set_verify_user('${verifToken}') AS verified`;
-        Mysqldb.query(queryNode, [verifToken], (err, results, fields) => {
+        // copmpute candidate hash from email
+        let queryNode = `CALL get_user_verification_code_id('${userID}')`;
+        Mysqldb.query(queryNode, [userID], (err, results, fields) => {
             let res = results;
             if (err) {
                 reject(console.log(err.message));
             }
-            resolve(res[0].verified);
+            bcrypt.compare(rawToken, res[0][0].verificationCode).catch(err => {
+                resolve(2);
+            }).then(isSame => {
+                if (!isSame) {
+                    resolve(0);
+                } else {
+                    let queryNode = `SELECT set_verify_user('${userID}') AS res`;
+                    Mysqldb.query(queryNode, [userID], (err, results, fields) => {
+                        let res = results;
+                        if (err) {
+                            reject(console.log(err.message));
+                        }
+                        if (res[0].res == 1) {
+                            resolve(1);
+                        } else if (res[0].res == 0) {
+                            resolve(2);
+                        }
+                    });
+                }
+            });
         });
     });
 }
@@ -669,7 +749,8 @@ var transactionCreateUserAccountCard = function(user) {
           '${user.surname}',
           '${user.number}',
           '${user.address}',
-          '${user.hnumber}'
+          '${user.hnumber}',
+          '${user.token}'
         )`;
         Mysqldb.query(queryNode, (err, results, fields) => {
             if (err) {

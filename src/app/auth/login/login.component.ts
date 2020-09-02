@@ -22,9 +22,12 @@ import { Subscription } from 'rxjs';
 export class LoginComponent implements OnInit, OnDestroy {
   isLoading = false;
   isVerified = true;
+  resendMessage = false;
   verifyEmail = '';
+  userName = '';
   private authStatusSub: Subscription;
   private verifStatusSub: Subscription;
+  private resendStatusSub: Subscription;
   constructor(public authService: AuthService, private el: ElementRef) {}
 
   ngOnInit() {
@@ -55,7 +58,15 @@ export class LoginComponent implements OnInit, OnDestroy {
        }
      );
   }
-
+  onResendVerifMail(email: string, userName: string) {
+    this.authService.resendVerifMail(email, userName);
+    this.resendStatusSub = this.authService.getResendStatusListener().subscribe(
+          resendStatus => {
+            this.resendMessage = true;
+            this.isLoading = false;
+            this.resendStatusSub.unsubscribe();
+          });
+  }
   resetIsVerified() {
     this.isVerified = true;
   }

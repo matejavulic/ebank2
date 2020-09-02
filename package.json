@@ -25,6 +25,7 @@
     "bcrypt": "^3.0.6",
     "body-parser": "^1.18.3",
     "core-js": "^2.5.4",
+    "crypto": "^1.0.1",
     "express": "^4.16.4",
     "hammerjs": "^2.0.8",
     "jsonwebtoken": "^8.5.1",

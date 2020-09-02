@@ -24,6 +24,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   verifyMessage = false;
   resendMessage = false;
   verifyEmail = '';
+  userName = '';
   private authStatusSub: Subscription;
   private verifStatusSub: Subscription;
   private resendStatusSub: Subscription;
@@ -47,6 +48,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     }
     this.isLoading = true;
     this.verifyEmail = form.value.email;
+    this.userName = form.value.name;
     this.authService.createUser(// saljemo zahtev za slanje pod. za novog korisnika
       form.value.email,
       form.value.password,
@@ -59,8 +61,8 @@ export class SignupComponent implements OnInit, OnDestroy {
           this.verifStatusSub.unsubscribe();
         });
   }
-onResendVerifMail(email: string) {
-  this.authService.resendVerifMail(email);
+onResendVerifMail(email: string, userName: string) {
+  this.authService.resendVerifMail(email, userName);
   this.resendStatusSub = this.authService.getResendStatusListener().subscribe(
         resendStatus => {
           this.resendMessage = true;

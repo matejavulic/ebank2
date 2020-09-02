@@ -69,8 +69,8 @@ export class AuthService {
       });
   }
 
-  resendVerifMail(email: string) {
-    const resendData = {email: email};
+  resendVerifMail(email: string, userName: string) {
+    const resendData = {email: email, userName: userName};
     this.http.post('http://localhost:3000/api/user/resend', resendData)
       .subscribe(response => {
         // this.router.navigate(['/login']);
