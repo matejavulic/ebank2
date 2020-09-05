@@ -40,13 +40,12 @@
                         <mat-error *ngIf="passwordInput.invalid">Please enter password</mat-error>
                     </mat-form-field>
                 </p>
-                <p style="margin-top: -1rem;margin-bottom: 2rem;">
+                <p style="margin-top: -1rem; margin-bottom: 2rem;">
                     <mat-checkbox [checked]="true" required>I agree to the Terms and Conditions</mat-checkbox>
                 </p>
                 <div style="margin-left: 8rem;">
-                    <button mat-raised-button color="red" type="submit" *ngIf="!isLoading">Register</button>
-                    <button mat-raised-button color="red" (click)="resetForm(signupForm)" *ngIf="!isLoading">Reset</button>
-
+                    <button mat-raised-button type="submit" *ngIf="!isLoading">Register</button>
+                    <button mat-raised-button (click)="resetForm(signupForm)" *ngIf="!isLoading">Reset</button>
                 </div>
             </div>
         </form>
@@ -58,8 +57,8 @@
     <mat-card-subtitle *ngIf="resendMessage">The new verification email has been sent to an address {{verifyEmail}}.</mat-card-subtitle>
     <mat-card-content>
         <mat-card-actions>
-            <button (click)="goToLogin()" mat-raised-button color="red" type="submit">Go to login page</button>
-            <button (click)="onResendVerifMail(verifyEmail, userName)" mat-raised-button color="red" type="submit">Resend verificational email</button>
+            <button (click)="goToLogin()" mat-raised-button color="green" type="submit">Go to login page</button>
+            <button (click)="onResendVerifMail(verifyEmail, userName)" mat-raised-button color="green" type="submit">Resend verificational email</button>
         </mat-card-actions>
     </mat-card-content>
 </mat-card>

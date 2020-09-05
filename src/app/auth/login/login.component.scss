@@ -29,6 +29,18 @@ button {
     background-color: rgb(165, 42, 42);
 }
 
+div {
+    .mat-raised-button.mat-green {
+        background-color: rgba(47, 79, 79, 0.85);
+        color: #ffffff;
+        margin-bottom: 5px;
+        width: 100%;
+    }
+    .mat-raised-button.mat-green:hover {
+        background-color: darkslategray;
+    }
+}
+
 .button {
     display: flex;
     justify-content: flex-end;
@@ -78,4 +90,9 @@ mat-card-title {
 
 .logo-name {
     color: rgba(182, 182, 182, 0.925);
+}
+
+mat-hint:hover {
+    color: darkgreen;
+    cursor: pointer;
 }

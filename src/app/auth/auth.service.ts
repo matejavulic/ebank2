@@ -23,6 +23,7 @@ export class AuthService {
   private authStatusListener = new Subject<boolean>(); // user authentication status listener
   private verificationStatusListener = new Subject<boolean>();
   private resendStatusListener = new Subject<boolean>();
+  private resetPasswordStatusListener = new Subject<boolean>();
   private authErr = ''; // error to be displayed on front-end
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -54,6 +55,10 @@ export class AuthService {
     return this.resendStatusListener.asObservable();
   }
 
+  getResetPasswordListener() {
+    return this.resetPasswordStatusListener.asObservable();
+  }
+
   getError() {
     return this.authErr;
   }
@@ -78,7 +83,14 @@ export class AuthService {
       }, error => {
       });
   }
-
+  resetPassword(email: string) {
+    const resendData = {email: email};
+    this.http.post('http://localhost:3000/api/user/reset', resendData)
+      .subscribe(response => {
+        this.resetPasswordStatusListener.next(true);
+      }, error => {
+      });
+  }
   login(email: string, password: string) {
     const authData: AuthData = { email: email, password: password };
     this.http.post<{ token: string, expiresIn: number, userId: string }>('http://localhost:3000/api/user/login', authData)

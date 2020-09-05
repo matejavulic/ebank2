@@ -22,12 +22,18 @@ import { Subscription } from 'rxjs';
 export class LoginComponent implements OnInit, OnDestroy {
   isLoading = false;
   isVerified = true;
+  isLogin = true;
   resendMessage = false;
+  resendResetMessage = false;
+  resetMessage = false;
+  resetPassword = false;
   verifyEmail = '';
+  passResetEmail = '';
   userName = '';
   private authStatusSub: Subscription;
   private verifStatusSub: Subscription;
   private resendStatusSub: Subscription;
+  private resetPasswordStatusSub: Subscription;
   constructor(public authService: AuthService, private el: ElementRef) {}
 
   ngOnInit() {
@@ -67,8 +73,37 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.resendStatusSub.unsubscribe();
           });
   }
+  onResendPasswordReset(email: string, userName: string) {
+    this.resendResetMessage = true;
+
+  }
+
+  onSendPasswordReset(form: NgForm) {
+    if (form.invalid) {
+      return;
+    }
+    this.authService.resetPassword(form.value.email);
+    this.resetPasswordStatusSub = this.authService.getResetPasswordListener().subscribe(
+        resetStatus => {
+          this.resetMessage = true;
+          this.resetPassword = false;
+          this.isLogin = false;
+          this.resetPasswordStatusSub.unsubscribe();
+        });
+  }
+  onResetPassword(state: boolean) {
+    this.resetPassword = state;
+    setTimeout(() => { // this will make the execution after the above boolean has changed
+      this.el.nativeElement.querySelector('#email').focus();
+    }, 0);
+  }
   resetIsVerified() {
     this.isVerified = true;
+  }
+  resetResendPassMessage() {
+    this.resendResetMessage = false;
+    this.resetMessage = false;
+    this.isLogin = true;
   }
   ngOnDestroy() {
     this.authStatusSub.unsubscribe();
