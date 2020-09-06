@@ -1,8 +1,19 @@
 1. Slanje izmena na git:
-	
-	git commit -m "Komentar" 1. spremi za git.
-	git push origin master 2. pošalji na git.
+	 git commit -m "Komentar" 1. spremi za git.
+	 git push origin master 2. pošalji na git.
 
 2. Uzimanje sa git-a:
-	
-	git pull origin master
+	 git pull origin master
+
+3. Pravljenje nove grane sa prebacivanjem na nju:
+   git checkout -b "nazivGrane"
+
+4. Pregled svih grana sa oznakom trenutne grane:
+   git branch -a
+
+5. Prebacivanje na odredjenu granu:
+   git checkout "nazivGrane"
+
+6. Spajanje izmena sa test grane na master
+    git branch master
+    git merge -no-ff
