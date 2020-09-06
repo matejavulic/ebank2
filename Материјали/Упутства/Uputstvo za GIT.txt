@@ -11,9 +11,16 @@
 4. Pregled svih grana sa oznakom trenutne grane:
    git branch -a
 
-5. Prebacivanje na odredjenu granu:
+5. Prebacivanje na odredjenu granu i njeno pravljenje:
    git checkout "nazivGrane"
 
 6. Spajanje izmena sa test grane na master
     git branch master
-    git merge -no-ff
+    git merge --no-ff
+
+7. Princip vodjenja projekta:
+git checkout ebank_unstable -> predjem na test granu
+git commit -m "Komentar sa testa" -> registrujem izmene na testu
+git push -> gurnem izmene na remote test
+git branch master -> nakon izmena predjem na master
+git merge --no-ff -> spojim master sa test granom
