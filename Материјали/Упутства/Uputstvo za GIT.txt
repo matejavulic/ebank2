@@ -22,5 +22,5 @@
 git checkout ebank_unstable -> predjem na test granu
 git commit -m "Komentar sa testa" -> registrujem izmene na testu
 git push -> gurnem izmene na remote test
-git branch master -> nakon izmena predjem na master
-git merge --no-ff -> spojim master sa test granom
+git checkout master -> nakon izmena predjem na master
+git merge "nazivGraneSaKojeSpajamo" --no-ff -> spojim master sa test granom
