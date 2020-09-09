@@ -20,24 +20,25 @@ import { HelpComponent } from './help/help.component';
 import { AuthGuard } from './auth/auth-guard'; // component to check if user is authenticated before accessing to other assets
 import { DashboardComponent } from './dashboard-component/dashboard.component';
 import { TestComponent } from './test-component/test.component';
-import { HeaderComponent } from './header/header.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
 
 // we define components to be called upon activation of corresponding route
 const routes: Routes = [
 
-  { path: 'list', component: PostListComponent, canActivate: [AuthGuard] },
+  { path: 'list', component: TestComponent, canActivate: [AuthGuard] },
 
   /**
    * Guarded route, before its activation system checks if
    * the user is logged in via authGuard route guard.
    */
-  { path: 'create', component: PostCreateComponent, canActivate: [AuthGuard] },
+  // { path: 'create', component: PostCreateComponent, canActivate: [AuthGuard] },
+  { path: 'create', component: TestComponent, canActivate: [AuthGuard] },
 
   /**
    * Defining path as 'sth/:postId' we are defing dynamic part of URL from which data should be taken
-   *  */
-  { path: 'edit/:postId', component: PostCreateComponent, canActivate: [AuthGuard] },
+   */
+ // { path: 'edit/:postId', component: PostCreateComponent, canActivate: [AuthGuard] },
+ { path: 'edit/:postId', component: TestComponent, canActivate: [AuthGuard] },
 
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },

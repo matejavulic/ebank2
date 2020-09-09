@@ -10,7 +10,7 @@
 mat-card {
   margin: 15px;
   display: inline-block;
-  width: 84%;
+  width: 95%;
   padding: 15px;
 }
 
@@ -20,7 +20,7 @@ mat-card {
 
 .avatar {
   position: relative;
-  right: 896px;
+  right: 64rem;
 }
 
 .avatar-title {
@@ -43,7 +43,7 @@ mat-card {
   display: -webkit-inline-box;
   margin-bottom: 13px;
   position: relative;
-  left: 497px;
+  left: 39.3rem;
   bottom: 70px;
 }
 
@@ -75,7 +75,7 @@ mat-card {
   position: relative !important;
   bottom: 64px;
   left: 17px !important;
-  width: 953px !important;
+  width: 68rem !important;
   margin-bottom: -29px;
   border-top-color: #daa5206e;
 }

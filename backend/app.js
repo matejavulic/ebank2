@@ -37,6 +37,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
  */
 app.use('/images', express.static(path.join('backend/images')));
 app.use('/repository/images', express.static(path.join('backend/repository/images')));
+app.use('/repository/images/flags', express.static(path.join('backend/repository/images/flags')));
 app.use('/repository/videos', express.static(path.join('backend/repository/videos')));
 app.use('/repository/documents', express.static(path.join('backend/repository/documents')));
 
