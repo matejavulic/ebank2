@@ -22,7 +22,7 @@ hide untill all of them are loaded form server-->
     <mat-card-content class="quick-info">You are signed in as: <br> {{user.name}} {{user.surname}}
         <mat-divider class="divider" vertical="true" vertical style="height:60px"></mat-divider>
     </mat-card-content>
-    <mat-card-content class="quick-info">Your client number: <br> 34000000{{user.clientNumber}}
+    <mat-card-content class="quick-info">Your client number: <br> 200-{{user.clientNumber}}
         <mat-divider class="divider" vertical="true" vertical style="height:60px"></mat-divider>
     </mat-card-content>
     <mat-card-content class="quick-info">Your account branch:<br> {{user.branch}}
@@ -51,7 +51,6 @@ hide untill all of them are loaded form server-->
                     <th mat-header-cell class="sticky-header" *matHeaderCellDef> Description </th>
                     <td mat-cell *matCellDef="let element"> <span class="elipsis">{{element.description}}</span> </td>
                 </ng-container>
-
 
                 <ng-container matColumnDef="amount">
                     <th mat-header-cell class="sticky-header" *matHeaderCellDef> Amount </th>
@@ -94,7 +93,7 @@ hide untill all of them are loaded form server-->
         </div>
     </mat-card>
     <mat-card class="current-balance-box">
-        <mat-card-header>
+        <mat-card-header *ngIf="!isLoading">
             <div mat-card-avatar class="grid-card-header-image">
                 <mat-icon class="icon">monetization_on</mat-icon>
             </div>
@@ -104,11 +103,18 @@ hide untill all of them are loaded form server-->
                 <button mat-menu-item>Settings</button>
                 <button mat-menu-item routerLink="/help">Help</button>
             </mat-menu>
-            <button mat-icon-button [matMenuTriggerFor]="appMenu2">
-        <mat-icon class="menu-dots">settings</mat-icon>
+            <button mat-icon-button [matMenuTriggerFor]="appMenu2" style="left:7.5rem">
+        <mat-icon class="menu-dots" >settings</mat-icon>
       </button>
         </mat-card-header>
-        <mat-card-content>
+        <mat-card-content *ngIf=isLoading>
+
+            <div *ngIf="isLoading">
+                <mat-spinner class="spinner" style='left: 10rem; top: 0rem;'></mat-spinner>
+            </div>
+
+        </mat-card-content>
+        <mat-card-content *ngIf=!isLoading>
             <p class="current-balance">
                 {{user.balance}}<span class="currency">,00 RSD</span>
             </p>
@@ -127,7 +133,7 @@ hide untill all of them are loaded form server-->
                 <mat-icon class="icon">euro_symbol</mat-icon>
             </div>
             <mat-card-title>Currency exchange rates</mat-card-title>
-            <mat-card-subtitle>date: dd-mm-yyyy</mat-card-subtitle>
+            <mat-card-subtitle>updated on: {{updated}}</mat-card-subtitle>
             <mat-menu #appMenu3="matMenu">
                 <button mat-menu-item>Settings</button>
                 <button mat-menu-item routerLink="/help">Help</button>
@@ -137,25 +143,34 @@ hide untill all of them are loaded form server-->
       </button>
         </mat-card-header>
         <div class="mat-elevation-z8 list-exchange-calc">
-            <table mat-table [dataSource]="dataSource2" class="mat-elevation-z8">
+            <div *ngIf="isLoading" class="mat-elevation-z8 list">
+                <mat-spinner class="spinner"></mat-spinner>
+            </div>
+            <table *ngIf="!isLoading" mat-table [dataSource]="dataSource2" class="mat-elevation-z8">
 
                 <ng-container matColumnDef="country">
                     <th mat-header-cell *matHeaderCellDef> Country </th>
-                    <td mat-cell *matCellDef="let element"> {{element.country}} </td>
+                    <td mat-cell *matCellDef="let element">
+                        <img src="http://localhost:3000/repository/images/flags/{{element.img}}.png"> {{element.country}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="currency">
+                    <th mat-header-cell *matHeaderCellDef> Currency </th>
+                    <td mat-cell *matCellDef="let element"> {{element.currency}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="selling">
-                    <th mat-header-cell *matHeaderCellDef> Selling price [RSD]</th>
+                    <th mat-header-cell *matHeaderCellDef> Selling price </th>
                     <td mat-cell *matCellDef="let element"> {{element.selling}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="buying">
-                    <th mat-header-cell *matHeaderCellDef> Buying price [RSD] </th>
+                    <th mat-header-cell *matHeaderCellDef> Buying price </th>
                     <td mat-cell *matCellDef="let element"> {{element.buying}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="average">
-                    <th mat-header-cell *matHeaderCellDef> Average price [RSD] </th>
+                    <th mat-header-cell *matHeaderCellDef> Average price </th>
                     <td mat-cell *matCellDef="let element"> {{element.average}} </td>
                 </ng-container>
 
@@ -197,8 +212,8 @@ hide untill all of them are loaded form server-->
 
         </mat-card-content>
         <mat-card-actions class="transfer-buttons">
-            <button mat-button>Commit</button>
-            <button mat-button>Abort</button>
+            <button mat-button>Make transfer</button>
+            <button mat-button>Cancel</button>
         </mat-card-actions>
     </mat-card>
 </mat-card>

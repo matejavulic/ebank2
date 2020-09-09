@@ -17,7 +17,7 @@ import { Subject } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class DashService {
 
-    private dashStatusListener = new Subject<{ name: string, surname: string, clientNumber: number, branch: string }>(); // objekat klase koja odasilje podatke svim zaint. stranama
+    private dashStatusListener = new Subject<{ name: string, surname: string, clientNumber: number, branch: string}>(); // objekat klase koja odasilje podatke svim zaint. stranama
 
     constructor(private http: HttpClient, private router: Router) { }
 
@@ -33,6 +33,7 @@ export class DashService {
             branch: '',
             balance: 0,
             transactions: [],
+            exchangeList: [],
             limitMonthly: 0,
             usedLimit: 0
         };
@@ -44,6 +45,7 @@ export class DashService {
                 branch: string,
                 balance: number,
                 transactions: [],
+                exchangeList: [],
                 limitMonthly: number,
                 usedLimit: number
             }>
@@ -57,6 +59,7 @@ export class DashService {
                 userData.limitMonthly = res.limitMonthly;
                 userData.usedLimit = res.usedLimit;
                 userData.transactions = res.transactions;
+                userData.exchangeList = res.exchangeList;
                 this.dashStatusListener.next(userData);
             });
     }

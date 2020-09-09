@@ -27,7 +27,6 @@ const nodemailer = require('nodemailer');
 /*Temporary! */
 var request = require('request');
 
-
 router.post("/signup", (req, res, next) => {
     generateToken().then(verifToken => {
         bcrypt.hash(verifToken, 10).then(hashedToken => {
@@ -323,17 +322,29 @@ router.get('/dash/:id', checkAuth, (req, res, next) => {
     userFindById(req.params.id).then(user => {
         if (user) {
             accountFindFirstOneByUserId(req.params.id).then(resolution => {
-                const userCombinedData = {
-                    name: user.name,
-                    surname: user.surname,
-                    limitMonthly: resolution[0].limitMonthly,
-                    usedLimit: resolution[0].usedLimit,
-                    clientNumber: resolution[0].accountID,
-                    branch: resolution[0].branch,
-                    balance: resolution[0].currentBalance,
-                    transactions: resolution.transactions
-                }
-                res.status(200).json(userCombinedData);
+                fetch('http://127.0.0.1:3002/exchangelist/eur/').then(function(res) { // fetch random data from Django API
+                        return res.json();
+                    }).catch(err => {
+                        if (err.code == "ECONNREFUSED")
+                            return res.status(503).json({ message: "Service temporarily unavailable!" });
+                        else
+                            return res.status(500).json({ message: "Internal server error (Django)!", err: err })
+                    })
+                    .then(exchangeList => {
+                        const userCombinedData = {
+                                name: user.name,
+                                surname: user.surname,
+                                limitMonthly: resolution[0].limitMonthly,
+                                usedLimit: resolution[0].usedLimit,
+                                clientNumber: resolution[0].accountID,
+                                branch: resolution[0].branch,
+                                balance: resolution[0].currentBalance,
+                                transactions: resolution.transactions,
+                                exchangeList: exchangeList
+                            }
+                            //console.log(userCombinedData.exchangeList)
+                        res.status(200).json(userCombinedData);
+                    });
             });
         } else {
             res.status(404).json({ message: 'User not found!' });
@@ -350,7 +361,6 @@ const transporter = nodemailer.createTransport({
         pass: 'cudnanekasifra',
     },
 });
-
 const sendVerifMail = function(userEmail, userName, userRawToken) {
     getVerifToken(userEmail).then(result => {
         let token = userRawToken;
@@ -1130,7 +1140,6 @@ const sendPasswordResetMail = function(userEmail, userRawToken) {
 };
 var sendSms = function(userID, tempPass) {
     return new Promise(function(resolve, reject) {
-        // uzmi korisnikov broj telefona - funkcija
         let queryNode = `CALL get_user_phone_number_id(?)`;
         Mysqldb.query(queryNode, [userID], (err, results, fields) => {
             let res = results;
@@ -1154,16 +1163,19 @@ var sendSms = function(userID, tempPass) {
 sendSmsApi = function(number, pass) {
     console.log("New SMS code for", number, "is: ", pass);
     return new Promise(function(resolve, reject) {
+        /*
         var options = {
-            'method': 'POST',
-            'url': 'https://http-api.d7networks.com/send?username=twmd1454&password=6LNT1B9G&dlr-method=POST&dlr-url=https://4ba60af1.ngrok.io/receive&dlr=yes&dlr-level=3&from=EBNK&content=Your temporary password is ' + pass + '. This password expires in 2 minutes. \n\nEBNK Team &to=' + number,
-            'headers': {},
-            formData: {}
-        };
-        request(options, function(error, response) {
-            if (error) throw new Error(error);
-            console.log(response.body);
-        });
+                'method': 'POST',
+                'url': 'https://http-api.d7networks.com/send?username=twmd1454&password=6LNT1B9G&dlr-method=POST&dlr-url=https://4ba60af1.ngrok.io/receive&dlr=yes&dlr-level=3&from=EBNK&content=Your temporary password is ' + pass + '. This password expires in 2 minutes. \n\nEBNK Team &to=' + number,
+                'headers': {},
+                formData: {}
+            };
+            request(options, function(error, response) {
+                if (error)
+                  throw new Error(error);
+                console.log(response.body);
+            });
+        */
         resolve(1);
     });
 }
@@ -1216,7 +1228,6 @@ var getResetToken = function(userEmail) {
 };
 var resetUserPassword = function(rawToken, userID) {
     return new Promise(function(resolve, reject) {
-        // copmpute candidate hash from email
         let queryNode = `CALL get_user_password_reset_code_id('${userID}')`;
         Mysqldb.query(queryNode, [userID], (err, results, fields) => {
             let res = results;
@@ -1241,7 +1252,6 @@ var resetUserPassword = function(rawToken, userID) {
 };
 var verifyUser = function(rawToken, userID) {
     return new Promise(function(resolve, reject) {
-        // copmpute candidate hash from email
         let queryNode = `CALL get_user_verification_code_id('${userID}')`;
         Mysqldb.query(queryNode, [userID], (err, results, fields) => {
             let res = results;

@@ -39,6 +39,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     branch: '',
     balance: 0,
     transactions: {trans: [] },
+    exchangeList: [],
     limitMonthly: 0,
     usedLimit: 0
   };
@@ -48,10 +49,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   columnsToDisplayEng = ['description', 'amount', 'senderAccountNumber', 'date'];
   expandedElement: LastTransaction | null;
 
-  //exchange rate table variables
-  dataSource2 = new MatTableDataSource(ELEMENT_DATA2);
-  columnsToDisplayExchange = ['country', 'selling', 'buying', 'average'];
-
+  // exchange rate table variables
+  dataSource2 = [];
+  columnsToDisplayExchange = ['country', 'currency', 'selling', 'buying', 'average'];
+  updated = 'Not available';
   isLoading = false;
   userIsAuthenticated = false;
   hasTransactions = false; // if there are no transactions for logged user, set a flag for front-end
@@ -60,7 +61,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private userSub: Subscription;
 
   constructor(
-    private authService: AuthService, public dashService: DashService){}
+    private authService: AuthService, public dashService: DashService) {}
 
   ngOnInit() {
     this.isLoading = true;
@@ -75,10 +76,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
            branch: string,
            balance: number,
            transactions: {trans: [] },
+           exchangeList: [],
            limitMonthly: number,
            usedLimit: number
-          }) =>
-      {
+          }) => {
         this.isLoading = false;
         this.user = userData;
         let dataSourceTemp = [];
@@ -91,6 +92,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
         if (this.dataSource.length > 0) {
           this.hasTransactions = true;
         }
+        this.user.exchangeList[0].img = 'rub';
+        this.user.exchangeList[1].img = 'cny';
+        this.user.exchangeList[2].img = 'usd';
+        this.user.exchangeList[3].img = 'gbp';
+        this.user.exchangeList[4].img = 'jpy';
+        this.dataSource2 = [
+          this.user.exchangeList[0],
+          this.user.exchangeList[1],
+          this.user.exchangeList[2],
+          this.user.exchangeList[3],
+          this.user.exchangeList[4]
+        ];
+        this.updated = this.user.exchangeList[0].updated;
       });
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
@@ -128,11 +142,11 @@ export interface ExchangeCurr {
   average: string;
 }
 
-//Dummy data, not yet implmented fetching from server
-const ELEMENT_DATA2: ExchangeCurr[] = [
-  {country: 'SAD', currency: 'USD', buying: '105,86', selling:'106,49', average:'106,17'},
-  {country: 'Velika Britanija', currency: 'GBP', buying: '128,65', selling:'129,42', average:'129,21'},
-  {country: 'Švajcarska', currency: 'CHF', buying: '108,03', selling:'108,68', average:'108,32'},
-  {country: 'Australija', currency: 'AUD', buying: '71,81', selling:'72,24', average:'72,02'},
-  {country: 'Japan', currency: 'JPY', buying: '99,52', selling:'100,12', average:'100,02'},
+// Dummy data, not yet implmented fetching from server
+let ELEMENT_DATA2: ExchangeCurr[] = [
+  {country: 'SAD', currency: 'USD', buying: '105,86', selling: '106,49', average: '106,17'},
+  {country: 'Velika Britanija', currency: 'GBP', buying: '128,65', selling: '129,42', average: '129,21'},
+  {country: 'Švajcarska', currency: 'CHF', buying: '108,03', selling: '108,68', average: '108,32'},
+  {country: 'Australija', currency: 'AUD', buying: '71,81', selling: '72,24', average: '72,02'},
+  {country: 'Japan', currency: 'JPY', buying: '99,52', selling: '100,12', average: '100,02'},
 ];
