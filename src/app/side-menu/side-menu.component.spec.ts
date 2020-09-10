@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+/*import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SideMenuComponent } from './side-menu.component';
 
@@ -23,3 +23,4 @@ describe('SideMenuComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+*/

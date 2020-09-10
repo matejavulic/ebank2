@@ -14,6 +14,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
+
 @Injectable({ providedIn: 'root' })
 export class DashService {
 
@@ -91,7 +92,10 @@ export class DashService {
         if (month < 10) {
             monthStr = '0' + month;
         }
-        return (dayStr + '-' + monthStr + '-' + partialYearStr)
+        let dateRet = String(dayStr + '-' + monthStr + '-' + partialYearStr)
+        if (dateRet=='NaN-NaN-N')
+            return('Incorrect date format')
+        return (dateRet)
     }
 
 }

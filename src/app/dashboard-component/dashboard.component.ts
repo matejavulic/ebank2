@@ -113,8 +113,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.userIsAuthenticated = isAuthenticated;
       });
   }
-
-
   ngOnDestroy() {
     this.userSub.unsubscribe();
   }

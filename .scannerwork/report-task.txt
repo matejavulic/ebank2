@@ -1,0 +1,6 @@
+projectKey=ebank
+serverUrl=http://localhost:9000
+serverVersion=8.4.2.36762
+dashboardUrl=http://localhost:9000/dashboard?id=ebank
+ceTaskId=AXR0gTxf_Z1eE5fWF3xr
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AXR0gTxf_Z1eE5fWF3xr

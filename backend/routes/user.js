@@ -53,13 +53,13 @@ router.post("/signup", (req, res, next) => {
                 }
                 return user;
             }).then(user => {
-                fetch('http://127.0.0.1:3002/randomUserData/random/').then(function(res) { // fetch random data from Django API
-                        return res.json();
+                fetch('http://127.0.0.1:3002/randomUserData/random/').then(function(apiRes) { // fetch random data from Django API
+                        return apiRes.json();
                     }).catch(err => {
                         if (err.code == "ECONNREFUSED")
                             return res.status(503).json({ message: "Service temporarily unavailable!" });
                         else
-                            return res.status(500).json({ message: "Internal server error (Django)!", err: err })
+                            return res.status(500).json({ message: "Internal server error (API Django)!", err: err })
                     })
                     .then(userPython => {
                         user.address = userPython.address;
@@ -69,11 +69,11 @@ router.post("/signup", (req, res, next) => {
                     }).then(user => {
                         return user
                     }).then(user => {
-                        transactionCreateUserAccountCard(user).then(res => {
-                            if (res == "23000_EMAIL") {
+                        transactionCreateUserAccountCard(user).then(dbRes => {
+                            if (dbRes == "23000_EMAIL") {
                                 let err = new Error("existingEmail");
                                 throw err;
-                            } else if (res.includes("_INTER")) {
+                            } else if (dbRes.includes("_INTER")) {
                                 let err = new Error("internalDb");
                                 throw err;
                             }
@@ -121,7 +121,7 @@ router.post("/login", (req, res, next) => {
             const token = jwt.sign({ email: fetchedUser.email, userId: fetchedUser.userID },
                 "MK@#E3neUXNyQCB%NwPj$W_Apa=uB^^Ebkh7&vVL4v@a8JR^&?@HqSy?XCkr+XkeD^dxQWXD^$t?MbT5VxTP?uUU@PUhZ+q$MHxJBMdafehExnwgDwDvnnSSRqCPxgG!hcPRkgvj6u?ua$-S*yJM63%r9Gf2q$t-GhtP?QRgUSpdCQ5@*KL?Dzxs7mH&dhs-6_m7KzWk_vg5#8c=DS*=WA#e4&KxFet3v7_*3E@W@3B@59Ts_RwUW^CursCCJY7C9X!kyxGy-LN!T", { expiresIn: '1h' });
             res.status(200).json({ token: token, expiresIn: 3600, userId: fetchedUser.userID });
-            userUpdateLoginTime(fetchedUser.userID).then(res => {})
+            userUpdateLoginTime(fetchedUser.userID).then(loginTimeStatus => {})
         }).catch(err => {
             switch (err.message) {
                 case ("userNotFound"):
@@ -174,8 +174,8 @@ router.get("/reset", (req, res, next) => { // post?
             // napravi slucajan broj, hesuj, upisi u bazu
             generateTokenNumber().then(tempPass => {
                     console.log("Temporary password: ", tempPass);
-                    sendSms(req.query.id, tempPass).then(res => {
-                        if (res == 0) {
+                    sendSms(req.query.id, tempPass).then(smsStatus => {
+                        if (smsStatus == 0) {
                             let err = new Error("SMS error");
                             throw err;
                         }
@@ -184,28 +184,28 @@ router.get("/reset", (req, res, next) => { // post?
                             return new Promise(function(resolve, reject) {
                                 let queryNode = `CALL set_temp_pass_id(?,?)`;
                                 Mysqldb.query(queryNode, [req.query.id, hashedTempPass], (err, results, fields) => {
-                                    let res = results;
+                                    let dbResPass = results;
                                     if (err) {
                                         let err = new Error();
                                         throw err;
                                     }
-                                    resolve(res);
+                                    resolve(dbResPass);
                                 });
                             })
                         })
                     })
                 }).then(() => {
                     return new Promise(function(resolve, reject) {
-                        let queryNode = `DROP EVENT IF EXISTS reset_temp_pass_event_${req.query.id}`;
-                        Mysqldb.query(queryNode, [req.query.id], (err, results, fields) => {
-                            let res = results;
+                        let queryNode1 = `DROP EVENT IF EXISTS reset_temp_pass_event_${req.query.id}`;
+                        Mysqldb.query(queryNode1, [req.query.id], (err, results, fields) => {
+                            let resEvent1 = results;
                             if (err) {
                                 reject(err);
                             } else {
-                                let queryNode = `CREATE EVENT reset_temp_pass_event_${req.query.id} ON SCHEDULE AT ADDTIME(CURRENT_TIMESTAMP,200) DO UPDATE ebank.user SET temporaryPassword = null WHERE userID =${req.query.id};`;
-                                // If event does not run, it means its disabled after mysql restart! (SET GLOBAL event_scheduler = ON;)
-                                Mysqldb.query(queryNode, (err, results, fields) => {
-                                    let res = results;
+                                let queryNode2 = `CREATE EVENT reset_temp_pass_event_${req.query.id} ON SCHEDULE AT ADDTIME(CURRENT_TIMESTAMP,200) DO UPDATE ebank.user SET temporaryPassword = null WHERE userID =${req.query.id};`;
+                                // If event does not run, it means it is disabled after mysql restart! (SET GLOBAL event_scheduler = ON;)
+                                Mysqldb.query(queryNode2, (err, results, fields) => {
+                                    let resEvent2 = results;
                                     if (err) {
                                         reject(err);
                                     } else {
@@ -216,14 +216,10 @@ router.get("/reset", (req, res, next) => { // post?
                         });
                     });
                 }).catch(err => {
-                    console.log(err, "jel ovde");
+                    console.log(err);
                 }).then(() => {
                     return res.redirect('http://localhost:4200/');
                 })
-                // napravi novi dogadjaj koji se samo jednom odigrava, obrisi privr. sifru za 2 min
-
-
-            // posalji SMS korisniku sa privremenom sifrom
         } else if (resp == 0) {
             let err = new Error("User not found");
             throw err;
@@ -1160,7 +1156,7 @@ var sendSms = function(userID, tempPass) {
     });
     // napravi post zahtev
 };
-sendSmsApi = function(number, pass) {
+var sendSmsApi = function(number, pass) {
     console.log("New SMS code for", number, "is: ", pass);
     return new Promise(function(resolve, reject) {
         /*
@@ -1312,7 +1308,6 @@ var userFindByEmail = function(userEmail) {
                     resolve({ status: "notVerified" });
             }
         })
-
         let queryNode = `CALL find_user_by_email('${userEmail}')`
         Mysqldb.query(queryNode, [userEmail], (err, results, fields) => {
             if (err) {
@@ -1320,7 +1315,7 @@ var userFindByEmail = function(userEmail) {
             }
             if (results[0].length == 0) {
                 resolve(results[0]);
-            };
+            }
             resolve(results[0]);
         });
     });
