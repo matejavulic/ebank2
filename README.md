@@ -73,8 +73,7 @@ Communicates with other two tiers and holds GUI. It is built with Angular, HTML,
 Handles application logic. It consists of two separate servers, Node.js server (written in JavaScript) and a Django server (written in Python). Their primary purpose is to support the application’s core functions and fetch/post user data from databases throughout database server calls. 
 
 - **Data tier**  
-Stores user related information. The data tier consists of a two database servers:
-    - MongoDB server and its database, as far as Robo 3T DBMS
+Stores user related information. The data tier consists of a database server:
     - MySQL server and corresponding database, as far as MySQL DBMS  
 
    MongoDB database is, due to its non-relational nature, used for storing user access credentials, reference to a user bank account number and other user-centered information.
@@ -146,7 +145,7 @@ Stores user related information. The data tier consists of a two database server
      - Contain minimum amount of task specific information  
      
 - **Component organisation and architecture**  
-  Each Angular front-end component consists of three files:
+  Each Angular front-end component consists of three files (optionally +1 as with a unit test purposes):
    - HTML template
    - CSS template
    - TypeScript controller  
@@ -173,7 +172,7 @@ Server is capable of executing following tasks:
  - Formatting and preparing data in convenient format to be shown on front end
  - Creating, editing and deleting of user transactions
  
-### Django server
+### Django API service
 This server has two implemented API services:
  - **Dummy data service**  
    When a new user signs up, this service sends random JSON object to Node.js sever upon request. JSON object contains random data (mobile phone number, branch name, and home address) pulled out of .csv file (or as a random number in case of phone number) on Django server. After data receiving, Node.js server updates corresponding user data in MongoDB with the data provided.  
