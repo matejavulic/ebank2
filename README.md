@@ -75,8 +75,6 @@ Handles application logic. It consists of two separate servers, Node.js server (
 - **Data tier**  
 Stores user related information. The data tier consists of a database server:
     - MySQL server and corresponding database, as far as MySQL DBMS  
-
-   MongoDB database is, due to its non-relational nature, used for storing user access credentials, reference to a user bank account number and other user-centered information.
    
    MySQL database is used to store users bank account details and all related transaction details. 
 
@@ -178,7 +176,7 @@ This server has two implemented API services:
    When a new user signs up, this service sends random JSON object to Node.js sever upon request. JSON object contains random data (mobile phone number, branch name, and home address) pulled out of .csv file (or as a random number in case of phone number) on Django server. After data receiving, Node.js server updates corresponding user data in MongoDB with the data provided.  
    
  - **Exchange rates service**  
-    This service sends API calls to the free [Exchange rates API](https://api.exchangeratesapi.io/), formats retrieved data and sends it back to the Node.js server.  
+    This service sends API calls to the free [Exchange rates API](https://api.exchangeratesapi.io/), formats retrieved data and stores it in sqlite3 database. Upon request, API service returns json data with current exchange rate list read from database and sends it back to the Node.js server.  
  
 ## Data tier
 ### MySQL database
