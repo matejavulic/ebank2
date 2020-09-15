@@ -198,34 +198,7 @@ Database holds data related to a user account, user transactions, user cards and
     
     Example:  
     Suppose we want to list last nine possible transaction codes and its corresponding names related to Issued Real-Time Credit Transfer payments (as defined in ISO 20022).  
-    Then, we would form the following SQL query:  
-    
-        `SELECT 
-            PK_transaction_code_id,
-            FK_transaction_domain_id,
-            domain_code, domain_name,
-            family_code, family_name,
-            subfamily_code,
-            subfamily_name
-    
-         FROM
-            ref_transaction_code,
-            ref_transaction_domain,
-            ref_transaction_family,
-            ref_transaction_subfamily
-    
-         WHERE
-            domain_code = "PMNT" &&
-            family_code = "IRCT" &&
-            FK_transaction_domain_id = PK_transaction_domain_id &&
-            FK_transaction_family_id = PK_transaction_family_id &&
-            FK_transaction_subfamily_id = PK_transaction_subfamily_id
-    
-         ORDER BY subfamily_code DESC
-    
-         LIMIT 9`
-    
-    and would get the next query result:  
+    After querying inner join sql instruction we would get the next query result:  
     
     ![queryRes](https://raw.githubusercontent.com/matejavulic/Ebank-Web-App/master/pictures/transactionCodes.PNG)  
     
