@@ -357,8 +357,8 @@ const transporter = nodemailer.createTransport({
     port: 465,
     secure: true,
     auth: {
-        user: 'test1aplikacija@gmail.com',
-        pass: 'cudnanekasifra',
+        user: '',
+        pass: '',
     },
 });
 const sendVerifMail = function(userEmail, userName, userRawToken) {
