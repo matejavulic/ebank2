@@ -1,4 +1,4 @@
-# Web app E-Bank 2
+# Web Application for inetrnet banking E-Bank 2
 # Disclaimer
 ***This project and its source code should be used for educational purposes only.***
 ***A fictional names "Ebank", "Ebank 2" "E-bank", "E-bank 2", "Ebanka", "E-banka", "EBANKA", "EBANK", "E-BANKA", "E-BANK" as far as fictional bank logos and mottos have been used for illustration purpose only.***
