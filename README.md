@@ -173,17 +173,14 @@ Server is capable of executing following tasks:
 ### Django API service
 This server has two implemented API services:
  - **Dummy data service**  
-   When a new user signs up, this service sends random JSON object to Node.js sever upon request. JSON object contains random data (mobile phone number, branch name, and home address) pulled out of .csv file (or as a random number in case of phone number) on Django server. After data receiving, Node.js server updates corresponding user data in MongoDB with the data provided.  
+   When a new user signs up, this service sends random JSON object to Node.js sever upon request. JSON object contains random data (mobile phone number, branch name, and home address) pulled out of .csv file (or as a random number in case of phone number) on Django API service. After data receiving, Node.js server updates corresponding user data in MySQL database with the data provided.  
    
  - **Exchange rates service**  
     This service sends API calls to the free [Exchange rates API](https://api.exchangeratesapi.io/), formats retrieved data and stores it in sqlite3 database. Upon request, API service returns json data with current exchange rate list read from database and sends it back to the Node.js server.  
  
 ## Data tier
 ### MySQL database
-Database holds data related to a user account, user transactions, user cards and profiles. Here is the model of database:  
-
- ![mongoDB](https://raw.githubusercontent.com/matejavulic/Ebank-Web-App/master/pictures/mongodb.png)
-
+Database holds data related to a user account, user transactions, user cards and profiles. The database EER can be found in Documentation.
 
 - **Real-world database (work in progress)**  
   This database has been developed according to the several international standards used in an IT banking systems:  
