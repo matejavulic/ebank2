@@ -3,7 +3,7 @@
 ***This project and its source code should be used for educational purposes only.***
 ***A fictional names "Ebank", "Ebank 2" "E-bank", "E-bank 2", "Ebanka", "E-banka", "EBANKA", "EBANK", "E-BANKA", "E-BANK" as far as fictional bank logos and mottos have been used for illustration purpose only.***
 
-# Ebank-Web-App
+# Description
 This is a web application for online banking with all essential features. It allows registered users to manage their bank accounts, transfer funds, get a list of all past transactions, as well as to pay their utility bills.  
 
 # User interface pictures
