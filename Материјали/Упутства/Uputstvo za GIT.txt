@@ -15,7 +15,7 @@
    git checkout "nazivGrane"
 
 6. Spajanje izmena sa test grane na master
-    git branch master
+    git checkout master
     git merge --no-ff
 
 7. Princip vodjenja projekta:

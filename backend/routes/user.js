@@ -7,7 +7,7 @@
  * Main user back-end user handler.
  * Has the following methods:
  * 1. /signup -> hash user function,
- *            -> save user data in mongoDB
+ *            -> save user data in MySQL
  *            -> create new bank client with random data and insert it into MySQL db
  *            -> get random user data (homeaddress, number...) from Django server and update user in MongoDB
  * 2. /login
@@ -24,9 +24,13 @@ const router = express.Router();
 const checkAuth = require('../middleware/check-auth');
 const fetch = require("node-fetch");
 const nodemailer = require('nodemailer');
+require('dotenv').config();
+
 /*Temporary! */
 var request = require('request');
 
+const apiDjangoUrl = process.env.NODE_ENV === 'production' ? process.env.PRO_API_DJANGO : process.env.DEV_API_DJANGO;
+console.log(process.env.EMAIL_USERNAME);
 router.post("/signup", (req, res, next) => {
     generateToken().then(verifToken => {
         bcrypt.hash(verifToken, 10).then(hashedToken => {
@@ -53,7 +57,8 @@ router.post("/signup", (req, res, next) => {
                 }
                 return user;
             }).then(user => {
-                fetch('http://127.0.0.1:3002/randomUserData/random/').then(function(apiRes) { // fetch random data from Django API
+                fetch(apiDjangoUrl + 'randomUserData/random/').then(function(apiRes) { // fetch random data from Django API
+                        console.log(apiDjangoUrl + 'randomUserData/random/');
                         return apiRes.json();
                     }).catch(err => {
                         if (err.code == "ECONNREFUSED")
@@ -173,53 +178,53 @@ router.get("/reset", (req, res, next) => { // post?
         if (resp == 1) {
             // napravi slucajan broj, hesuj, upisi u bazu
             generateTokenNumber().then(tempPass => {
-                    console.log("Temporary password: ", tempPass);
-                    sendSms(req.query.id, tempPass).then(smsStatus => {
-                        if (smsStatus == 0) {
-                            let err = new Error("SMS error");
-                            throw err;
-                        }
-                    }).then(() => {
-                        bcrypt.hash(tempPass, 10).then(hashedTempPass => {
-                            return new Promise(function(resolve, reject) {
-                                let queryNode = `CALL set_temp_pass_id(?,?)`;
-                                Mysqldb.query(queryNode, [req.query.id, hashedTempPass], (err, results, fields) => {
-                                    let dbResPass = results;
-                                    if (err) {
-                                        let err = new Error();
-                                        throw err;
-                                    }
-                                    resolve(dbResPass);
-                                });
-                            })
+                console.log("Temporary password: ", tempPass);
+                sendSms(req.query.id, tempPass).then(smsStatus => {
+                    if (smsStatus == 0) {
+                        let err = new Error("SMS error");
+                        throw err;
+                    }
+                }).then(() => {
+                    bcrypt.hash(tempPass, 10).then(hashedTempPass => {
+                        return new Promise(function(resolve, reject) {
+                            let queryNode = `CALL set_temp_pass_id(?,?)`;
+                            Mysqldb.query(queryNode, [req.query.id, hashedTempPass], (err, results, fields) => {
+                                let dbResPass = results;
+                                if (err) {
+                                    let err = new Error();
+                                    throw err;
+                                }
+                                resolve(dbResPass);
+                            });
                         })
                     })
-                }).then(() => {
-                    return new Promise(function(resolve, reject) {
-                        let queryNode1 = `DROP EVENT IF EXISTS reset_temp_pass_event_${req.query.id}`;
-                        Mysqldb.query(queryNode1, [req.query.id], (err, results, fields) => {
-                            let resEvent1 = results;
-                            if (err) {
-                                reject(err);
-                            } else {
-                                let queryNode2 = `CREATE EVENT reset_temp_pass_event_${req.query.id} ON SCHEDULE AT ADDTIME(CURRENT_TIMESTAMP,200) DO UPDATE ebank.user SET temporaryPassword = null WHERE userID =${req.query.id};`;
-                                // If event does not run, it means it is disabled after mysql restart! (SET GLOBAL event_scheduler = ON;)
-                                Mysqldb.query(queryNode2, (err, results, fields) => {
-                                    let resEvent2 = results;
-                                    if (err) {
-                                        reject(err);
-                                    } else {
-                                        resolve(res);
-                                    }
-                                });
-                            }
-                        });
-                    });
-                }).catch(err => {
-                    console.log(err);
-                }).then(() => {
-                    return res.redirect('http://localhost:4200/');
                 })
+            }).then(() => {
+                return new Promise(function(resolve, reject) {
+                    let queryNode1 = `DROP EVENT IF EXISTS reset_temp_pass_event_${req.query.id}`;
+                    Mysqldb.query(queryNode1, [req.query.id], (err, results, fields) => {
+                        let resEvent1 = results;
+                        if (err) {
+                            reject(err);
+                        } else {
+                            let queryNode2 = `CREATE EVENT reset_temp_pass_event_${req.query.id} ON SCHEDULE AT ADDTIME(CURRENT_TIMESTAMP,200) DO UPDATE ebank.user SET temporaryPassword = null WHERE userID =${req.query.id};`;
+                            // If event does not run, it means it is disabled after mysql restart! (SET GLOBAL event_scheduler = ON;)
+                            Mysqldb.query(queryNode2, (err, results, fields) => {
+                                let resEvent2 = results;
+                                if (err) {
+                                    reject(err);
+                                } else {
+                                    resolve(res);
+                                }
+                            });
+                        }
+                    });
+                });
+            }).catch(err => {
+                console.log(err);
+            }).then(() => {
+                return res.redirect('http://localhost:4200/');
+            })
         } else if (resp == 0) {
             let err = new Error("User not found");
             throw err;
