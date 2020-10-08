@@ -3,9 +3,9 @@
  * Author:E-bank IT team
  * Author email: @ebanka-it.com
  * Date: Fri Aug 23 2019
- * Description: 
+ * Description:
  * Although this is not model of account table
- * (because it is not a NoSQL db) this module is 
+ * (because it is not a NoSQL db) this module is
  * nested under models folder to maintain models philosophy.
  * *
  */
@@ -15,19 +15,19 @@ const mysql = require("mysql");
 const connection = mysql.createConnection({
     host: 'localhost',
     port: 27018,
-    user: 'admin',
-    password: 'admin',
+    user: 'backend',
+    password: 'backend123',
     database: 'ebank',
-  });
+});
 
- /*
-Making a connection object with db. 
+/*
+Making a connection object with db.
  */
 connection.connect(function(err) {
     if (err) {
-      return console.error('error: ' + err.message);
+        return console.error('error: ' + err.message);
     }
     console.log('Connected to MySQL db!');
-  });
+});
 
-  module.exports = connection;
+module.exports = connection;

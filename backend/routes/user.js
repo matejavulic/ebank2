@@ -24,13 +24,25 @@ const router = express.Router();
 const checkAuth = require('../middleware/check-auth');
 const fetch = require("node-fetch");
 const nodemailer = require('nodemailer');
-require('dotenv').config();
+
+const path = require('path')
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') })
 
 /*Temporary! */
 var request = require('request');
 
+/* .env variables */
 const apiDjangoUrl = process.env.NODE_ENV === 'production' ? process.env.PRO_API_DJANGO : process.env.DEV_API_DJANGO;
-console.log(process.env.EMAIL_USERNAME);
+const homeUrl = process.env.NODE_ENV === 'production' ? process.env.PRO_FE_SERVER : process.env.DEV_FE_SERVER;
+const backendUrl = process.env.NODE_ENV === 'production' ? process.env.PRO_BE_SERVER : process.env.DEV_BE_SERVER;
+const apiSmsUrl = process.env.API_SMS;
+
+const emailUsername = process.env.EMAIL_USERNAME;
+const emailPassword = process.env.EMAIL_PASSWORD;
+const emailHost = process.env.EMAIL_HOST;
+const emailPort = process.env.EMAIL_PORT;
+const emailSecure = process.env.EMAIL_SECURE;
+
 router.post("/signup", (req, res, next) => {
     generateToken().then(verifToken => {
         bcrypt.hash(verifToken, 10).then(hashedToken => {
@@ -124,7 +136,8 @@ router.post("/login", (req, res, next) => {
                 throw err;
             }
             const token = jwt.sign({ email: fetchedUser.email, userId: fetchedUser.userID },
-                "MK@#E3neUXNyQCB%NwPj$W_Apa=uB^^Ebkh7&vVL4v@a8JR^&?@HqSy?XCkr+XkeD^dxQWXD^$t?MbT5VxTP?uUU@PUhZ+q$MHxJBMdafehExnwgDwDvnnSSRqCPxgG!hcPRkgvj6u?ua$-S*yJM63%r9Gf2q$t-GhtP?QRgUSpdCQ5@*KL?Dzxs7mH&dhs-6_m7KzWk_vg5#8c=DS*=WA#e4&KxFet3v7_*3E@W@3B@59Ts_RwUW^CursCCJY7C9X!kyxGy-LN!T", { expiresIn: '1h' });
+                //"MK@#E3neUXNyQCB%NwPj$W_Apa=uB^^Ebkh7&vVL4v@a8JR^&?@HqSy?XCkr+XkeD^dxQWXD^$t?MbT5VxTP?uUU@PUhZ+q$MHxJBMdafehExnwgDwDvnnSSRqCPxgG!hcPRkgvj6u?ua$-S*yJM63%r9Gf2q$t-GhtP?QRgUSpdCQ5@*KL?Dzxs7mH&dhs-6_m7KzWk_vg5#8c=DS*=WA#e4&KxFet3v7_*3E@W@3B@59Ts_RwUW^CursCCJY7C9X!kyxGy-LN!T", { expiresIn: '1h' });
+                process.env.TOKEN_SIGN, { expiresIn: '1h' });
             res.status(200).json({ token: token, expiresIn: 3600, userId: fetchedUser.userID });
             userUpdateLoginTime(fetchedUser.userID).then(loginTimeStatus => {})
         }).catch(err => {
@@ -149,7 +162,7 @@ router.post("/login", (req, res, next) => {
 router.get("/verify", (req, res, next) => { // post?
     verifyUser(req.query.code, req.query.id).then(resp => {
         if (resp == 1) {
-            res.redirect('http://localhost:4200/');
+            res.redirect(homeUrl);
         } else if (resp == 0) {
             let err = new Error("User not found");
             throw err;
@@ -163,13 +176,13 @@ router.get("/verify", (req, res, next) => { // post?
     }).catch(err => {
         if (err == "User not found") {
             console.log(err);
-            res.redirect('http://localhost:4200/login');
+            res.redirect(homeUrl + 'login');
         } else if (err == "User already verified") {
             console.log(err);
-            res.redirect('http://localhost:4200/login');
+            res.redirect(homeUrl + 'login');
         } else {
             console.log(err);
-            res.redirect('http://localhost:4200/login');
+            res.redirect(homeUrl + 'login');
         }
     })
 });
@@ -223,7 +236,7 @@ router.get("/reset", (req, res, next) => { // post?
             }).catch(err => {
                 console.log(err);
             }).then(() => {
-                return res.redirect('http://localhost:4200/');
+                return res.redirect(homeUrl);
             })
         } else if (resp == 0) {
             let err = new Error("User not found");
@@ -238,13 +251,13 @@ router.get("/reset", (req, res, next) => { // post?
     }).catch(err => {
         if (err == "User not found") {
             console.log(err);
-            res.redirect('http://localhost:4200/login');
+            res.redirect(homeUrl + 'login');
         } else if (err == "Password reset expired") {
             console.log(err);
-            res.redirect('http://localhost:4200/login');
+            res.redirect(homeUrl + 'login');
         } else {
             console.log(err);
-            res.redirect('http://localhost:4200/login');
+            res.redirect(homeUrl + 'login');
         }
     })
 });
@@ -323,7 +336,7 @@ router.get('/dash/:id', checkAuth, (req, res, next) => {
     userFindById(req.params.id).then(user => {
         if (user) {
             accountFindFirstOneByUserId(req.params.id).then(resolution => {
-                fetch('http://127.0.0.1:3002/exchangelist/eur/').then(function(res) { // fetch random data from Django API
+                fetch(apiDjangoUrl + 'exchangelist/eur/').then(function(res) { // fetch random data from Django API
                         return res.json();
                     }).catch(err => {
                         if (err.code == "ECONNREFUSED")
@@ -333,17 +346,16 @@ router.get('/dash/:id', checkAuth, (req, res, next) => {
                     })
                     .then(exchangeList => {
                         const userCombinedData = {
-                                name: user.name,
-                                surname: user.surname,
-                                limitMonthly: resolution[0].limitMonthly,
-                                usedLimit: resolution[0].usedLimit,
-                                clientNumber: resolution[0].accountID,
-                                branch: resolution[0].branch,
-                                balance: resolution[0].currentBalance,
-                                transactions: resolution.transactions,
-                                exchangeList: exchangeList
-                            }
-                            //console.log(userCombinedData.exchangeList)
+                            name: user.name,
+                            surname: user.surname,
+                            limitMonthly: resolution[0].limitMonthly,
+                            usedLimit: resolution[0].usedLimit,
+                            clientNumber: resolution[0].accountID,
+                            branch: resolution[0].branch,
+                            balance: resolution[0].currentBalance,
+                            transactions: resolution.transactions,
+                            exchangeList: exchangeList
+                        }
                         res.status(200).json(userCombinedData);
                     });
             });
@@ -354,12 +366,12 @@ router.get('/dash/:id', checkAuth, (req, res, next) => {
 });
 
 const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
+    host: emailHost,
+    port: emailPort,
+    secure: emailSecure,
     auth: {
-        user: 'test1aplikacija@gmail.com',
-        pass: 'cudnanekasifra',
+        user: emailUsername,
+        pass: emailPassword,
     },
 });
 const sendVerifMail = function(userEmail, userName, userRawToken) {
@@ -368,8 +380,8 @@ const sendVerifMail = function(userEmail, userName, userRawToken) {
         let currentVerifCode = result[0].verificationCode;
         let userID = result[0].userID;
         if (currentVerifCode != null) {
-            const baseurl = 'http://localhost:3000/api/user';
-            const repourl = 'http://localhost:3000/repository/images/'
+            const baseurl = backendUrl + 'api/user';
+            const repourl = backendUrl + 'repository/images/'
             const link = `${baseurl}/verify/?code=${token}&id=${userID}`;
             const mailOptions = {
                 from: '"E-Bank" <test1aplikacija@gmail.com>',
@@ -757,8 +769,8 @@ const sendPasswordResetMail = function(userEmail, userRawToken) {
         let userID = result.userID;
         let userName = result.name;
         if (currentPassResetCode != null) {
-            const baseurl = 'http://localhost:3000/api/user';
-            const repourl = 'http://localhost:3000/repository/images/'
+            const baseurl = backendUrl + 'api/user';
+            const repourl = backendUrl + 'repository/images/'
             const link = `${baseurl}/reset/?code=${token}&id=${userID}`;
             const mailOptions = {
                 from: '"E-Bank" <test1aplikacija@gmail.com>',
@@ -1165,17 +1177,17 @@ var sendSmsApi = function(number, pass) {
     console.log("New SMS code for", number, "is: ", pass);
     return new Promise(function(resolve, reject) {
         /*
-        var options = {
-                'method': 'POST',
-                'url': 'https://http-api.d7networks.com/send?username=twmd1454&password=6LNT1B9G&dlr-method=POST&dlr-url=https://4ba60af1.ngrok.io/receive&dlr=yes&dlr-level=3&from=EBNK&content=Your temporary password is ' + pass + '. This password expires in 2 minutes. \n\nEBNK Team &to=' + number,
-                'headers': {},
-                formData: {}
-            };
-            request(options, function(error, response) {
-                if (error)
-                  throw new Error(error);
-                console.log(response.body);
-            });
+      var options = {
+            'method': 'POST',
+            'url': apiSmsUrl + 'send?username=twmd1454&password=6LNT1B9G&dlr-method=POST&dlr-url=https://4ba60af1.ngrok.io/receive&dlr=yes&dlr-level=3&from=EBNK&content=Your temporary password is ' + pass + '. This password expires in 2 minutes. \n\nEBNK Team &to=' + number,
+            'headers': {},
+            formData: {}
+        };
+        request(options, function(error, response) {
+            if (error)
+                throw new Error(error);
+            console.log(response.body);
+        });
         */
         resolve(1);
     });
@@ -1210,7 +1222,6 @@ var getVerifToken = function(userEmail) {
             if (err) {
                 reject(err.message);
             }
-
             resolve(res[0]);
         });
     });
