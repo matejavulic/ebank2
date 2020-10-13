@@ -8,7 +8,7 @@
  *
  */
 import {Component, OnInit, OnDestroy, Injectable} from '@angular/core';
-import { PageEvent } from '@angular/material';
+import { PageEvent } from '@angular/material/paginator';
 import { Post } from '../post.model';
 import { PostsService } from '../posts.service';
 import { Subscription } from 'rxjs';

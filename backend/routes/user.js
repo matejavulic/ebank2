@@ -7,7 +7,7 @@
  * Main user back-end user handler.
  * Has the following methods:
  * 1. /signup -> hash user function,
- *            -> save user data in mongoDB
+ *            -> save user data in MySQL
  *            -> create new bank client with random data and insert it into MySQL db
  *            -> get random user data (homeaddress, number...) from Django server and update user in MongoDB
  * 2. /login
@@ -24,8 +24,24 @@ const router = express.Router();
 const checkAuth = require('../middleware/check-auth');
 const fetch = require("node-fetch");
 const nodemailer = require('nodemailer');
+
+const path = require('path')
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') })
+
 /*Temporary! */
 var request = require('request');
+
+/* .env variables */
+const apiDjangoUrl = process.env.NODE_ENV === 'production' ? process.env.PRO_API_DJANGO : process.env.DEV_API_DJANGO;
+const homeUrl = process.env.NODE_ENV === 'production' ? process.env.PRO_FE_SERVER : process.env.DEV_FE_SERVER;
+const backendUrl = process.env.NODE_ENV === 'production' ? process.env.PRO_BE_SERVER : process.env.DEV_BE_SERVER;
+const apiSmsUrl = process.env.API_SMS;
+
+const emailUsername = process.env.EMAIL_USERNAME;
+const emailPassword = process.env.EMAIL_PASSWORD;
+const emailHost = process.env.EMAIL_HOST;
+const emailPort = process.env.EMAIL_PORT;
+const emailSecure = process.env.EMAIL_SECURE;
 
 router.post("/signup", (req, res, next) => {
     generateToken().then(verifToken => {
@@ -53,13 +69,14 @@ router.post("/signup", (req, res, next) => {
                 }
                 return user;
             }).then(user => {
-                fetch('http://127.0.0.1:3002/randomUserData/random/').then(function(res) { // fetch random data from Django API
-                        return res.json();
+                fetch(apiDjangoUrl + 'randomUserData/random/').then(function(apiRes) { // fetch random data from Django API
+                        console.log(apiDjangoUrl + 'randomUserData/random/');
+                        return apiRes.json();
                     }).catch(err => {
                         if (err.code == "ECONNREFUSED")
                             return res.status(503).json({ message: "Service temporarily unavailable!" });
                         else
-                            return res.status(500).json({ message: "Internal server error (Django)!", err: err })
+                            return res.status(500).json({ message: "Internal server error (API Django)!", err: err })
                     })
                     .then(userPython => {
                         user.address = userPython.address;
@@ -69,11 +86,11 @@ router.post("/signup", (req, res, next) => {
                     }).then(user => {
                         return user
                     }).then(user => {
-                        transactionCreateUserAccountCard(user).then(res => {
-                            if (res == "23000_EMAIL") {
+                        transactionCreateUserAccountCard(user).then(dbRes => {
+                            if (dbRes == "23000_EMAIL") {
                                 let err = new Error("existingEmail");
                                 throw err;
-                            } else if (res.includes("_INTER")) {
+                            } else if (dbRes.includes("_INTER")) {
                                 let err = new Error("internalDb");
                                 throw err;
                             }
@@ -119,9 +136,10 @@ router.post("/login", (req, res, next) => {
                 throw err;
             }
             const token = jwt.sign({ email: fetchedUser.email, userId: fetchedUser.userID },
-                "MK@#E3neUXNyQCB%NwPj$W_Apa=uB^^Ebkh7&vVL4v@a8JR^&?@HqSy?XCkr+XkeD^dxQWXD^$t?MbT5VxTP?uUU@PUhZ+q$MHxJBMdafehExnwgDwDvnnSSRqCPxgG!hcPRkgvj6u?ua$-S*yJM63%r9Gf2q$t-GhtP?QRgUSpdCQ5@*KL?Dzxs7mH&dhs-6_m7KzWk_vg5#8c=DS*=WA#e4&KxFet3v7_*3E@W@3B@59Ts_RwUW^CursCCJY7C9X!kyxGy-LN!T", { expiresIn: '1h' });
+                //"MK@#E3neUXNyQCB%NwPj$W_Apa=uB^^Ebkh7&vVL4v@a8JR^&?@HqSy?XCkr+XkeD^dxQWXD^$t?MbT5VxTP?uUU@PUhZ+q$MHxJBMdafehExnwgDwDvnnSSRqCPxgG!hcPRkgvj6u?ua$-S*yJM63%r9Gf2q$t-GhtP?QRgUSpdCQ5@*KL?Dzxs7mH&dhs-6_m7KzWk_vg5#8c=DS*=WA#e4&KxFet3v7_*3E@W@3B@59Ts_RwUW^CursCCJY7C9X!kyxGy-LN!T", { expiresIn: '1h' });
+                process.env.TOKEN_SIGN, { expiresIn: '1h' });
             res.status(200).json({ token: token, expiresIn: 3600, userId: fetchedUser.userID });
-            userUpdateLoginTime(fetchedUser.userID).then(res => {})
+            userUpdateLoginTime(fetchedUser.userID).then(loginTimeStatus => {})
         }).catch(err => {
             switch (err.message) {
                 case ("userNotFound"):
@@ -144,7 +162,7 @@ router.post("/login", (req, res, next) => {
 router.get("/verify", (req, res, next) => { // post?
     verifyUser(req.query.code, req.query.id).then(resp => {
         if (resp == 1) {
-            res.redirect('http://localhost:4200/');
+            res.redirect(homeUrl);
         } else if (resp == 0) {
             let err = new Error("User not found");
             throw err;
@@ -158,13 +176,13 @@ router.get("/verify", (req, res, next) => { // post?
     }).catch(err => {
         if (err == "User not found") {
             console.log(err);
-            res.redirect('http://localhost:4200/login');
+            res.redirect(homeUrl + 'login');
         } else if (err == "User already verified") {
             console.log(err);
-            res.redirect('http://localhost:4200/login');
+            res.redirect(homeUrl + 'login');
         } else {
             console.log(err);
-            res.redirect('http://localhost:4200/login');
+            res.redirect(homeUrl + 'login');
         }
     })
 });
@@ -173,57 +191,53 @@ router.get("/reset", (req, res, next) => { // post?
         if (resp == 1) {
             // napravi slucajan broj, hesuj, upisi u bazu
             generateTokenNumber().then(tempPass => {
-                    console.log("Temporary password: ", tempPass);
-                    sendSms(req.query.id, tempPass).then(res => {
-                        if (res == 0) {
-                            let err = new Error("SMS error");
-                            throw err;
-                        }
-                    }).then(() => {
-                        bcrypt.hash(tempPass, 10).then(hashedTempPass => {
-                            return new Promise(function(resolve, reject) {
-                                let queryNode = `CALL set_temp_pass_id(?,?)`;
-                                Mysqldb.query(queryNode, [req.query.id, hashedTempPass], (err, results, fields) => {
-                                    let res = results;
-                                    if (err) {
-                                        let err = new Error();
-                                        throw err;
-                                    }
-                                    resolve(res);
-                                });
-                            })
+                console.log("Temporary password: ", tempPass);
+                sendSms(req.query.id, tempPass).then(smsStatus => {
+                    if (smsStatus == 0) {
+                        let err = new Error("SMS error");
+                        throw err;
+                    }
+                }).then(() => {
+                    bcrypt.hash(tempPass, 10).then(hashedTempPass => {
+                        return new Promise(function(resolve, reject) {
+                            let queryNode = `CALL set_temp_pass_id(?,?)`;
+                            Mysqldb.query(queryNode, [req.query.id, hashedTempPass], (err, results, fields) => {
+                                let dbResPass = results;
+                                if (err) {
+                                    let err = new Error();
+                                    throw err;
+                                }
+                                resolve(dbResPass);
+                            });
                         })
                     })
-                }).then(() => {
-                    return new Promise(function(resolve, reject) {
-                        let queryNode = `DROP EVENT IF EXISTS reset_temp_pass_event_${req.query.id}`;
-                        Mysqldb.query(queryNode, [req.query.id], (err, results, fields) => {
-                            let res = results;
-                            if (err) {
-                                reject(err);
-                            } else {
-                                let queryNode = `CREATE EVENT reset_temp_pass_event_${req.query.id} ON SCHEDULE AT ADDTIME(CURRENT_TIMESTAMP,200) DO UPDATE ebank.user SET temporaryPassword = null WHERE userID =${req.query.id};`;
-                                // If event does not run, it means its disabled after mysql restart! (SET GLOBAL event_scheduler = ON;)
-                                Mysqldb.query(queryNode, (err, results, fields) => {
-                                    let res = results;
-                                    if (err) {
-                                        reject(err);
-                                    } else {
-                                        resolve(res);
-                                    }
-                                });
-                            }
-                        });
-                    });
-                }).catch(err => {
-                    console.log(err, "jel ovde");
-                }).then(() => {
-                    return res.redirect('http://localhost:4200/');
                 })
-                // napravi novi dogadjaj koji se samo jednom odigrava, obrisi privr. sifru za 2 min
-
-
-            // posalji SMS korisniku sa privremenom sifrom
+            }).then(() => {
+                return new Promise(function(resolve, reject) {
+                    let queryNode1 = `DROP EVENT IF EXISTS reset_temp_pass_event_${req.query.id}`;
+                    Mysqldb.query(queryNode1, [req.query.id], (err, results, fields) => {
+                        let resEvent1 = results;
+                        if (err) {
+                            reject(err);
+                        } else {
+                            let queryNode2 = `CREATE EVENT reset_temp_pass_event_${req.query.id} ON SCHEDULE AT ADDTIME(CURRENT_TIMESTAMP,200) DO UPDATE ebank.user SET temporaryPassword = null WHERE userID =${req.query.id};`;
+                            // If event does not run, it means it is disabled after mysql restart! (SET GLOBAL event_scheduler = ON;)
+                            Mysqldb.query(queryNode2, (err, results, fields) => {
+                                let resEvent2 = results;
+                                if (err) {
+                                    reject(err);
+                                } else {
+                                    resolve(res);
+                                }
+                            });
+                        }
+                    });
+                });
+            }).catch(err => {
+                console.log(err);
+            }).then(() => {
+                return res.redirect(homeUrl);
+            })
         } else if (resp == 0) {
             let err = new Error("User not found");
             throw err;
@@ -237,13 +251,13 @@ router.get("/reset", (req, res, next) => { // post?
     }).catch(err => {
         if (err == "User not found") {
             console.log(err);
-            res.redirect('http://localhost:4200/login');
+            res.redirect(homeUrl + 'login');
         } else if (err == "Password reset expired") {
             console.log(err);
-            res.redirect('http://localhost:4200/login');
+            res.redirect(homeUrl + 'login');
         } else {
             console.log(err);
-            res.redirect('http://localhost:4200/login');
+            res.redirect(homeUrl + 'login');
         }
     })
 });
@@ -322,7 +336,7 @@ router.get('/dash/:id', checkAuth, (req, res, next) => {
     userFindById(req.params.id).then(user => {
         if (user) {
             accountFindFirstOneByUserId(req.params.id).then(resolution => {
-                fetch('http://127.0.0.1:3002/exchangelist/eur/').then(function(res) { // fetch random data from Django API
+                fetch(apiDjangoUrl + 'exchangelist/eur/').then(function(res) { // fetch random data from Django API
                         return res.json();
                     }).catch(err => {
                         if (err.code == "ECONNREFUSED")
@@ -332,17 +346,16 @@ router.get('/dash/:id', checkAuth, (req, res, next) => {
                     })
                     .then(exchangeList => {
                         const userCombinedData = {
-                                name: user.name,
-                                surname: user.surname,
-                                limitMonthly: resolution[0].limitMonthly,
-                                usedLimit: resolution[0].usedLimit,
-                                clientNumber: resolution[0].accountID,
-                                branch: resolution[0].branch,
-                                balance: resolution[0].currentBalance,
-                                transactions: resolution.transactions,
-                                exchangeList: exchangeList
-                            }
-                            //console.log(userCombinedData.exchangeList)
+                            name: user.name,
+                            surname: user.surname,
+                            limitMonthly: resolution[0].limitMonthly,
+                            usedLimit: resolution[0].usedLimit,
+                            clientNumber: resolution[0].accountID,
+                            branch: resolution[0].branch,
+                            balance: resolution[0].currentBalance,
+                            transactions: resolution.transactions,
+                            exchangeList: exchangeList
+                        }
                         res.status(200).json(userCombinedData);
                     });
             });
@@ -353,12 +366,12 @@ router.get('/dash/:id', checkAuth, (req, res, next) => {
 });
 
 const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
+    host: emailHost,
+    port: emailPort,
+    secure: emailSecure,
     auth: {
-        user: '',
-        pass: '',
+        user: emailUsername,
+        pass: emailPassword,
     },
 });
 const sendVerifMail = function(userEmail, userName, userRawToken) {
@@ -367,8 +380,8 @@ const sendVerifMail = function(userEmail, userName, userRawToken) {
         let currentVerifCode = result[0].verificationCode;
         let userID = result[0].userID;
         if (currentVerifCode != null) {
-            const baseurl = 'http://localhost:3000/api/user';
-            const repourl = 'http://localhost:3000/repository/images/'
+            const baseurl = backendUrl + 'api/user';
+            const repourl = backendUrl + 'repository/images/'
             const link = `${baseurl}/verify/?code=${token}&id=${userID}`;
             const mailOptions = {
                 from: '"E-Bank" <test1aplikacija@gmail.com>',
@@ -756,8 +769,8 @@ const sendPasswordResetMail = function(userEmail, userRawToken) {
         let userID = result.userID;
         let userName = result.name;
         if (currentPassResetCode != null) {
-            const baseurl = 'http://localhost:3000/api/user';
-            const repourl = 'http://localhost:3000/repository/images/'
+            const baseurl = backendUrl + 'api/user';
+            const repourl = backendUrl + 'repository/images/'
             const link = `${baseurl}/reset/?code=${token}&id=${userID}`;
             const mailOptions = {
                 from: '"E-Bank" <test1aplikacija@gmail.com>',
@@ -1160,21 +1173,21 @@ var sendSms = function(userID, tempPass) {
     });
     // napravi post zahtev
 };
-sendSmsApi = function(number, pass) {
+var sendSmsApi = function(number, pass) {
     console.log("New SMS code for", number, "is: ", pass);
     return new Promise(function(resolve, reject) {
         /*
-        var options = {
-                'method': 'POST',
-                'url': 'https://http-api.d7networks.com/send?username=twmd1454&password=6LNT1B9G&dlr-method=POST&dlr-url=https://4ba60af1.ngrok.io/receive&dlr=yes&dlr-level=3&from=EBNK&content=Your temporary password is ' + pass + '. This password expires in 2 minutes. \n\nEBNK Team &to=' + number,
-                'headers': {},
-                formData: {}
-            };
-            request(options, function(error, response) {
-                if (error)
-                  throw new Error(error);
-                console.log(response.body);
-            });
+      var options = {
+            'method': 'POST',
+            'url': apiSmsUrl + 'send?username=twmd1454&password=6LNT1B9G&dlr-method=POST&dlr-url=https://4ba60af1.ngrok.io/receive&dlr=yes&dlr-level=3&from=EBNK&content=Your temporary password is ' + pass + '. This password expires in 2 minutes. \n\nEBNK Team &to=' + number,
+            'headers': {},
+            formData: {}
+        };
+        request(options, function(error, response) {
+            if (error)
+                throw new Error(error);
+            console.log(response.body);
+        });
         */
         resolve(1);
     });
@@ -1209,7 +1222,6 @@ var getVerifToken = function(userEmail) {
             if (err) {
                 reject(err.message);
             }
-
             resolve(res[0]);
         });
     });
@@ -1312,7 +1324,6 @@ var userFindByEmail = function(userEmail) {
                     resolve({ status: "notVerified" });
             }
         })
-
         let queryNode = `CALL find_user_by_email('${userEmail}')`
         Mysqldb.query(queryNode, [userEmail], (err, results, fields) => {
             if (err) {
@@ -1320,7 +1331,7 @@ var userFindByEmail = function(userEmail) {
             }
             if (results[0].length == 0) {
                 resolve(results[0]);
-            };
+            }
             resolve(results[0]);
         });
     });

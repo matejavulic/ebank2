@@ -3,10 +3,10 @@
  * Author:E-bank IT team
  * Author email: @ebanka-it.com
  * Date: Fri Aug 23 2019
- * Description: 
+ * Description:
  * Main Node.js API server. Handles all
- * frontend requests as far as requests to 
- * databases and Django server. 
+ * frontend requests as far as requests to
+ * databases and Django API Service.
  * Listens on port 3000.
  *
  */

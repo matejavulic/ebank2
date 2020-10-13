@@ -6,7 +6,7 @@ import {
     HttpResponse,
     HttpErrorResponse
    } from '@angular/common/http';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ErrorComponent } from './app/error-dialog/error-dialog.component';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
