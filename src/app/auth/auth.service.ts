@@ -63,8 +63,8 @@ export class AuthService {
     return this.authErr;
   }
 
-  createUser(email: string, password: string, name: string, surname: string) {
-    const signupData = { email: email, password: password, name: name, surname: surname };
+  createUser(email: string, password: string, name: string, surname: string, number: string) {
+    const signupData = { email: email, password: password, name: name, surname: surname, number: number };
     this.http.post('http://localhost:3000/api/user/signup', signupData)
       .subscribe(response => {
         // this.router.navigate(['/login']);

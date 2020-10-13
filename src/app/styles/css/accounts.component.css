@@ -10,8 +10,13 @@
 mat-card {
   margin: 15px;
   display: inline-block;
-  width: 95%;
+  width: 94%;
   padding: 15px;
+}
+
+.tab-content {
+  text-align: center;
+  margin-top: 1rem;
 }
 
 .info {

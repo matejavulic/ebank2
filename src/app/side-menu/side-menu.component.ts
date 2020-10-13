@@ -84,7 +84,7 @@ export class SideMenuComponent implements OnInit, OnDestroy {
       this.selectedMenuItem = 'test';
       break;
     case 'aboutUs':
-      this.selectedMenuItem = 'postsList';
+      this.selectedMenuItem = 'help';
       break;
     case 'utilities':
       this.selectedMenuItem = 'test';

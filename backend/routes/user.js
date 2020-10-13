@@ -57,10 +57,11 @@ router.post("/signup", (req, res, next) => {
                     password: hash,
                     name: req.body.name,
                     surname: req.body.surname,
+                    number: req.body.number,
 
                     //supplier: Django API
                     address: '',
-                    number: '',
+                    //number: '',
                     hnumber: '',
 
                     //supplier Node
@@ -80,7 +81,7 @@ router.post("/signup", (req, res, next) => {
                     })
                     .then(userPython => {
                         user.address = userPython.address;
-                        user.number = userPython.number;
+                        //user.number = userPython.number;
                         user.hnumber = userPython.hnumber;
                         return user;
                     }).then(user => {
@@ -136,7 +137,6 @@ router.post("/login", (req, res, next) => {
                 throw err;
             }
             const token = jwt.sign({ email: fetchedUser.email, userId: fetchedUser.userID },
-                //"MK@#E3neUXNyQCB%NwPj$W_Apa=uB^^Ebkh7&vVL4v@a8JR^&?@HqSy?XCkr+XkeD^dxQWXD^$t?MbT5VxTP?uUU@PUhZ+q$MHxJBMdafehExnwgDwDvnnSSRqCPxgG!hcPRkgvj6u?ua$-S*yJM63%r9Gf2q$t-GhtP?QRgUSpdCQ5@*KL?Dzxs7mH&dhs-6_m7KzWk_vg5#8c=DS*=WA#e4&KxFet3v7_*3E@W@3B@59Ts_RwUW^CursCCJY7C9X!kyxGy-LN!T", { expiresIn: '1h' });
                 process.env.TOKEN_SIGN, { expiresIn: '1h' });
             res.status(200).json({ token: token, expiresIn: 3600, userId: fetchedUser.userID });
             userUpdateLoginTime(fetchedUser.userID).then(loginTimeStatus => {})
@@ -144,18 +144,18 @@ router.post("/login", (req, res, next) => {
             switch (err.message) {
                 case ("userNotFound"):
                     {
-                        return res.status(401).json({ message: "User not found!" });
+                        return res.status(401).json({ message: "User not found. Please check entered e-mail." });
                     }
                 case ("incorrectPassword"):
                     {
-                        return res.status(401).json({ message: "Incorrect password!" })
+                        return res.status(401).json({ message: "Incorrect password. Please check entered password." })
                     }
                 case ("userNotVerified"):
                     {
-                        return res.status(200).json({ token: "User not verified!" })
+                        return res.status(401).json({ message: "User not verified. Please check your verification e-mail." })
                     }
                 default:
-                    return res.status(401).json({ message: "Login unsuccessful!" });
+                    return res.status(401).json({ message: "Login unsuccessful. PLease try later." });
             }
         });
 });
@@ -285,9 +285,9 @@ router.post("/resend", (req, res, next) => { // post?
                 });
                 try {
                     sendVerifMail(req.body.email, req.body.userName, verifToken);
-                    return res.status(201).json({ message: "New verification e-mail successfully sent!" });
+                    return res.status(201).json({ message: "New verification e-mail successfully sent." });
                 } catch (error) {
-                    return res.status(500).json({ message: "Internal server error - please try later!" });
+                    return res.status(500).json({ message: "Internal server error - please try later." });
                 }
             });
         });
@@ -322,11 +322,11 @@ router.post("/reset", (req, res, next) => { // post?
                     })
                     .then(() => {
                         sendPasswordResetMail(req.body.email, resetToken);
-                        return res.status(201).json({ message: "New password reset e-mail successfully sent!" });
+                        return res.status(201).json({ message: "New password reset e-mail successfully sent." });
                     }).catch((err) => {
                         if (err.message = "Unknown email!")
-                            return res.status(500).json({ message: "We cannot find entered email. Please try again!" });
-                        return res.status(500).json({ message: "Internal server error - please try later!" });
+                            return res.status(500).json({ message: "We cannot find entered email. Please try again." });
+                        return res.status(500).json({ message: "Internal server error - please try later." });
                     });
             });
         });
@@ -340,9 +340,9 @@ router.get('/dash/:id', checkAuth, (req, res, next) => {
                         return res.json();
                     }).catch(err => {
                         if (err.code == "ECONNREFUSED")
-                            return res.status(503).json({ message: "Service temporarily unavailable!" });
+                            return res.status(503).json({ message: "Service temporarily unavailable. PLease try later." });
                         else
-                            return res.status(500).json({ message: "Internal server error (Django)!", err: err })
+                            return res.status(500).json({ message: "Internal server error (Django). Please try later.", err: err })
                     })
                     .then(exchangeList => {
                         const userCombinedData = {
@@ -360,7 +360,7 @@ router.get('/dash/:id', checkAuth, (req, res, next) => {
                     });
             });
         } else {
-            res.status(404).json({ message: 'User not found!' });
+            res.status(404).json({ message: 'User not found.' });
         }
     });
 });

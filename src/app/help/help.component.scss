@@ -26,10 +26,8 @@ mat-spinner {
 :host {
     display: flex;
     position: relative;
-    left: 133px;
-    bottom: 513px;
-    justify-content: center;
-    margin: 15px 4px;
+    margin-left: 1rem;
+    margin-right: 1rem;
 }
 
 .mat-form-field {
@@ -41,11 +39,8 @@ mat-card {
     position: relative;
     display: block;
     background-color: #fffffff5;
-    bottom: 64px;
-    left: 76px;
-    margin-right: 51px;
-    margin-left: 30px;
     width: -webkit-fill-available;
+    padding: 2rem;
 }
 
 mat-card-title,

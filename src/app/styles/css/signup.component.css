@@ -66,7 +66,7 @@ mat-spinner {
 }
 
 mat-card {
-  bottom: 3.5rem;
+  bottom: 7.5rem;
 }
 
 mat-card-title,
@@ -83,9 +83,8 @@ mat-card-title {
   position: relative;
   font-weight: 400;
   font-size: 22px;
-  margin-left: -110px;
-  margin-right: 8px;
-  left: 259px;
+  margin-left: -13px;
+  left: 172px;
 }
 
 .logo-signup {
@@ -98,7 +97,7 @@ mat-card-title {
 
 .logo-name {
   position: relative;
-  left: 110px;
+  left: 19px;
   top: 232px;
   color: rgba(182, 182, 182, 0.925);
 }

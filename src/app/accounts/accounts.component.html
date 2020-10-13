@@ -13,21 +13,21 @@
         Accounts
     </mat-card-title>
     <mat-tab-group mat-align-tabs="center" animationDuration="0ms">
-        <mat-tab label="Tekući računi">
+        <mat-tab label="Checking accounts">
             <!--Zaglavlje sa nazivom i dostupnim sredstvima-->
             <mat-card>
                 <mat-card-header>
                     <div mat-card-avatar class="grid-card-header-image">
                         <mat-icon class="icon">refresh</mat-icon>
                     </div>
-                    <mat-card-title>Start tekući račun </mat-card-title>
+                    <mat-card-title>Currency account Freedom + </mat-card-title>
                     <button mat-icon-button [matMenuTriggerFor]="appMenu3">
                       <mat-icon class="menu-dots">arrow_drop_down</mat-icon>
                     </button>
-                    <mat-card-subtitle>račun br. 115-00000001124555</mat-card-subtitle>
+                    <mat-card-subtitle>account no. 115-00000001124555</mat-card-subtitle>
                     <mat-menu #appMenu3="matMenu">
-                        <button mat-menu-item>Osnovni tekući račun 2+</button>
-                        <button mat-menu-item>Osnovni tekući račun</button>
+                        <button mat-menu-item>Currency account Neo</button>
+                        <button mat-menu-item>Currency account Neo 2+</button>
                     </mat-menu>
                     <div style="margin-left: 2rem;">
                         <p class="current-balance" style="font-size: 28px;margin-top: -0.3rem;
@@ -40,7 +40,7 @@
                         <p class="current-balance" style="font-size: 28px;margin-top: -0.3rem;
                   margin-bottom: 0.3rem; text-align: left;">Dina Card
                         </p>
-                        <mat-card-subtitle>Povezane kartice</mat-card-subtitle>
+                        <mat-card-subtitle>Linked cards</mat-card-subtitle>
                     </div>
                     <div style="margin-left: 2rem;">
                         <p class="current-balance" style="font-size: 28px;margin-top: -0.3rem;
@@ -54,44 +54,56 @@
                         <mat-tab label="Details">
                             <mat-accordion>
                                 <mat-list>
-                                    <mat-list-item>Account name: Start paket</mat-list-item>
+                                    <mat-list-item>Account name: Freedom +</mat-list-item>
                                     <mat-divider></mat-divider>
                                     <mat-list-item>Account number: 115-22323232323223</mat-list-item>
                                     <mat-divider></mat-divider>
-                                    <mat-list-item>Account type:Tekući račun</mat-list-item>
+                                    <mat-list-item>Account type: Currency account</mat-list-item>
                                     <mat-divider></mat-divider>
                                     <mat-list-item>Account status: Active</mat-list-item>
                                     <mat-divider></mat-divider>
-                                    <mat-list-item>Account owner: Pera Perić</mat-list-item>
+                                    <mat-list-item>Account owner: John Doe</mat-list-item>
                                     <mat-divider></mat-divider>
-                                    <mat-list-item>Account created on: Okt 2020</mat-list-item>
+                                    <mat-list-item>Account created on: 2020-13-10 13:39</mat-list-item>
                                     <mat-divider></mat-divider>
-                                    <mat-list-item>Current balance: 1000000 RSD</mat-list-item>
+                                    <mat-list-item>Current balance: 145.000 RSD</mat-list-item>
                                     <mat-divider></mat-divider>
-                                    <mat-list-item>Available balance: 150000 RSD</mat-list-item>
+                                    <mat-list-item>Available balance: 120.000 RSD</mat-list-item>
                                     <mat-divider></mat-divider>
                                     <mat-list-item>Connected cards: Dina card 1233444</mat-list-item>
                                     <mat-divider></mat-divider>
-                                    <mat-list-item>Account owner: Pera Perić</mat-list-item>
+                                    <mat-list-item>Account owner: John Doe</mat-list-item>
                                     <mat-divider></mat-divider>
                                 </mat-list>
                             </mat-accordion>
                         </mat-tab>
-                        <mat-tab label="Actions">Content 2</mat-tab>
-                        <mat-tab label="Transactions">Content 3</mat-tab>
+                        <mat-tab label="Actions">
+                            <div class="tab-content">Coming soon!</div>
+                        </mat-tab>
+                        <mat-tab label="Transactions">
+                            <div class="tab-content">Coming soon!</div>
+                        </mat-tab>
                     </mat-tab-group>
                 </mat-card-content>
             </mat-card>
             <!--mat tab grupa-->
         </mat-tab>
-        <mat-tab label="Dinarski računi">
-            <div class="example-large-box mat-elevation-z4">
-                Large content
+        <mat-tab label="Currency accounts">
+            <div class="example-large-box mat-elevation-z4 tab-content">
+                You don't have any currency accounts yet. Create one?
             </div>
         </mat-tab>
-        <mat-tab label="Devizni računi">Content 3</mat-tab>
-        <mat-tab label="Štednja">Content 3</mat-tab>
-        <mat-tab label="Krediti">Content 3</mat-tab>
-        <mat-tab label="Trajni nalog">Content 3</mat-tab>
+        <mat-tab label="Foreign currency account">
+            <div class="tab-content">You don't have any foreign currency accounts yet. Create one?</div>
+        </mat-tab>
+        <mat-tab label="Savings">
+            <div class="tab-content">You don't have any savings accounts. Create one?</div>
+        </mat-tab>
+        <mat-tab label="Loans">
+            <div class="tab-content">You don't have any loans to repay. Take out one?</div>
+        </mat-tab>
+        <mat-tab label="Standig order">
+            <div class="tab-content">You don't have any standig orders. Create one?</div>
+        </mat-tab>
     </mat-tab-group>
 </mat-card>
