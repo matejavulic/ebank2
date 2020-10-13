@@ -24,3 +24,4 @@ git commit -m "Komentar sa testa" -> registrujem izmene na testu
 git push -> gurnem izmene na remote test
 git checkout master -> nakon izmena predjem na master
 git merge "nazivGraneSaKojeSpajamo" --no-ff -> spojim master sa test granom
+git push -> sacuvaj noce izmene na master grani
