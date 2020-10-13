@@ -53,7 +53,8 @@ export class SignupComponent implements OnInit, OnDestroy {
       form.value.email,
       form.value.password,
       form.value.name,
-      form.value.surname);
+      form.value.surname,
+      form.value.phone);
     this.verifStatusSub = this.authService.getVerificationStatusListener().subscribe(
         verifStatus => {
           this.verifyMessage = true;

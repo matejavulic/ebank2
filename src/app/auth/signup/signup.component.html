@@ -10,21 +10,23 @@
 <mat-card class="signup-box" layout='row' *ngIf='!verifyMessage'>
     <img *ngIf="!isLoading" class="logo-signup" src="http://localhost:3000/repository/images/logo-login2.png" alt="">
     <mat-card-title *ngIf="!isLoading" class="logo-name">E-banka</mat-card-title>
-    <p></p>
-    <mat-card-title *ngIf="!isLoading">Register new user account</mat-card-title>
+    <p>
+        <br>
+    </p>
+    <mat-card-title *ngIf="!isLoading">Join Us</mat-card-title>
     <mat-card-content>
         <mat-spinner *ngIf="isLoading"></mat-spinner>
         <form (submit)="onSignup(signupForm)" #signupForm="ngForm">
             <div *ngIf="!isLoading">
                 <p>
                     <mat-form-field>
-                        <input id="name" matInput #name ngModel #textInput="ngModel" type="text" name="name" placeholder="Name" required minlength="3">
+                        <input id="name" matInput #name ngModel #textInput="ngModel" type="text" name="name" placeholder="Name" required minlength="2">
                         <mat-error *ngIf="textInput.invalid">Please enter name</mat-error>
                     </mat-form-field>
                 </p>
                 <p>
                     <mat-form-field>
-                        <input matInput ngModel #textInput="ngModel" type="text" name="surname" placeholder="Surname" required minlength="3">
+                        <input matInput ngModel #textInput="ngModel" type="text" name="surname" placeholder="Surname" required minlength="2">
                         <mat-error *ngIf="textInput.invalid">Please enter surname</mat-error>
                     </mat-form-field>
                 </p>
@@ -40,8 +42,15 @@
                         <mat-error *ngIf="passwordInput.invalid">Please enter password</mat-error>
                     </mat-form-field>
                 </p>
-                <p style="margin-top: -1rem; margin-bottom: 2rem;">
-                    <mat-checkbox [checked]="true" required>I agree to the Terms and Conditions</mat-checkbox>
+                <p>
+                    <mat-form-field>
+                        <input matInput ngModel #phoneInput="ngModel" type="tel" name="phone" placeholder="Phone" pattern="[+][0-9]+" required>
+                        <mat-error *ngIf="phoneInput.invalid">Phone number must start with + and contain only digits</mat-error>
+                    </mat-form-field>
+                </p>
+                <p style="margin-top: -1rem; margin-bottom: 2rem; font-size: 11px; color: #928e8e;">
+                    <!--<mat-checkbox [checked]="true"  required>I agree to the </mat-checkbox><span><a href="http://localhost:3000/repository/documents/terms-and-conditions-template.pdf">Terms and Conditions</a></span>-->
+                    By clicking Sign Up you agree to our <a style="text-decoration:none; color: #4e6969; font-weight: 500;" href="http://localhost:3000/repository/documents/terms-and-conditions-template.pdf">Terms and Conditions.</a>
                 </p>
                 <div style="margin-left: 8rem;">
                     <button mat-raised-button type="submit" *ngIf="!isLoading">Register</button>
