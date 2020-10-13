@@ -217,6 +217,7 @@ Thumbs.db
 #__pycache__
 db.sqlite3
 #media
+settings.py
 
 # Backup files #
 *.bak
