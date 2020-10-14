@@ -1,6 +1,0 @@
-Execute it from Command Pallete (menu View - Command Pallete...) then type command below:
-
-FileHeaderComment: Insert Default Template at Cursor
-FileHeaderComment: Select from Available Templates
-
-Vise na: https://marketplace.visualstudio.com/items?itemName=doi.fileheadercomment
