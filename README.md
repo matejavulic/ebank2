@@ -9,7 +9,10 @@ This is a web application for online banking with all essential features. It all
 # User interface pictures
 - Sign Up page  
 
-  ![signup](https://raw.githubusercontent.com/matejavulic/E-BANK-Web-App/master/pictures/signup.png)  
+  ![signup](https://raw.githubusercontent.com/matejavulic/E-BANK-Web-App/master/pictures/signup.png)
+  ![signup](https://raw.githubusercontent.com/matejavulic/E-BANK-Web-App/master/pictures/signup2.png)
+  ![signup](https://raw.githubusercontent.com/matejavulic/E-BANK-Web-App/master/pictures/signup3.png)
+  ![signup](https://raw.githubusercontent.com/matejavulic/E-BANK-Web-App/master/pictures/signup4.png)
   
 - Log in page  
 
@@ -18,6 +21,13 @@ This is a web application for online banking with all essential features. It all
 - Log in page invalid email/no password  
 
   ![login2](https://raw.githubusercontent.com/matejavulic/E-BANK-Web-App/master/pictures/login2.png)  
+  
+ - Log in page forgotten password - password reset using temporary password
+
+  ![reset1](https://raw.githubusercontent.com/matejavulic/E-BANK-Web-App/master/pictures/passreset1.png)
+  ![reset1](https://raw.githubusercontent.com/matejavulic/E-BANK-Web-App/master/pictures/passreset2.png)
+  ![reset1](https://raw.githubusercontent.com/matejavulic/E-BANK-Web-App/master/pictures/passreset3.png)
+  ![reset1](https://raw.githubusercontent.com/matejavulic/E-BANK-Web-App/master/pictures/passreset4.png)
   
 - Dashboard page  
 
@@ -34,7 +44,10 @@ This is a web application for online banking with all essential features. It all
 - Exchange Rates list (dashboard scrolled down)  
 
   ![dash3](https://raw.githubusercontent.com/matejavulic/E-BANK-Web-App/master/pictures/dash3.PNG) 
-   
+ 
+ - User bank accounts 
+
+  ![dash3](https://raw.githubusercontent.com/matejavulic/E-BANK-Web-App/master/pictures/accounts.png) 
   
 - Drop-down menu  
 
@@ -43,6 +56,14 @@ This is a web application for online banking with all essential features. It all
 - Help section  
 
   ![help](https://raw.githubusercontent.com/matejavulic/E-BANK-Web-App/master/pictures/help.png)
+  
+ - User error example 1 - Unverified user tries to log-in  
+
+  ![error1](https://raw.githubusercontent.com/matejavulic/E-BANK-Web-App/master/pictures/error1.png)
+  
+  - User error example 2 - Registered user tries to sign up with the exsitsting e-mail
+
+  ![error3](https://raw.githubusercontent.com/matejavulic/E-BANK-Web-App/master/pictures/error3.png)
   
 
 # Project details
