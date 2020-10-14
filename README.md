@@ -43,7 +43,7 @@ This is a web application for online banking with all essential features. It all
   
 - Exchange Rates list (dashboard scrolled down)  
 
-  ![dash3](https://raw.githubusercontent.com/matejavulic/E-BANK-Web-App/master/pictures/dash3.PNG) 
+  ![dash3](https://raw.githubusercontent.com/matejavulic/E-BANK-Web-App/master/pictures/dash3.png) 
  
  - User bank accounts 
 
