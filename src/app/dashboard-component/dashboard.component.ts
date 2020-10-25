@@ -54,6 +54,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   columnsToDisplayExchange = ['country', 'currency', 'selling', 'buying', 'average'];
   updated = 'Not available';
   isLoading = false;
+  isLoadingAPI = false;
   userIsAuthenticated = false;
   hasTransactions = false; // if there are no transactions for logged user, set a flag for front-end
 
@@ -65,6 +66,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isLoading = true;
+    this.isLoadingAPI = true;
     const userId = this.authService.getUserId();
     this.dashService.getUserData(userId);
     this.userSub = this.dashService.getUserDataListener()
@@ -105,6 +107,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this.user.exchangeList[4]
         ];
         this.updated = this.user.exchangeList[0].updated;
+        this.isLoadingAPI = false;
       });
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
@@ -139,12 +142,3 @@ export interface ExchangeCurr {
   buying: string;
   average: string;
 }
-
-// Dummy data, not yet implmented fetching from server
-let ELEMENT_DATA2: ExchangeCurr[] = [
-  {country: 'SAD', currency: 'USD', buying: '105,86', selling: '106,49', average: '106,17'},
-  {country: 'Velika Britanija', currency: 'GBP', buying: '128,65', selling: '129,42', average: '129,21'},
-  {country: 'Švajcarska', currency: 'CHF', buying: '108,03', selling: '108,68', average: '108,32'},
-  {country: 'Australija', currency: 'AUD', buying: '71,81', selling: '72,24', average: '72,02'},
-  {country: 'Japan', currency: 'JPY', buying: '99,52', selling: '100,12', average: '100,02'},
-];

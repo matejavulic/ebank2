@@ -143,10 +143,10 @@ hide untill all of them are loaded form server-->
       </button>
         </mat-card-header>
         <div class="mat-elevation-z8 list-exchange-calc">
-            <div *ngIf="isLoading" class="mat-elevation-z8 list">
+            <div *ngIf="isLoadingAPI" class="mat-elevation-z8 list">
                 <mat-spinner class="spinner"></mat-spinner>
             </div>
-            <table *ngIf="!isLoading" mat-table [dataSource]="dataSource2" class="mat-elevation-z8">
+            <table *ngIf="!isLoadingAPI" mat-table [dataSource]="dataSource2" class="mat-elevation-z8">
 
                 <ng-container matColumnDef="country">
                     <th mat-header-cell *matHeaderCellDef> Country </th>

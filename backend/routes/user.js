@@ -7,9 +7,10 @@
  * Main user back-end user handler.
  * Has the following methods:
  * 1. /signup -> hash user function,
- *            -> save user data in MySQL
+ *            -> save user data in MySQL db
  *            -> create new bank client with random data and insert it into MySQL db
- *            -> get random user data (homeaddress, number...) from Django server and update user in MongoDB
+ *            -> get random user data (homeaddress, number...) from API and update user in MySQL
+ *            -> get current exchange list from exchangeList API
  * 2. /login
  * 3. Functions to create/get bank client data and its transactions
  * 4. Current date/time stamp function
@@ -98,16 +99,16 @@ router.post("/signup", (req, res, next) => {
                         }).then(() => {
                             sendVerifMail(user.email, user.name, user.rawToken);
                             user.rawToken = "";
-                            return res.status(201).json({ message: "New user successfully created!" });
+                            return res.status(201).json({ message: "New user successfully created." });
                         }).catch(err => {
                             switch (err.message) {
                                 case ("existingEmail"):
                                     {
-                                        return res.status(409).json({ message: "Email already exists!" });
+                                        return res.status(409).json({ message: "This email already exists. Do you want to login instead?" });
                                     }
                                 case ("internalDb"):
                                     {
-                                        return res.status(500).json({ message: "Internal error DB!" })
+                                        return res.status(500).json({ message: "Internal error. Please try later." })
                                     }
                                 default:
                                     return res.status(500).json(err.message);
@@ -1176,10 +1177,10 @@ var sendSms = function(userID, tempPass) {
 var sendSmsApi = function(number, pass) {
     console.log("New SMS code for", number, "is: ", pass);
     return new Promise(function(resolve, reject) {
-        /*
-      var options = {
+        var options = {
             'method': 'POST',
-            'url': apiSmsUrl + 'send?username=twmd1454&password=6LNT1B9G&dlr-method=POST&dlr-url=https://4ba60af1.ngrok.io/receive&dlr=yes&dlr-level=3&from=EBNK&content=Your temporary password is ' + pass + '. This password expires in 2 minutes. \n\nEBNK Team &to=' + number,
+            //'url': apiSmsUrl + 'send?username=twmd1454&password=6LNT1B9G&dlr-method=POST&dlr-url=https://4ba60af1.ngrok.io/receive&dlr=yes&dlr-level=3&from=EBNK&content=Your temporary password is ' + pass + '. This password expires in 2 minutes. \n\nEBNK Team &to=' + number,
+            'url': apiSmsUrl + 'send?username=fipb9989&password=y6Z9fFnT&dlr-method=POST&dlr-url=https://4ba60af1.ngrok.io/receive&dlr=yes&dlr-level=3&from=EBNK&content=Your temporary password is ' + pass + '. This password expires in 2 minutes. \n\nEBNK Team &to=' + number,
             'headers': {},
             formData: {}
         };
@@ -1188,7 +1189,6 @@ var sendSmsApi = function(number, pass) {
                 throw new Error(error);
             console.log(response.body);
         });
-        */
         resolve(1);
     });
 }
